@@ -1,0 +1,46 @@
+version: '3'
+volumes:
+  db_data:
+
+services:
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 5la&2Rj%4
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - 3306
+
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile_development
+    volumes:
+      - ./src:/habit_app
+    ports:
+      - 3000
+    depends_on:
+      - db
+      - chrome
+    environment:
+      - "SELENIUM_DRIVER_URL=http://selenium_chrome:4444/wd/hub"
+
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    volumes:
+      - ./src/public:/habit_app/public
+      - ./src/tmp:/habit_app/tmp
+    ports:
+      - 80:80
+    depends_on:
+      - app
+
+  chrome:
+    image: selenium/standalone-chrome-debug:latest
+    logging:
+      driver: none
+
