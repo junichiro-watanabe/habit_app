@@ -1,0 +1,77 @@
+version: 2.1
+jobs:
+  test:
+    machine:
+      image: circleci/classic:edge
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-Linux-x86_64 > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - run:
+          name: docker-compose up --build -d
+          command: docker-compose up --build -d
+      - run: sleep 30
+      - run:
+          name: docker-compose run app rails db:create
+          command: docker-compose run app rails db:create
+      - run:
+          name: docker-compose run app rails db:migrate
+          command: docker-compose run app rails db:migrate
+      - run:
+          name: docker-compose run app bundle exec rspec spec
+          command: docker-compose run app bundle exec rspec spec
+      - run:
+          name: docker-compose down
+          command: docker-compose down
+
+orbs:
+  aws-ecr: circleci/aws-ecr@6.0.0
+  aws-ecs: circleci/aws-ecs@0.0.8
+
+workflows:
+  test:
+    jobs:
+      - test
+  deploy-web:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          filters:
+            branches:
+              only: master
+          account-url: AWS_ECR_ACCOUNT_URL
+          create-repo: true
+          dockerfile: docker/web/Dockerfile
+          repo: "habit_app_web"
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          family: "habit_app-task"
+          cluster-name: "habit_app-cluster"
+          service-name: "habit_app-service"
+          container-image-name-updates: "container=web,tag=${CIRCLE_SHA1}"
+  deploy-app:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          filters:
+            branches:
+              only: master
+          account-url: AWS_ECR_ACCOUNT_URL
+          create-repo: true
+          dockerfile: docker/app/Dockerfile_production
+          repo: "habit_app_app"
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          family: "habit_app-task"
+          cluster-name: "habit_app-cluster"
+          service-name: "habit_app-service"
+          container-image-name-updates: "container=app,tag=${CIRCLE_SHA1}"

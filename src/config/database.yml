@@ -1,0 +1,22 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: 5la&2Rj%4
+  host: db
+
+development:
+  <<: *default
+  database: habit_app_development
+
+test:
+  <<: *default
+  database: habit_app_test
+
+production:
+  <<: *default
+  database: habit_app_production
+  username: <%= ENV['MYAPP_DATABASE_USER'] %>
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+  host: ecstest-db.cn8ls5rgklmn.ap-northeast-1.rds.amazonaws.com

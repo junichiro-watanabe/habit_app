@@ -1,0 +1,18 @@
+FROM ruby:2.6.6
+RUN apt-get update -y && \
+  apt-get install --no-install-recommends -y \
+  default-mysql-client \
+  nodejs \
+  npm \
+  sudo && \
+  npm install -g -y yarn && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
+RUN mkdir /habit_app
+WORKDIR /habit_app
+COPY ./src/Gemfile Gemfile
+COPY ./src/Gemfile.lock Gemfile.lock
+RUN bundle install && \
+    rails webpacker:install
+COPY ./src /habit_app
+CMD ["bundle", "exec", "puma", "-e", "production", "-C", "config/puma.rb"]
