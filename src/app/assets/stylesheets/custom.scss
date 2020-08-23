@@ -1,0 +1,108 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+@import url('https://fonts.googleapis.com/css?family=Montserrat+Subrayada');
+
+
+/* body */
+body{
+  background-color: #ebfbff;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* header */
+header{
+  .container{
+    margin-top: 5px
+  }
+  h2{
+    float: left;
+    font-family: 'Montserrat Subrayada', sans-serif;
+    color: #eaeaea;
+    margin: 5px;
+  }
+}
+
+/* footer */
+footer{
+  border-top: 1px solid #bbbbbb;
+  margin-top: 45px;
+  padding-top: 5px;
+  ul{
+    float: right;
+    list-style: none;
+  }
+  h2{
+    float: left;
+    font-family: 'Montserrat Subrayada', sans-serif;
+    color: #000000;
+    margin: 5px;
+  }
+}
+
+/* ホーム */
+.home{
+  h2{
+    text-align: center;
+    font-weight: bold;
+  }
+  .start-botton{
+    text-align: center;
+    margin-top: 30px;
+    botton{
+      width: 200px;
+    }
+  }
+}
+
+.cards{
+  display: flex;
+  margin-top: 50px;
+}
+
+.card{
+  text-align: center;
+  padding-bottom: 20px;
+  background-color: #dfeaff;
+  border: solid medium #6bc1e6;
+  border-radius: 30px;
+  img{
+    margin: 20px;
+    border-radius: 50%;
+  }
+}
+
+/* デバッグ */
+.debug_dump{
+  margin-top: 45px;
+  clear: both;
+}
+
+/* フォーム */
+input, textarea{
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.form{
+  h2{
+    margin-bottom: 30px
+  }
+
+  .submit{
+    margin-top: 30px
+  }
+}
+
+/* サインアップ */
+.signup{
+  display: flex;
+  .word{
+    margin-bottom: 30px
+  }
+  .card{
+    width: 420px
+  }
+}
+

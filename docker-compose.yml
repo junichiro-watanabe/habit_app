@@ -23,9 +23,8 @@ services:
       - 3000
     depends_on:
       - db
-      - chrome
     environment:
-      - "SELENIUM_DRIVER_URL=http://selenium_chrome:4444/wd/hub"
+      - "SELENIUM_DRIVER_URL=http://chrome:4444/wd/hub"
 
   web:
     build:
@@ -40,7 +39,11 @@ services:
       - app
 
   chrome:
-    image: selenium/standalone-chrome-debug:latest
+    image: selenium/standalone-chrome:latest
     logging:
       driver: none
+    ports:
+      - 4444:4444
+    depends_on:
+      - app
 

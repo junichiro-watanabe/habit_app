@@ -1,0 +1,33 @@
+<div class="row form">
+
+  <%= form_with(model:@user, local: true) do |f| %>
+
+    <div class="col-md-8 col-md-offset-2">
+      <h2><%= yield(:page_name) %></h2>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+      <%= f.label "ユーザ名" %>
+      <%= f.text_field :name, class: "form-controll"%>
+
+      <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+      <%= f.label "メールアドレス" %>
+      <%= f.email_field :email, class: "form-controll" %>
+
+      <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+      <%= f.label "パスワード" %>
+      <%= f.password_field :password, class: "form-controll" %>
+
+      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+      <%= f.label "パスワード確認" %>
+      <%= f.password_field :password_confirmation, class: "form-controll" %>
+
+    </div>
+
+    <div class="col-md-4 col-md-offset-4 submit">
+      <%= f.submit yield(:submit_name), class: "btn btn-primary" %>
+    </div>
+
+  <% end %>
+
+</div>
