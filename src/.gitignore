@@ -29,10 +29,14 @@
 /public/packs/*.gz
 /public/packs/js/*.br
 /public/packs/js/*.gz
+/public/packs/js/*.js
+/public/packs/js/*.map
 /public/packs-test/*.br
 /public/packs-test/*.gz
 /public/packs-test/js/*.br
 /public/packs-test/js/*.gz
+/public/packs-test/js/*.js
+/public/packs-test/js/*.map
 /node_modules
 /yarn-error.log
 yarn-debug.log*
