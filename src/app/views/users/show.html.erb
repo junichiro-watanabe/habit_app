@@ -1,3 +1,11 @@
 <% provide(:title, @user.name) %>
+<% provide(:page, "show") %>
 
-<h1>@user.name<h2>
+<div class="container">
+  <div class="row">
+    <%= render('sidebar') %>
+    <div class="user-profile col-md-9">
+      activity
+    </div>
+  </div>
+</div>

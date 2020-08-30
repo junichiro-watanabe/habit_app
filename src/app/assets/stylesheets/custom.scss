@@ -6,14 +6,34 @@
 
 /* body */
 body{
-  background-color: #ebfbff;
   font-family: 'Noto Sans JP', sans-serif;
+}
+#main{
+  margin-top: 50px;
+}
+
+.card{
+  text-align: center;
+  padding-bottom: 20px;
+  background-color: #dfeaff;
+  border: 1px solid #6bc1e6;
+  border-radius: 30px;
+  box-shadow: 0 0 8px rgb(155, 154, 154);
+  img{
+    margin: 20px;
+    border-radius: 50%;
+  }
 }
 
 /* header */
+.fixed-header{
+  position: fixed;
+}
 header{
+  position: header;
   .container{
-    margin-top: 5px
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
   h2{
     float: left;
@@ -26,11 +46,14 @@ header{
 /* footer */
 footer{
   border-top: 1px solid #bbbbbb;
-  margin-top: 45px;
+  margin-top: 100px;
   padding-top: 5px;
   ul{
     float: right;
     list-style: none;
+    a{
+      font-size: small;
+    }
   }
   h2{
     float: left;
@@ -41,34 +64,41 @@ footer{
 }
 
 /* ホーム */
+.introduction{
+  height: 450px;
+  margin-bottom: 50px;
+  background-color: #50b9ff;
+  background-image: url("background.jpg");
+  background-size: contain;
+  text-align: center;
+  h1{
+    margin-top: 80px;
+    font-family: 'Montserrat Subrayada', sans-serif;
+  }
+}
+
 .home{
   h2{
     text-align: center;
     font-weight: bold;
   }
-  .start-botton{
+  .start-button{
     text-align: center;
     margin-top: 30px;
-    botton{
+    button{
       width: 200px;
     }
   }
-}
-
-.cards{
-  display: flex;
-  margin-top: 50px;
-}
-
-.card{
-  text-align: center;
-  padding-bottom: 20px;
-  background-color: #dfeaff;
-  border: solid medium #6bc1e6;
-  border-radius: 30px;
-  img{
-    margin: 20px;
-    border-radius: 50%;
+  .step-content{
+    margin-top: 100px
+  }
+  .cards{
+    margin-top: 10px;
+    padding-top: 20px;
+    border-top: 1px solid #bbb;
+    .card{
+      margin-bottom:10px;
+    }
   }
 }
 
@@ -87,22 +117,66 @@ input, textarea{
 
 .form{
   h2{
-    margin-bottom: 30px
+    margin-bottom: 30px;
   }
-
   .submit{
-    margin-top: 30px
+    margin-top: 30px;
+    text-align: center;
+    button{
+      margin-top: 10px;
+    }
   }
 }
 
-/* サインアップ */
-.signup{
-  display: flex;
+/* サインアップ・ログイン */
+.login{
   .word{
-    margin-bottom: 30px
+    margin-top: 15px;
+    margin-bottom: 30px;
   }
   .card{
-    width: 420px
+    width: 420px;
   }
+  .submit{
+    margin-bottom: 100px;
+  }
+}
+
+.signup{
+  .word{
+    margin-top: 15px;
+    margin-bottom: 30px;
+  }
+  .card{
+    width: 420px;
+  }
+}
+
+/* ユーザ情報 */
+aside{
+  margin-top: 20px;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  padding: 10px 5px;
+  text-align: center;
+  .user-info{
+    img{
+      margin: 20px 20px 5px 20px;
+      border-radius: 10%;
+      width: 80px;
+    }
+  }
+  ul{
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+    .li{
+      padding: 3px 15px;
+    }
+  }
+}
+
+.user-profile{
+  margin-top: 20px;
 }
 

@@ -1,8 +1,10 @@
 <% if object.errors.any? %>
   <div class="alert alert-danger">
     <ul>
-      <% error_messages(object.errors.full_messages).each do |msg| %>
-        <li><%= msg %></li>
+      <% if yield(:title) == "Sign up" %>
+        <% user_error_messages(object.errors.full_messages).each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       <% end %>
     </ul>
   </div>
