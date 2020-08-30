@@ -5,16 +5,18 @@ class Footer extends React.Component {
     return (
       <React.Fragment>
         <footer className="footer">
-          <a href="/">
-            <h2>
-              Habit App
-            </h2>
-          </a>
-          <nav>
-            <ul>
-              <li><a href="#">お問い合わせ</a></li>
-            </ul>
-          </nav>
+          <div className="container">
+            <a href="/">
+              <h2>
+                Habit App
+              </h2>
+            </a>
+            <nav>
+              <ul>
+                <li><a href="#">お問い合わせ</a></li>
+              </ul>
+            </nav>
+          </div>
         </footer>
       </React.Fragment>
     );
