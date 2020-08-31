@@ -33,7 +33,14 @@ class UsersController < ApplicationController
   end
 
   def update
-
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      flash[:success] = "プロフィール編集が完了しました"
+      redirect_to @user
+    else
+      @edit_element = "profile"
+      render 'edit'
+    end
   end
 
   def destroy
@@ -42,7 +49,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirm)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
     def logged_in_user
@@ -51,7 +58,7 @@ class UsersController < ApplicationController
 
     def correct_user
       @user = User.find(params[:id])
-      redirect_to root_path unless @user = current_user
+      redirect_to root_path unless current_user?(@user)
     end
 
 end

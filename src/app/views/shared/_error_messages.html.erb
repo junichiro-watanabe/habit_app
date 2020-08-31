@@ -5,6 +5,10 @@
         <% user_error_messages(object.errors.full_messages).each do |msg| %>
           <li><%= msg %></li>
         <% end %>
+      <% elsif yield(:title) == @user.name %>
+        <% user_error_messages(object.errors.full_messages).each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       <% end %>
     </ul>
   </div>
