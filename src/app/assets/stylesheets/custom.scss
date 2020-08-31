@@ -77,7 +77,7 @@ footer{
   }
 }
 
-.home{
+.content{
   h2{
     text-align: center;
     font-weight: bold;
@@ -89,8 +89,16 @@ footer{
       width: 200px;
     }
   }
+  .about{
+    background-color: #eaf7ff;
+    text-align: center;
+    margin-top: 80px;
+    h2{
+      margin-bottom: 40px;
+    }
+  }
   .step-content{
-    margin-top: 100px
+    margin-top: 100px;
   }
   .cards{
     margin-top: 10px;
