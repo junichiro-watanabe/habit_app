@@ -31,7 +31,7 @@ class Signup extends React.Component {
     return (
       <React.Fragment>
         <div className="word">
-          <StrongEachWord word="新規登録して習慣付けを開始しよう！" />
+          <StrongEachWord word="ログインして今日もがんばろう！" />
         </div>
         <Slide />
       </React.Fragment>

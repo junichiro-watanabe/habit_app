@@ -2,11 +2,13 @@
 <% provide(:page_name, "アカウント作成") %>
 <% provide(:submit_name, "新規登録") %>
 
-<div class="row signup">
-  <div class="col-md-6 col-sm-12">
-    <%= render 'shared/form' %>
-  </div>
-  <div class="col-md-6 visible-md visible-lg">
-    <%= react_component("Signup") %>
+<div class="container">
+  <div class="row signup">
+    <div class="col-md-6 col-sm-12">
+      <%= render 'form' %>
+    </div>
+    <div class="col-md-6 visible-md visible-lg">
+      <%= react_component("Signup") %>
+    </div>
   </div>
 </div>

@@ -21,11 +21,15 @@
       <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
       <%= f.label "パスワード確認" %>
       <%= f.password_field :password_confirmation, class: "form-controll" %>
-
     </div>
 
-    <div class="col-md-4 col-md-offset-4 submit">
+    <div class="col-md-6 col-md-offset-3 submit">
       <%= f.submit yield(:submit_name), class: "btn btn-primary" %>
+      <% if !logged_in? %>
+        <a href="/login_guest">
+          <button class="btn btn-secondaly">ゲストユーザとして始める</button>
+        </a>
+      <% end %>
     </div>
 
   <% end %>

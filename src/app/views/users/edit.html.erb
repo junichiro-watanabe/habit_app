@@ -1,2 +1,17 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<% provide(:title, @user.name) %>
+<% provide(:page_name, "アカウント編集") %>
+<% provide(:submit_name, "編集する") %>
+<% provide(:page, "edit") %>
+
+<div class="container">
+  <div class="row">
+    <%= render('sidebar') %>
+    <div class="user-profile col-md-9">
+      <% if @edit_element == "profile" %>
+        <%= render "form" %>
+      <% elsif @edit_element == "image" %>
+        <%= render "image_edit" %>
+      <% end %>
+    </div>
+  </div>
+</div>

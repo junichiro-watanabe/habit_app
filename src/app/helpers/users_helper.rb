@@ -1,5 +1,5 @@
 module UsersHelper
-  def error_messages(errors)
+  def user_error_messages(errors)
     error_messages = []
 
     if errors.include?("Name can't be blank")
