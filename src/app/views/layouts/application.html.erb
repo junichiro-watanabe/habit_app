@@ -7,11 +7,25 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </head>
 
   <body>
-    <%= react_component("Header") %>
-    <div class="container">
+    <% if logged_in? %>
+      <%= react_component("Header", { logged_in: logged_in?,
+                                      root_path: user_path(current_user),
+                                      user_path: user_path(current_user),
+                                      edit_user_path: edit_user_path(current_user) }) %>
+    <% else %>
+      <%= react_component("Header", { logged_in: logged_in?,
+                                      root_path: root_path,
+                                      user_path: nil,
+                                      edit_user_path: nil }) %>
+    <% end %>
+    <div id="main">
       <% flash.each do |message_type, message| %>
         <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
       <% end %>

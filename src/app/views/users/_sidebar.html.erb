@@ -1,0 +1,15 @@
+<aside class="col-md-3">
+  <div class="user-info">
+    <%= image_tag '/assets/default-image.svg' %>
+    <h4><%= @user.name %></h4>
+  </div>
+  <ul>
+    <% if yield(:page) == "show" %>
+      <li><%= link_to "ハイライト", edit_user_path(@user) %></li>
+      <li><%= link_to "コミュニティ", "users/edit_image/#{@user.id}" %></li>
+    <% elsif yield(:page) == "edit" %>
+      <li><%= link_to "アカウント情報", edit_user_path(@user) %></li>
+      <li><%= link_to "プロフィール画像", "users/edit_image/#{@user.id}" %></li>
+    <% end %>
+  </ul>
+</aside>
