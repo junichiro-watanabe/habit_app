@@ -91,6 +91,7 @@ footer{
   }
   .about{
     background-color: #eaf7ff;
+    border: 1px solid #dadada;
     text-align: center;
     margin-top: 80px;
     h2{
@@ -98,7 +99,7 @@ footer{
     }
   }
   .step-content{
-    margin-top: 100px;
+    margin-top: 80px;
   }
   .cards{
     margin-top: 10px;
@@ -178,8 +179,8 @@ aside{
     list-style: none;
     margin: 0;
     padding: 10px 0;
-    .li{
-      padding: 3px 15px;
+    li{
+      margin-bottom: 5px;
     }
   }
 }

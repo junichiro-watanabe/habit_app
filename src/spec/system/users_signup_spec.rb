@@ -12,7 +12,7 @@ RSpec.describe "UsersSignup", type: :system do
       click_button "新規登録"
       user = User.last
       expect(current_path).to eq user_path(user)
-      expect(page).to have_content "ユーザ登録が完了しました。"
+      expect(page).to have_selector '.alert-success'
     end
 
     it "サインアップ失敗" do
@@ -24,7 +24,7 @@ RSpec.describe "UsersSignup", type: :system do
       fill_in "user_password_confirmation", with: "password"
       click_button "新規登録"
       expect(current_path).to eq users_path
-      expect(page).to have_selector '.alert'
+      expect(page).to have_selector '.alert-danger'
     end
   end
 end
