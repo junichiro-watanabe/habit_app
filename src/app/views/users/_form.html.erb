@@ -1,6 +1,8 @@
 <div class="row form">
 
-  <%= form_with(model:@user, local: true) do |f| %>
+  <%= form_with(model: @user, local: true) do |f| %>
+
+    <%= hidden_field_tag :edit_element, "profile" %>
 
     <div class="col-md-8 col-md-offset-2">
       <h2><%= yield(:page_name) %></h2>

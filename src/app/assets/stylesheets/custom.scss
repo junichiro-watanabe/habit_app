@@ -162,7 +162,7 @@ input, textarea{
 }
 
 /* ユーザ情報 */
-aside{
+.profile{
   margin-top: 20px;
   border: 1px solid #bbb;
   border-radius: 10px;
@@ -175,6 +175,11 @@ aside{
       width: 80px;
     }
   }
+  .image-preview{
+    margin: 20px;
+    border-radius: 10%;
+    width: 150px;
+  }
   ul{
     list-style: none;
     margin: 0;
@@ -182,6 +187,10 @@ aside{
     li{
       margin-bottom: 5px;
     }
+  }
+  .submit{
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
 
