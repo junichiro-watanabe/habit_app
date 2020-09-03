@@ -1,15 +1,20 @@
-<aside class="col-md-3">
+<aside class="col-md-3 profile">
   <div class="user-info">
-    <%= image_tag '/assets/default-image.svg' %>
+    <% if current_user.image.attached? %>
+      <%= image_tag current_user.image, class: "image-preview"  %>
+    <% else %>
+      <%= image_tag '/assets/default-image.svg', class: "image-preview" %>
+    <% end %>
     <h4><%= @user.name %></h4>
   </div>
   <ul>
     <% if yield(:page) == "show" %>
-      <li><%= link_to "ハイライト", edit_user_path(@user) %></li>
-      <li><%= link_to "コミュニティ", "users/edit_image/#{@user.id}" %></li>
+      <li><%= link_to "ハイライト", user_path(@user) %></li>
+      <li><%= link_to "所属コミュニティ", "#" %></li>
+      <li><%= link_to "フォロー", "#" %>/<%= link_to "フォロワー", "#" %></li>
     <% elsif yield(:page) == "edit" %>
       <li><%= link_to "アカウント情報", edit_user_path(@user) %></li>
-      <li><%= link_to "プロフィール画像", "users/edit_image/#{@user.id}" %></li>
+      <li><%= link_to "プロフィール画像", "#{user_path(@user)}/edit_image" %></li>
     <% end %>
   </ul>
 </aside>

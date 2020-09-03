@@ -22,6 +22,8 @@ module UsersHelper
       error_messages << "パスワードは空白にできません"
     elsif errors.include?("Password is too short (minimum is 8 characters)")
       error_messages << "パスワードは8文字以上に設定してください"
+    elsif errors.include?("Password confirmation doesn't match Password")
+      error_messages << "パスワード確認が一致しません"
     end
 
     return error_messages

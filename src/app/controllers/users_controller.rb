@@ -33,7 +33,34 @@ class UsersController < ApplicationController
   end
 
   def update
-
+    @user = User.find(params[:id])
+    if params[:edit_element] == "profile"
+      if @user.update(user_params)
+        flash[:success] = "プロフィール編集が完了しました"
+        redirect_to @user
+      else
+        @edit_element = "profile"
+        render 'edit'
+      end
+    elsif params[:edit_element] == "image" && !params[:user].nil?
+      @user.image.attach(params[:user][:image])
+      if @user.save
+        flash[:success] = "プロフィール画像を変更しました"
+        redirect_to @user
+      else
+        @edit_element = "image"
+        render 'edit'
+      end
+    elsif params[:edit_element] == "image" && params[:user].nil?
+      @user.image.purge
+      if @user.save
+        flash[:success] = "プロフィール画像を削除しました"
+        redirect_to @user
+      else
+        @edit_element = "image"
+        render 'edit'
+      end
+    end
   end
 
   def destroy
@@ -42,16 +69,20 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirm)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
     def logged_in_user
-      redirect_to root_path unless logged_in?
+      unless logged_in?
+        store_location
+        flash[:danger] = "ログインしてください"
+        redirect_to login_path
+      end
     end
 
     def correct_user
       @user = User.find(params[:id])
-      redirect_to root_path unless @user = current_user
+      redirect_to root_path unless current_user?(@user)
     end
 
 end
