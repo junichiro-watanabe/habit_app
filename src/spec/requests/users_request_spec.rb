@@ -74,7 +74,8 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト(ログインしていない)" do
       get edit_user_path(user)
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to login_path
+      expect(flash.any?).to eq true
     end
   end
 
@@ -93,7 +94,8 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト(ログインしていない)" do
       get edit_user_path(user)
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to login_path
+      expect(flash.any?).to eq true
     end
 
     it "getリクエスト(違うユーザ)" do
@@ -117,7 +119,8 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト(ログインしていない)" do
       get "#{user_path(user)}/edit_image"
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to login_path
+      expect(flash.any?).to eq true
     end
 
     it "getリクエスト(違うユーザ)" do
@@ -131,7 +134,7 @@ RSpec.describe "Users", type: :request do
     let(:user){ create(:user) }
     let(:other_user){ create(:other_user) }
 
-    it "有効なユーザ情報" do
+    it "プロフィール編集：有効なユーザ情報" do
       log_in_as(user)
       name = "valid_user"
       email = "valid_email@valid.com"
@@ -146,7 +149,7 @@ RSpec.describe "Users", type: :request do
       expect(user.reload.email).to eq email
     end
 
-    it "無効なユーザ情報(全て空欄)" do
+    it "プロフィール編集：無効なユーザ情報(全て空欄)" do
       log_in_as(user)
       patch user_path(user),
             params: {edit_element: "profile",
@@ -158,7 +161,7 @@ RSpec.describe "Users", type: :request do
       expect(response.body).to include "class=\"alert alert-danger\""
     end
 
-    it "無効なユーザ情報(すでに登録されているメールアドレス)" do
+    it "プロフィール編集：無効なユーザ情報(すでに登録されているメールアドレス)" do
       other_user
       log_in_as(user)
       patch user_path(user),
@@ -171,7 +174,7 @@ RSpec.describe "Users", type: :request do
       expect(response.body).to include "class=\"alert alert-danger\""
     end
 
-    it "無効なユーザ情報(パスワード確認が一致しない)" do
+    it "プロフィール編集：無効なユーザ情報(パスワード確認が一致しない)" do
       log_in_as(user)
       patch user_path(user),
             params: {edit_element: "profile",
@@ -183,7 +186,22 @@ RSpec.describe "Users", type: :request do
       expect(response.body).to include "class=\"alert alert-danger\""
     end
 
-    it "違うユーザ" do
+    it "プロフィール編集：ログインしていない" do
+      name = "valid_user"
+      email = "valid_email@valid.com"
+      patch user_path(user),
+            params: {edit_element: "profile",
+                     user: {name: name,
+                            email: email,
+                            password: "valid_password",
+                            password_confirmation: "valid_password"}}
+      expect(response).to redirect_to login_path
+      expect(user.reload.name).not_to eq name
+      expect(user.reload.email).not_to eq email
+      expect(flash.any?).to eq true
+    end
+
+    it "プロフィール編集：違うユーザ" do
       log_in_as(other_user)
       name = "valid_user"
       email = "valid_email@valid.com"
@@ -198,7 +216,7 @@ RSpec.describe "Users", type: :request do
       expect(user.reload.email).not_to eq email
     end
 
-    it "プロフィール画像変更(有効なファイル形式)" do
+    it "プロフィール画像変更：有効なファイル形式" do
       log_in_as(user)
       expect(user.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
@@ -210,7 +228,7 @@ RSpec.describe "Users", type: :request do
       expect(user.reload.image.attached?).to eq true
     end
 
-    it "プロフィール画像変更(無効なファイル形式)" do
+    it "プロフィール画像変更：無効なファイル形式" do
       log_in_as(user)
       expect(user.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.txt', 'txt')
@@ -222,7 +240,18 @@ RSpec.describe "Users", type: :request do
       expect(user.reload.image.attached?).to eq false
     end
 
-    it "プロフィール画像変更(違うユーザ)" do
+    it "プロフィール画像変更：ログインしていない" do
+      expect(user.image.attached?).to eq false
+      image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
+      patch user_path(user),
+            params: {edit_element: "image",
+                     user: {image: image}}
+      expect(response).to redirect_to login_path
+      expect(user.reload.image.attached?).to eq false
+      expect(flash.any?).to eq true
+    end
+
+    it "プロフィール画像変更：違うユーザ" do
       log_in_as(other_user)
       expect(user.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
@@ -244,7 +273,18 @@ RSpec.describe "Users", type: :request do
       expect(user.reload.image.attached?).to eq false
     end
 
-    it "プロフィール画像削除(違うユーザ)" do
+    it "プロフィール画像削除：ログインしていない" do
+      expect(user.image.attached?).to eq false
+      image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
+      patch user_path(user),
+            params: {edit_element: "image",
+                     user: {image: nil}}
+      expect(response).to redirect_to login_path
+      expect(user.reload.image.attached?).to eq false
+      expect(flash.any?).to eq true
+    end
+
+    it "プロフィール画像削除：違うユーザ" do
       log_in_as(other_user)
       expect(user.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
