@@ -34,12 +34,32 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
-      flash[:success] = "プロフィール編集が完了しました"
-      redirect_to @user
-    else
-      @edit_element = "profile"
-      render 'edit'
+    if params[:edit_element] == "profile"
+      if @user.update(user_params)
+        flash[:success] = "プロフィール編集が完了しました"
+        redirect_to @user
+      else
+        @edit_element = "profile"
+        render 'edit'
+      end
+    elsif params[:edit_element] == "image" && !params[:user].nil?
+      @user.image.attach(params[:user][:image])
+      if @user.save
+        flash[:success] = "プロフィール画像を変更しました"
+        redirect_to @user
+      else
+        @edit_element = "image"
+        render 'edit'
+      end
+    elsif params[:edit_element] == "image" && params[:user].nil?
+      @user.image.purge
+      if @user.save
+        flash[:success] = "プロフィール画像を削除しました"
+        redirect_to @user
+      else
+        @edit_element = "image"
+        render 'edit'
+      end
     end
   end
 

@@ -136,7 +136,8 @@ RSpec.describe "Users", type: :request do
       name = "valid_user"
       email = "valid_email@valid.com"
       patch user_path(user),
-            params: {user: {name: name,
+            params: {edit_element: "profile",
+                     user: {name: name,
                             email: email,
                             password: "valid_password",
                             password_confirmation: "valid_password"}}
@@ -148,7 +149,8 @@ RSpec.describe "Users", type: :request do
     it "無効なユーザ情報(全て空欄)" do
       log_in_as(user)
       patch user_path(user),
-            params: {user: {name: "",
+            params: {edit_element: "profile",
+                     user: {name: "",
                             email: "",
                             password: "",
                             password_confirmation: ""}}
@@ -160,7 +162,8 @@ RSpec.describe "Users", type: :request do
       other_user
       log_in_as(user)
       patch user_path(user),
-            params: {user: {name: "test",
+            params: {edit_element: "profile",
+                     user: {name: "test",
                             email: "other_user@example.com",
                             password: "password",
                             password_confirmation: "password"}}
@@ -171,7 +174,8 @@ RSpec.describe "Users", type: :request do
     it "無効なユーザ情報(パスワード確認が一致しない)" do
       log_in_as(user)
       patch user_path(user),
-            params: {user: {name: "test",
+            params: {edit_element: "profile",
+                     user: {name: "test",
                             email: "hogehoge@example.com",
                             password: "password",
                             password_confirmation: "p@ssw0rd"}}
@@ -184,13 +188,71 @@ RSpec.describe "Users", type: :request do
       name = "valid_user"
       email = "valid_email@valid.com"
       patch user_path(user),
-            params: {user: {name: name,
+            params: {edit_element: "profile",
+                     user: {name: name,
                             email: email,
                             password: "valid_password",
                             password_confirmation: "valid_password"}}
       expect(response).to redirect_to root_path
       expect(user.reload.name).not_to eq name
       expect(user.reload.email).not_to eq email
+    end
+
+    it "プロフィール画像変更(有効なファイル形式)" do
+      log_in_as(user)
+      expect(user.image.attached?).to eq false
+      image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
+      patch user_path(user),
+            params: {edit_element: "image",
+                     user: {image: image}}
+      expect(response).to redirect_to user_path(user)
+      expect(flash.any?).to eq true
+      expect(user.reload.image.attached?).to eq true
+    end
+
+    it "プロフィール画像変更(無効なファイル形式)" do
+      log_in_as(user)
+      expect(user.image.attached?).to eq false
+      image = fixture_file_upload('spec/factories/images/img.txt', 'txt')
+      patch user_path(user),
+            params: {edit_element: "image",
+                     user: {image: image}}
+      expect(response).to render_template 'users/edit'
+      expect(response.body).to include "class=\"alert alert-danger\""
+      expect(user.reload.image.attached?).to eq false
+    end
+
+    it "プロフィール画像変更(違うユーザ)" do
+      log_in_as(other_user)
+      expect(user.image.attached?).to eq false
+      image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
+      patch user_path(user),
+            params: {edit_element: "image",
+                     user: {image: image}}
+      expect(response).to redirect_to root_path
+      expect(user.reload.image.attached?).to eq false
+    end
+
+    it "プロフィール画像削除" do
+      log_in_as(user)
+      expect(user.image.attached?).to eq false
+      patch user_path(user),
+            params: {edit_element: "image",
+                     user: {image: nil}}
+      expect(response).to redirect_to user_path(user)
+      expect(flash.any?).to eq true
+      expect(user.reload.image.attached?).to eq false
+    end
+
+    it "プロフィール画像削除(違うユーザ)" do
+      log_in_as(other_user)
+      expect(user.image.attached?).to eq false
+      image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
+      patch user_path(user),
+            params: {edit_element: "image",
+                     user: {image: nil}}
+      expect(response).to redirect_to root_path
+      expect(user.reload.image.attached?).to eq false
     end
   end
 

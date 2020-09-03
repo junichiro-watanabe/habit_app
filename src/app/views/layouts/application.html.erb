@@ -18,7 +18,8 @@
       <%= react_component("Header", { logged_in: logged_in?,
                                       root_path: user_path(current_user),
                                       user_path: user_path(current_user),
-                                      edit_user_path: edit_user_path(current_user) }) %>
+                                      edit_user_path: edit_user_path(current_user),
+                                      groups_path: "#"}) %>
     <% else %>
       <%= react_component("Header", { logged_in: logged_in?,
                                       root_path: root_path,
