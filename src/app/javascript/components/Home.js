@@ -8,7 +8,7 @@ class Home extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="first-content">
+        <div className="container first-content">
           <div>
             <FadeIn word="仲間と協力して" />
             <FadeIn word="習慣を身に着けよう" />
@@ -21,7 +21,18 @@ class Home extends React.Component {
           </div>
         </div>
 
-        <div class="step-content">
+        <div className="jumbotron about">
+          <div className="container">
+            <FadeIn word="Habit Appとは？" />
+            <p>「勉強したいけど、いつも挫折してしまう…」</p>
+            <p>「習慣にしたいけど、なかなか継続できない…」</p>
+            <p>そのような悩みをお持ちの方は、仲間と一緒ならば解決できるかもしれません</p>
+            <br></br>
+            <p>Habit Appは共に習慣付けを頑張ってくれる仲間集めを支援します</p>
+          </div>
+        </div>
+
+        <div className="container step-content">
           <h3>3ステップで習慣づけ</h3>
           <div className="cards row">
             <div className="col-md-4">

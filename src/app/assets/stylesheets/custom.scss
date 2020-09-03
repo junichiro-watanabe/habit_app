@@ -77,7 +77,7 @@ footer{
   }
 }
 
-.home{
+.content{
   h2{
     text-align: center;
     font-weight: bold;
@@ -89,8 +89,17 @@ footer{
       width: 200px;
     }
   }
+  .about{
+    background-color: #eaf7ff;
+    border: 1px solid #dadada;
+    text-align: center;
+    margin-top: 80px;
+    h2{
+      margin-bottom: 40px;
+    }
+  }
   .step-content{
-    margin-top: 100px
+    margin-top: 80px;
   }
   .cards{
     margin-top: 10px;
@@ -153,7 +162,7 @@ input, textarea{
 }
 
 /* ユーザ情報 */
-aside{
+.profile{
   margin-top: 20px;
   border: 1px solid #bbb;
   border-radius: 10px;
@@ -166,13 +175,22 @@ aside{
       width: 80px;
     }
   }
+  .image-preview{
+    margin: 20px;
+    border-radius: 10%;
+    width: 150px;
+  }
   ul{
     list-style: none;
     margin: 0;
     padding: 10px 0;
-    .li{
-      padding: 3px 15px;
+    li{
+      margin-bottom: 5px;
     }
+  }
+  .submit{
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
 

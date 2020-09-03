@@ -41,9 +41,9 @@ RSpec.describe "UsersLogin", type: :system do
       fill_in "session_password", with: "invalid_password"
       click_button "ログイン"
       expect(current_path).to eq login_path
-      expect(page).to have_content("ログイン情報が正しくありません")
+      expect(page).to have_selector '.alert'
       visit root_path
-      expect(page).not_to have_content("ログイン情報が正しくありません")
+      expect(page).not_to have_selector '.alert-danger'
     end
   end
 end
