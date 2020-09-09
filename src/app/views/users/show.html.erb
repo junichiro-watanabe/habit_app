@@ -1,17 +1,11 @@
 <% provide(:title, @user.name) %>
-<% provide(:page, "show") %>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-3">
-      <%= render('sidebar') %>
-    </div>
-    <div class="user-profile col-md-9">
-      <% if current_user?(@user) %>
-        activity
-      <% else %>
-        <%= @user.name %>
-      <% end %>
-    </div>
-  </div>
+<div class="user-profile">
+  <% if current_user?(@user) %>
+    <% provide(:page, "user_show") %>
+    activity
+  <% else %>
+    <% provide(:page, "group") %>
+    <%= @user.name %>
+  <% end %>
 </div>

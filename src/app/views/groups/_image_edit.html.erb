@@ -4,7 +4,7 @@
   </div>
   <div class="col-md-10 col-md-offset-1 profile">
     <h4>画面プレビュー</h4>
-    <%= display_attached_image(@group) %>
+    <%= image_tag attached_image(@group) %>
 
     <%= form_with(model: @group, local: true) do |f| %>
 

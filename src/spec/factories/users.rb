@@ -1,4 +1,11 @@
 FactoryBot.define do
+  factory :guest, class: User do
+    name { "ゲストユーザ" }
+    email { "guest@example.com" }
+    password { "password" }
+    password_confirmation { "password" }
+  end
+
   factory :user, class: User do
     name { "user" }
     email { "user@example.com" }
