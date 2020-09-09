@@ -3,15 +3,9 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-3">
-      <%= render('sidebar') %>
-    </div>
+    <%= render('sidebar') %>
     <div class="user-profile col-md-9">
-      <% if current_user?(@user) %>
-        activity
-      <% else %>
-        <%= @user.name %>
-      <% end %>
+      activity
     </div>
   </div>
 </div>
