@@ -19,7 +19,7 @@
                                       root_path: user_path(current_user),
                                       user_path: user_path(current_user),
                                       edit_user_path: edit_user_path(current_user),
-                                      groups_path: groups_path}) %>
+                                      groups_path: groups_path }) %>
     <% else %>
       <%= react_component("Header", { logged_in: logged_in?,
                                       root_path: root_path,
@@ -30,7 +30,20 @@
       <% flash.each do |message_type, message| %>
         <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
       <% end %>
-      <%= yield %>
+      <% if logged_in? %>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3">
+              <%= render('shared/sidebar') %>
+            </div>
+            <div class="col-md-9">
+              <%= yield %>
+            </div>
+          </div>
+        <div>
+      <% else %>
+        <%= yield %>
+      <% end %>
       <%= react_component("Footer") %>
       <%= debug(:params) if Rails.env.development? %>
     </div>
