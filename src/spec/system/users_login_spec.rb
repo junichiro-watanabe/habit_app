@@ -17,7 +17,6 @@ RSpec.describe "UsersLogin", type: :system do
       expect(page).not_to have_link "新規登録", href: signup_path
       expect(page).to have_link "マイページ", href: user_path(@user)
       expect(page).to have_link "プロフィール", href: edit_user_path(@user)
-      expect(page).to have_link "コミュニティ", href: groups_path
       expect(page).to have_link "ログアウト", href: login_path
       click_link "ログアウト"
       expect(page).to have_link "ホーム", href: root_path
@@ -25,7 +24,6 @@ RSpec.describe "UsersLogin", type: :system do
       expect(page).to have_link "新規登録", href: signup_path
       expect(page).not_to have_link "マイページ", href: user_path(@user)
       expect(page).not_to have_link "プロフィール", href: edit_user_path(@user)
-      expect(page).not_to have_link "コミュニティ", href: groups_path
       expect(page).not_to have_link "ログアウト", href: login_path
       delete login_path
       visit root_path
@@ -34,7 +32,6 @@ RSpec.describe "UsersLogin", type: :system do
       expect(page).to have_link "新規登録", href: signup_path
       expect(page).not_to have_link "マイページ", href: user_path(@user)
       expect(page).not_to have_link "プロフィール", href: edit_user_path(@user)
-      expect(page).not_to have_link "コミュニティ", href: groups_path
       expect(page).not_to have_link "ログアウト", href: login_path
     end
 
