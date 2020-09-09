@@ -50,15 +50,11 @@ RSpec.describe "UsersEdit", type: :system do
   end
 
   describe "プロフィール画像変更のテスト" do
-    it "プロフィール画像変更 →　プロフィール画面削除" do
+    it "プロフィール画像変更成功" do
       log_in_as_system(@user)
       visit "#{user_path(@user)}/edit_image"
       image = File.join(Rails.root, "spec/factories/images/img.png")
       attach_file('user_image', image)
-      click_button "変更する"
-      expect(current_path).to eq user_path(@user)
-      expect(page).to have_selector '.alert-success'
-      visit "#{user_path(@user)}/edit_image"
       click_button "変更する"
       expect(current_path).to eq user_path(@user)
       expect(page).to have_selector '.alert-success'
@@ -72,6 +68,14 @@ RSpec.describe "UsersEdit", type: :system do
       click_button "変更する"
       expect(current_path).to eq user_path(@user)
       expect(page).to have_selector '.alert-danger'
+    end
+
+    it "プロフィール画像削除" do
+      log_in_as_system(@user)
+      visit "#{user_path(@user)}/edit_image"
+      click_button "変更する"
+      expect(current_path).to eq user_path(@user)
+      expect(page).to have_selector '.alert-success'
     end
 
     it "フレンドリーフォロワーディング" do
