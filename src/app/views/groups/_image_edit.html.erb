@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <h2><%= yield(:page_name) %></h2>
+  </div>
+  <div class="col-md-10 col-md-offset-1 profile">
+    <h4>画面プレビュー</h4>
+    <%= display_attached_image(@group) %>
+
+    <%= form_with(model: @group, local: true) do |f| %>
+
+      <%= hidden_field_tag :edit_element, "image" %>
+
+      <div class="col-md-8 col-md-offset-2">
+        <%= render 'shared/error_messages', object: f.object %>
+        <%= f.file_field :image %>
+        <h5>変更するコミュニティ画像を選択してください</h5>
+        <h5>(何も選択しなかった場合は削除)</h5>
+      </div>
+
+      <div class="col-md-6 col-md-offset-3 submit">
+        <%= f.submit yield(:submit_name), class: "btn btn-primary" %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>
