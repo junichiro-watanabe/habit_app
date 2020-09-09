@@ -1,16 +1,10 @@
 <% provide(:title, @group.name) %>
+<% provide(:page, "group") %>
 <% provide(:page_name, "新しくコミュニティを作る") %>
 <% provide(:submit_name, "コミュニティ作成") %>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-3">
-      <%= render('sidebar') %>
-    </div>
-    <div class="group col-md-9">
-      <%= @group.name %>
-      <%= @group.habit %>
-      <%= @group.overview %>
-    </div>
-  </div>
+<div class="group">
+  <%= @group.name %>
+  <%= @group.habit %>
+  <%= @group.overview %>
 </div>
