@@ -11,6 +11,9 @@ body{
 #main{
   margin-top: 50px;
 }
+ul,li{
+  list-style: none;
+}
 
 .card{
   text-align: center;
@@ -21,7 +24,6 @@ body{
   box-shadow: 0 0 8px rgb(155, 154, 154);
   img{
     margin: 20px;
-    border-radius: 50%;
   }
 }
 
@@ -50,7 +52,6 @@ footer{
   padding-top: 5px;
   ul{
     float: right;
-    list-style: none;
     a{
       font-size: small;
     }
@@ -171,17 +172,12 @@ input, textarea{
   .user-info{
     img{
       margin: 20px 20px 5px 20px;
-      border-radius: 10%;
-      width: 80px;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
     }
   }
-  .image-preview{
-    margin: 20px;
-    border-radius: 10%;
-    width: 150px;
-  }
   ul{
-    list-style: none;
     margin: 0;
     padding: 10px 0;
     li{
@@ -194,7 +190,36 @@ input, textarea{
   }
 }
 
-.user-profile{
+.image-preview{
+  img{
+    margin: 20px;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.user-profile, .group{
   margin-top: 20px;
 }
 
+/* コミュニティ情報 */
+.index{
+  h2{
+    margin-bottom: 20px;
+  }
+  .group-info{
+    display: flex;
+    width: 90%;
+    height: 150px;
+    border: 1px solid #dadada;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    img{
+      margin: 20px;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+    }
+  }
+}

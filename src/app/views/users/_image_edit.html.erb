@@ -2,13 +2,9 @@
   <div class="col-md-8 col-md-offset-2">
     <h2><%= yield(:page_name) %></h2>
   </div>
-  <div class="col-md-10 col-md-offset-1 profile">
+  <div class="col-md-10 col-md-offset-1 profile image-preview">
     <h4>画面プレビュー</h4>
-    <% if @user.image.attached? %>
-      <%= image_tag @user.image, class: "image-preview"  %>
-    <% else %>
-      <%= image_tag '/assets/default-image.svg', class: "image-preview" %>
-    <% end %>
+    <%= display_attached_image(@user) %>
 
     <%= form_with(model: @user, local: true) do |f| %>
 
