@@ -1,0 +1,6 @@
+<% provide(:user_name, current_user.name) %>
+
+<div class="user-info">
+  <%= display_attached_image(current_user) %>
+  <h4><%= yield(:user_name) %></h4>
+</div>
