@@ -18,11 +18,12 @@ ul,li{
 .card{
   text-align: center;
   padding-bottom: 20px;
-  background-color: #dfeaff;
+  background-color: #e9f1ff;
   border: 1px solid #6bc1e6;
-  border-radius: 30px;
+  border-radius: 40px;
   box-shadow: 0 0 8px rgb(155, 154, 154);
   img{
+    padding: 30px;
     margin: 20px;
   }
 }
@@ -203,12 +204,12 @@ input, textarea{
   margin-top: 20px;
 }
 
-/* コミュニティ情報 */
+/* 一覧情報 */
 .index{
   h2{
     margin-bottom: 20px;
   }
-  .group-info{
+  .item-info{
     display: flex;
     width: 90%;
     height: 150px;

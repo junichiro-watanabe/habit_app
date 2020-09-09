@@ -1,0 +1,22 @@
+<% if yield(:page) == "user_show" %>
+  <%= react_component("Sidebar", { user_image: attached_image(current_user),
+                                   user_name: current_user.name,
+                                   links: [{link: "ハイライト", href: user_path(@user)},
+                                           {link: "主催コミュニティ", href: "#"},
+                                           {link: "所属コミュニティ", href: "#"},
+                                           {link: "フォロー", href: "#"},
+                                           {link: "フォロワー", href: "#"}] }) %>
+<% elsif yield(:page) == "user_edit" %>
+  <%= react_component("Sidebar", { user_image: attached_image(current_user),
+                                   user_name: current_user.name,
+                                   links: [{link: "アカウント情報", href: edit_user_path(@user)},
+                                           {link: "プロフィール画像", href: "#{user_path(@user)}/edit_image"}] }) %>
+<% elsif yield(:page) == "group" %>
+  <%= react_component("Sidebar", { user_image: attached_image(current_user),
+                                   user_name: current_user.name,
+                                   links: [{link: "仲間を探す", href: users_path},
+                                           {link: "コミュニティを作る", href: "/create_group"},
+                                           {link: "コミュニティを探す", href: groups_path},
+                                           {link: "主催コミュニティ", href: "#"},
+                                           {link: "所属コミュニティ", href: "#",}] }) %>
+<% end %>

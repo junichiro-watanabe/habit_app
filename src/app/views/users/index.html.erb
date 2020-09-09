@@ -1,14 +1,14 @@
 <% provide(:title, "ユーザ一覧") %>
+<% provide(:page, "group") %>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-3">
-      <%= render('groups/sidebar') %>
-    </div>
-    <div class="index col-md-9">
-        <h2>仲間を探す</h2>
-        <%= render @users %>
-        <%= will_paginate %>
-    </div>
-  </div>
-<div>
+<div class="index">
+    <h2>仲間を探す</h2>
+    <% @users.each do |user| %>
+      <li>
+        <%= react_component("User", { user_image: attached_image(user),
+                                      user_name: user.name,
+                                      user_path: user_path(user) }) %>
+      </li>
+    <% end %>
+    <%= will_paginate %>
+</div>
