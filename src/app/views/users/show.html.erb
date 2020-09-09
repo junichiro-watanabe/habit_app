@@ -1,10 +1,11 @@
 <% provide(:title, @user.name) %>
-<% provide(:page, "user_show") %>
 
 <div class="user-profile">
   <% if current_user?(@user) %>
+    <% provide(:page, "user_show") %>
     activity
   <% else %>
+    <% provide(:page, "group") %>
     <%= @user.name %>
   <% end %>
 </div>
