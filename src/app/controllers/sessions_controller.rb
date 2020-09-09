@@ -19,7 +19,9 @@ class SessionsController < ApplicationController
   end
 
   def create_guest
-
+    @user = User.find_by(email: "guest@example.com")
+    log_in @user
+    redirect_back_or @user
   end
 
 end

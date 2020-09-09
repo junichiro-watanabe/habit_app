@@ -6,6 +6,7 @@ RSpec.describe "Sessions", type: :request do
 
   before do
     @user = create(:user)
+    @guest = create(:guest)
   end
 
   describe "newのテスト" do
@@ -46,6 +47,14 @@ RSpec.describe "Sessions", type: :request do
       expect(logged_in?).to eq false
       expect(response).to render_template 'sessions/new'
       expect(flash.any?).to eq true
+    end
+  end
+
+  describe "create_guestのテスト" do
+    it "ゲストユーザログイン" do
+      get "/login_guest"
+      expect(logged_in?).to eq true
+      expect(response).to redirect_to user_path(@guest)
     end
   end
 
