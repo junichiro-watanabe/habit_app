@@ -1,0 +1,14 @@
+<% provide(:title, "コミュニティ一覧") %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render('sidebar') %>
+    </div>
+    <div class="index col-md-9">
+        <h2>コミュニティを探す</h2>
+        <%= render @groups %>
+        <%= will_paginate %>
+    </div>
+  </div>
+<div>
