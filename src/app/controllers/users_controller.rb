@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :edit, :edit_image, :update, :destroy]
-  before_action :correct_user, only: [:edit, :edit_image, :update, :destroy]
+  before_action :logged_in_user, only: [:index, :show, :edit, :edit_image, :update, :delete_user, :destroy]
+  before_action :correct_user, only: [:edit, :edit_image, :update, :delete_user, :destroy]
 
   def index
-    @users = User.paginate(page: params[:page], per_page: 10)
+    @users = User.paginate(page: params[:page], per_page: 7)
   end
 
   def new
@@ -27,13 +27,10 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    @edit_element = "profile"
   end
 
   def edit_image
     @user = User.find(params[:id])
-    @edit_element = "image"
-    render 'edit'
   end
 
   def update
@@ -67,8 +64,15 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
+  def delete_user
+    @user = User.find(params[:id])
+  end
 
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "アカウントを閉鎖しました"
+    log_out
+    redirect_to root_path
   end
 
   private
