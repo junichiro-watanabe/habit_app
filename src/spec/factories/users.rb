@@ -19,4 +19,11 @@ FactoryBot.define do
     password { "password" }
     password_confirmation { "password" }
   end
+
+  factory :users, class: User do
+    sequence(:name) { |n| "user #{n}" }
+    sequence(:email) { |n| "user_#{n}@example.com"}
+    password { "password" }
+    password_confirmation { "password" }
+  end
 end

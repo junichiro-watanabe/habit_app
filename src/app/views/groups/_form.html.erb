@@ -2,6 +2,8 @@
 
   <%= form_with(model: @group, local: true) do |f| %>
 
+    <%= hidden_field_tag :edit_element, "group" %>
+
     <div class="col-md-8 col-md-offset-2">
       <h2><%= yield(:page_name) %></h2>
       <%= render 'shared/error_messages', object: f.object %>

@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   before_action :logged_in_user
 
   def index
-    @groups = Group.paginate(page: params[:page], per_page: 10)
+    @groups = Group.paginate(page: params[:page], per_page: 7)
   end
 
   def new
@@ -25,13 +25,10 @@ class GroupsController < ApplicationController
 
   def edit
     @group = Group.find(params[:id])
-    @edit_element = "group"
   end
 
   def edit_image
     @group = Group.find(params[:id])
-    @edit_element = "image"
-    render 'edit'
   end
 
   def update
@@ -65,8 +62,14 @@ class GroupsController < ApplicationController
     end
   end
 
-  def destroy
+  def delete_group
+    @group = Group.find(params[:id])
+  end
 
+  def destroy
+    Group.find(params[:id]).destroy
+    flash[:success] = "コミュニティを削除しました"
+    redirect_to groups_path
   end
 
   private
