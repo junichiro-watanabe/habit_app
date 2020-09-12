@@ -1,0 +1,19 @@
+<% provide(:title, @group.name) %>
+<% provide(:page, "group") %>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h2>コミュニティ削除</h2>
+  </div>
+  <div class="col-md-10 col-md-offset-1 delete">
+    <h3><%= @group.name %> を削除しますか？<h3>
+
+    <h5>一度コミュニティを削除すると元には戻せません</h5>
+    <h5>本当に削除しますか？</h5>
+
+    <%= link_to "削除する", @group,
+                            class: "btn btn-danger",
+                            method: :delete,
+                            data: {confirm: "本当によろしいですか？"}%>
+  </div>
+</div>

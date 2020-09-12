@@ -6,6 +6,10 @@ RSpec.describe "Groups", type: :request do
 
   before do
     @user = create(:user)
+    @group = create(:group)
+    30.times do |n|
+      eval("@group_#{n} = create(:groups)")
+    end
   end
 
   describe "indexのテスト" do
@@ -78,83 +82,79 @@ RSpec.describe "Groups", type: :request do
   end
 
   describe "show" do
-    let(:group){ create(:group) }
     it "getリクエスト：ログイン状態" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      get group_path(group)
+      get group_path(@group)
       expect(response).to have_http_status(200)
       expect(response).to render_template 'groups/show'
     end
 
     it "getリクエスト：ログインしていない" do
-      get group_path(group)
+      get group_path(@group)
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
     end
   end
 
   describe "edit" do
-    let(:group){ create(:group) }
     it "getリクエスト：ログイン状態" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      get edit_group_path(group)
+      get edit_group_path(@group)
       expect(response).to have_http_status(200)
       expect(response).to render_template 'groups/edit'
     end
 
     it "getリクエスト：ログインしていない" do
-      get edit_group_path(group)
+      get edit_group_path(@group)
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
     end
   end
 
   describe "edit_image" do
-    let(:group){ create(:group) }
     it "getリクエスト：ログイン状態" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      get "#{group_path(group)}/edit_image"
+      get "#{group_path(@group)}/edit_image"
       expect(response).to have_http_status(200)
-      expect(response).to render_template 'groups/edit'
+      expect(response).to render_template 'groups/edit_image'
     end
 
     it "getリクエスト：ログインしていない" do
-      get "#{group_path(group)}/edit_image"
+      get "#{group_path(@group)}/edit_image"
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
     end
   end
 
   describe "updateのテスト" do
-    let(:group){ create(:group) }
     it "コミュニティ情報編集：有効なコミュニティ情報" do
       log_in_as(@user)
       expect(logged_in?).to eq true
       name = "valid_name"
       habit = "valid_habit"
       overview = "valid_overview"
-      expect(group.name).not_to eq name
-      expect(group.habit).not_to eq habit
-      expect(group.overview).not_to eq overview
-      patch group_path(group),
+      expect(@group.name).not_to eq name
+      expect(@group.habit).not_to eq habit
+      expect(@group.overview).not_to eq overview
+      patch group_path(@group),
             params: {edit_element: "group",
                       group: {name: name,
                               habit: habit,
                               overview: overview}}
-      expect(response).to redirect_to group_path(group)
+      expect(response).to redirect_to group_path(@group)
       expect(flash.any?).to eq true
-      expect(group.reload.name).to eq name
-      expect(group.reload.habit).to eq habit
-      expect(group.reload.overview).to eq overview
+      expect(@group.reload.name).to eq name
+      expect(@group.reload.habit).to eq habit
+      expect(@group.reload.overview).to eq overview
     end
 
     it "コミュニティ情報編集：無効なコミュニティ情報" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      patch group_path(group),
+      patch group_path(@group),
             params: {edit_element: "group",
                       group: {name: "",
                               habit: "",
@@ -167,80 +167,111 @@ RSpec.describe "Groups", type: :request do
       name = "valid_name"
       habit = "valid_habit"
       overview = "valid_overview"
-      expect(group.name).not_to eq name
-      expect(group.habit).not_to eq habit
-      expect(group.overview).not_to eq overview
-      patch group_path(group),
+      expect(@group.name).not_to eq name
+      expect(@group.habit).not_to eq habit
+      expect(@group.overview).not_to eq overview
+      patch group_path(@group),
             params: {edit_element: "group",
                       group: {name: name,
                               habit: habit,
                               overview: overview}}
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
-      expect(group.name).not_to eq name
-      expect(group.habit).not_to eq habit
-      expect(group.overview).not_to eq overview
+      expect(@group.name).not_to eq name
+      expect(@group.habit).not_to eq habit
+      expect(@group.overview).not_to eq overview
     end
 
     it "コミュニティ画像編集：有効なファイル形式" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      expect(group.image.attached?).to eq false
+      expect(@group.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
-      patch group_path(group),
+      patch group_path(@group),
             params: {edit_element: "image",
                      group: {image: image}}
-      expect(response).to redirect_to group_path(group)
+      expect(response).to redirect_to group_path(@group)
       expect(flash.any?).to eq true
-      expect(group.reload.image.attached?).to eq true
+      expect(@group.reload.image.attached?).to eq true
     end
 
     it "コミュニティ画像編集：無効なファイル形式" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      expect(group.image.attached?).to eq false
+      expect(@group.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.txt', 'txt')
-      patch group_path(group),
+      patch group_path(@group),
             params: {edit_element: "image",
                      group: {image: image}}
       expect(response).to render_template 'groups/edit'
       expect(response.body).to include "class=\"alert alert-danger\""
-      expect(group.reload.image.attached?).to eq false
+      expect(@group.reload.image.attached?).to eq false
     end
 
     it "コミュニティ画像編集：ログインしていない" do
-      expect(group.image.attached?).to eq false
+      expect(@group.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.txt', 'txt')
-      patch group_path(group),
+      patch group_path(@group),
             params: {edit_element: "image",
                      group: {image: image}}
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
-      expect(group.reload.image.attached?).to eq false
+      expect(@group.reload.image.attached?).to eq false
     end
 
     it "コミュニティ画像削除" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      expect(group.image.attached?).to eq false
+      expect(@group.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
-      patch group_path(group),
+      patch group_path(@group),
             params: {edit_element: "image",
                      group: {image: nil}}
-      expect(response).to redirect_to group_path(group)
+      expect(response).to redirect_to group_path(@group)
       expect(flash.any?).to eq true
-      expect(group.image.attached?).to eq false
+      expect(@group.image.attached?).to eq false
     end
 
     it "コミュニティ画像削除：ログインしていない" do
-      expect(group.image.attached?).to eq false
+      expect(@group.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
-      patch group_path(group),
+      patch group_path(@group),
             params: {edit_element: "image",
                      group: {image: nil}}
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
-      expect(group.image.attached?).to eq false
+      expect(@group.image.attached?).to eq false
+    end
+  end
+
+  describe "delete_groupのテスト" do
+    it "getリクエスト：ログイン状態" do
+      log_in_as(@user)
+      expect(logged_in?).to eq true
+      get "#{group_path(@group)}/delete_group"
+      expect(response).to have_http_status(200)
+      expect(response).to render_template 'groups/delete_group'
+    end
+
+    it "getリクエスト：ログインしていない" do
+      get "#{group_path(@group)}/delete_group"
+      expect(response).to redirect_to login_path
+      expect(flash.any?).to eq true
+    end
+  end
+
+  describe "destroyのテスト" do
+    it "コミュニティ削除" do
+      log_in_as(@user)
+      expect(logged_in?).to eq true
+      expect{ delete group_path(@group_1) }.to change{ Group.count }.by(-1)
+      expect(response).to redirect_to groups_path
+    end
+
+    it "getリクエスト：ログインしていない" do
+      expect{ delete group_path(@group_1) }.to change{ Group.count }.by(-0)
+      expect(response).to redirect_to login_path
+      expect(flash.any?).to eq true
     end
   end
 

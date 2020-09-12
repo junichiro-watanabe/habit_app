@@ -5,8 +5,12 @@
         <% user_error_messages(object.errors.full_messages).each do |msg| %>
           <li><%= msg %></li>
         <% end %>
-      <% elsif yield(:title) == current_user.name && @edit_element == "profile" %>
+      <% elsif yield(:title) == current_user.name %>
         <% user_error_messages(object.errors.full_messages).each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      <% elsif !@group.nil? && yield(:title) == @group.name %>
+        <% group_error_messages(object.errors.full_messages).each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       <% else %>
