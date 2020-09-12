@@ -1,0 +1,19 @@
+<% provide(:title, @user.name) %>
+<% provide(:page, "user_edit") %>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h2>アカウント閉鎖</h2>
+  </div>
+  <div class="col-md-10 col-md-offset-1 delete">
+    <h3><%= @user.name %> のアカウントを閉鎖しますか？<h3>
+
+    <h5>一度アカウントを閉鎖すると元には戻せません</h5>
+    <h5>本当に閉鎖しますか？</h5>
+
+    <%= link_to "閉鎖する", @user,
+                            class: "btn btn-danger",
+                            method: :delete,
+                            data: {confirm: "本当によろしいですか？"}%>
+  </div>
+</div>

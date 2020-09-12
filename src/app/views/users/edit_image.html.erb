@@ -1,6 +1,9 @@
+<% provide(:title, @user.name) %>
+<% provide(:page, "user_edit") %>
+
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <h2><%= yield(:page_name) %></h2>
+  <div class="col-md-10 col-md-offset-1">
+    <h2>プロフィール画像</h2>
   </div>
   <div class="col-md-10 col-md-offset-1 profile image-preview">
     <h4>画面プレビュー</h4>
@@ -18,7 +21,7 @@
       </div>
 
       <div class="col-md-6 col-md-offset-3 submit">
-        <%= f.submit yield(:submit_name), class: "btn btn-primary" %>
+        <%= f.submit "変更する", class: "btn btn-primary" %>
       </div>
 
     <% end %>

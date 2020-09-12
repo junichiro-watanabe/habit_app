@@ -1,14 +1,6 @@
 <% provide(:title, @group.name) %>
 <% provide(:page, "group") %>
+<% provide(:page_name, "コミュニティ情報") %>
+<% provide(:submit_name, "編集する") %>
 
-<div class="group">
-  <% if @edit_element == "group" %>
-    <% provide(:page_name, "コミュニティ情報") %>
-    <% provide(:submit_name, "編集する") %>
-    <%= render "form" %>
-  <% elsif @edit_element == "image" %>
-    <% provide(:page_name, "コミュニティ画面") %>
-    <% provide(:submit_name, "変更する") %>
-    <%= render "image_edit" %>
-  <% end %>
-</div>
+<%= render "form" %>
