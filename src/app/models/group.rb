@@ -1,4 +1,5 @@
 class Group < ApplicationRecord
+  belongs_to :user
   has_one_attached :image
   validates :name, presence: true, length: {maximum: 50}
   validates :habit, presence: true, length: {maximum: 50}
