@@ -29,7 +29,8 @@ srand(1)
 50.times do |n|
   group = Group.create!(name: Faker::Team.name,
                        habit: Faker::Job.title,
-                       overview: Faker::Lorem.sentence)
+                       overview: Faker::Lorem.sentence,
+                       user_id: rand(1..100))
   if rand(2) == 0 || rand(2) == 1
     group.image.attach(io: File.open("db/fixtures/images/image (#{rand(200)}).png"), filename: "image (#{rand(200)}).png")
   end

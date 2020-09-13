@@ -7,6 +7,7 @@
   <li><%= @group.name %></li>
   <li><%= @group.habit %></li>
   <li><%= @group.overview %></li>
+  <li>主催者：<%= link_to @group.user.name, user_path(@group.user) %></li>
   <li><%= link_to "編集する", edit_group_path(@group) %></li>
   <li><%= link_to "画像変更する", "#{group_path(@group)}/edit_image" %></li>
   <li><%= link_to "削除する", "#{group_path(@group)}/delete_group" %></li>
