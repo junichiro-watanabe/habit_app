@@ -1,0 +1,11 @@
+<% if @users.length != 0 %>
+  <% @users.each do |user| %>
+    <li>
+      <%= react_component("User", { user_image: attached_image(user),
+                                    user_name: user.name,
+                                    user_path: user_path(user) }) %>
+    </li>
+  <% end %>
+<% else %>
+  <h3>対象ユーザは存在しません</h3>
+<% end %>

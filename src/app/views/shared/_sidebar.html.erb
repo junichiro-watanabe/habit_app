@@ -9,14 +9,14 @@
   <%= react_component("Sidebar", { user_image: attached_image(current_user),
                                    user_name: current_user.name,
                                    links: [{link: "アカウント情報", href: edit_user_path(@user)},
-                                           {link: "プロフィール画像", href: "#{user_path(@user)}/edit_image"},
-                                           {link: "アカウントを閉鎖", href: "#{user_path(@user)}/delete_user"}] }) %>
+                                           {link: "プロフィール画像", href: edit_image_user_path(@user)},
+                                           {link: "アカウントを閉鎖", href: delete_user_path(@user)}] }) %>
 <% elsif yield(:page) == "group" %>
   <%= react_component("Sidebar", { user_image: attached_image(current_user),
                                    user_name: current_user.name,
                                    links: [{link: "仲間を探す", href: users_path},
                                            {link: "コミュニティを作る", href: "/create_group"},
                                            {link: "コミュニティを探す", href: groups_path},
-                                           {link: "主催コミュニティ", href: "#"},
-                                           {link: "所属コミュニティ", href: "#",}] }) %>
+                                           {link: "主催コミュニティ", href: owning_user_path(current_user)},
+                                           {link: "所属コミュニティ", href: belonging_user_path(current_user),}] }) %>
 <% end %>

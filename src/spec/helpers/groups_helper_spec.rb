@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe GroupsHelper, type: :helper do
-  describe "" do
+  describe "group_error_messagesのテスト" do
     it "無効なコミュニティ名が入力された場合のエラー出力" do
       errors = ["Name can't be blank"]
       expect(group_error_messages(errors).include?("コミュニティ名は空欄にできません")).to eq true

@@ -10,8 +10,9 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(group_params)
+    @group = current_user.groups.build(group_params)
     if @group.save
+      current_user.belong(@group)
       flash[:success] = "コミュニティ作成が完了しました。"
       redirect_to @group
     else
@@ -62,7 +63,7 @@ class GroupsController < ApplicationController
     end
   end
 
-  def delete_group
+  def delete
     @group = Group.find(params[:id])
   end
 
@@ -70,6 +71,11 @@ class GroupsController < ApplicationController
     Group.find(params[:id]).destroy
     flash[:success] = "コミュニティを削除しました"
     redirect_to groups_path
+  end
+
+  def member
+    @group = Group.find(params[:id])
+    @users = @group.members.paginate(page: params[:page], per_page: 7)
   end
 
   private
