@@ -6,9 +6,9 @@ RSpec.describe "Groups", type: :request do
 
   before do
     @user = create(:user)
-    @group = create(:group)
+    @group = create(:group, user: @user)
     30.times do |n|
-      eval("@group_#{n} = create(:groups)")
+      eval("@group_#{n} = create(:groups, user: @user)")
     end
   end
 
@@ -117,13 +117,13 @@ RSpec.describe "Groups", type: :request do
     it "getリクエスト：ログイン状態" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      get "#{group_path(@group)}/edit_image"
+      get edit_image_group_path(@group)
       expect(response).to have_http_status(200)
       expect(response).to render_template 'groups/edit_image'
     end
 
     it "getリクエスト：ログインしていない" do
-      get "#{group_path(@group)}/edit_image"
+      get edit_image_group_path(@group)
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
     end
@@ -248,13 +248,13 @@ RSpec.describe "Groups", type: :request do
     it "getリクエスト：ログイン状態" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      get "#{group_path(@group)}/delete_group"
+      get delete_group_path(@group)
       expect(response).to have_http_status(200)
-      expect(response).to render_template 'groups/delete_group'
+      expect(response).to render_template 'groups/delete'
     end
 
     it "getリクエスト：ログインしていない" do
-      get "#{group_path(@group)}/delete_group"
+      get delete_group_path(@group)
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
     end

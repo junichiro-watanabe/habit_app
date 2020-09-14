@@ -129,20 +129,20 @@ RSpec.describe "Users", type: :request do
       log_in_as(@user)
       expect(logged_in?).to eq true
       expect(current_user?(@user)).to eq true
-      get "#{user_path(@user)}/edit_image"
+      get edit_image_user_path(@user)
       expect(response).to have_http_status(200)
       expect(response).to render_template 'users/edit_image'
     end
 
     it "getリクエスト：ログインしていない" do
-      get "#{user_path(@user)}/edit_image"
+      get edit_image_user_path(@user)
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
     end
 
     it "getリクエスト：違うユーザ" do
       log_in_as(@other_user)
-      get "#{user_path(@user)}/edit_image"
+      get edit_image_user_path(@user)
       expect(response).to redirect_to root_path
     end
   end
@@ -328,13 +328,13 @@ RSpec.describe "Users", type: :request do
     it "getリクエスト：ログイン状態" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      get "#{user_path(@user)}/delete_user"
+      get delete_user_path(@user)
       expect(response).to have_http_status(200)
-      expect(response).to render_template 'users/delete_user'
+      expect(response).to render_template 'users/delete'
     end
 
     it "getリクエスト：ログインしていない" do
-      get "#{user_path(@user)}/delete_user"
+      get delete_user_path(@user)
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
     end
@@ -342,7 +342,7 @@ RSpec.describe "Users", type: :request do
     it "getリクエスト：違うユーザ" do
       log_in_as(@other_user)
       expect(logged_in?).to eq true
-      get "#{user_path(@user)}/delete_user"
+      get delete_user_path(@user)
       expect(response).to redirect_to root_path
     end
   end
@@ -367,6 +367,10 @@ RSpec.describe "Users", type: :request do
       expect{ delete user_path(@user) }.to change{ User.count }.by(-0)
       expect(response).to redirect_to root_path
     end
+  end
+
+  describe "ownedのテスト" do
+
   end
 
 end

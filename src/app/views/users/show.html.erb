@@ -6,6 +6,10 @@
     activity
   <% else %>
     <% provide(:page, "group") %>
-    <%= @user.name %>
+    <li><%= @user.name %></li>
+    <li><%= link_to "フォロー", "#" %></li>
+    <li><%= link_to "フォロワー", "#" %></li>
+    <li><%= link_to "主催コミュニティ", owning_user_path(@user) %></li>
+    <li><%= link_to "所属コミュニティ", belonging_user_path(@user) %></li>
   <% end %>
 </div>
