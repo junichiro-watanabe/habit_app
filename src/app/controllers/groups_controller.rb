@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :logged_in_user
+  before_action :owner_user, only: [:edit, :edit_image, :update, :delete, :destroy]
 
   def index
     @groups = Group.paginate(page: params[:page], per_page: 7)
@@ -82,5 +83,10 @@ class GroupsController < ApplicationController
 
     def group_params
       params.require(:group).permit(:name, :habit, :overview)
+    end
+
+    def owner_user
+      @group = Group.find(params[:id])
+      redirect_to groups_path unless @group.owner?(current_user)
     end
 end

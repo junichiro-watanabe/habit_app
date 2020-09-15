@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Group, type: :model do
   let(:group){  user = create(:user)
-                user.groups.create!(name: "valid_name",
+                user.groups.build(name: "valid_name",
                                     habit: "valid_habit",
                                     overview: "valid_overview") }
 

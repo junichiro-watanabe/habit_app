@@ -324,7 +324,7 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  describe "delete_userのテスト" do
+  describe "deleteのテスト" do
     it "getリクエスト：ログイン状態" do
       log_in_as(@user)
       expect(logged_in?).to eq true
@@ -369,8 +369,36 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  describe "ownedのテスト" do
+  describe "owningのテスト" do
+    it "getリクエスト：ログイン状態" do
+      log_in_as(@user)
+      expect(logged_in?).to eq true
+      get owning_user_path(@user)
+      expect(response).to have_http_status(200)
+      expect(response).to render_template 'users/owning'
+    end
 
+    it "getリクエスト：ログインしていない" do
+      get owning_user_path(@user)
+      expect(response).to redirect_to login_path
+      expect(flash.any?).to eq true
+    end
+  end
+
+  describe "belongingのテスト" do
+    it "getリクエスト：ログイン状態" do
+      log_in_as(@user)
+      expect(logged_in?).to eq true
+      get belonging_user_path(@user)
+      expect(response).to have_http_status(200)
+      expect(response).to render_template 'users/belonging'
+    end
+
+    it "getリクエスト：ログインしていない" do
+      get belonging_user_path(@user)
+      expect(response).to redirect_to login_path
+      expect(flash.any?).to eq true
+    end
   end
 
 end
