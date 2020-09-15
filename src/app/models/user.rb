@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :belongs, dependent: :destroy
+  has_many :belonging, through: :belongs, source: :group
+  has_many :groups, dependent: :destroy
   has_one_attached :image
   validates :name, presence: true, length: {maximum: 50}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -12,7 +15,20 @@ class User < ApplicationRecord
                     size:         { less_than: 5.megabytes,
                                     message: "サイズが5MB超過です" }
 
-  def profile_image
-    image.variant(resize_to_limit: [150, 150])
-  end
+    def profile_image
+      image.variant(resize_to_limit: [150, 150])
+    end
+
+    def belong(group)
+      belonging << group
+    end
+
+    def belonging?(group)
+      belonging.include?(group)
+    end
+
+    def leave(group)
+      Belong.find_by(group: group).destroy
+    end
+
 end

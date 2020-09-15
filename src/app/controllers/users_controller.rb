@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :edit, :edit_image, :update, :delete_user, :destroy]
-  before_action :correct_user, only: [:edit, :edit_image, :update, :delete_user, :destroy]
+  before_action :logged_in_user, only: [:index, :show, :edit, :edit_image, :update, :delete, :destroy, :owning, :belonging]
+  before_action :correct_user, only: [:edit, :edit_image, :update, :delete, :destroy]
 
   def index
     @users = User.paginate(page: params[:page], per_page: 7)
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def delete_user
+  def delete
     @user = User.find(params[:id])
   end
 
@@ -75,9 +75,27 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def owning
+    @title = "主催コミュニティ"
+    @user = User.find(params[:id])
+    @groups = @user.groups.paginate(page: params[:page], per_page: 7)
+  end
+
+  def belonging
+    @title = "所属コミュニティ"
+    @user = User.find(params[:id])
+    @groups = @user.belonging.paginate(page: params[:page], per_page: 7)
+  end
+
   private
+
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to root_path unless current_user?(@user)
     end
 
 end

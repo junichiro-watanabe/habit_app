@@ -8,10 +8,16 @@ Rails.application.routes.draw do
   delete '/login', to: 'sessions#destroy'
   get '/login_guest', to: 'sessions#create_guest'
   resources :users
-  get '/users/:id/edit_image', to: 'users#edit_image'
-  get '/users/:id/delete_user', to: 'users#delete_user'
+  resources :users do
+    member do
+      get :edit_image, :delete, :owning, :belonging
+    end
+  end
   get '/create_group', to: 'groups#new'
   resources :groups
-  get '/groups/:id/edit_image', to: 'groups#edit_image'
-  get '/groups/:id/delete_group', to: 'groups#delete_group'
+  resources :groups do
+    member do
+      get :edit_image, :delete, :member
+    end
+  end
 end

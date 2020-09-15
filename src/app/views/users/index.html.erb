@@ -3,12 +3,6 @@
 
 <div class="index">
     <h2>仲間を探す</h2>
-    <% @users.each do |user| %>
-      <li>
-        <%= react_component("User", { user_image: attached_image(user),
-                                      user_name: user.name,
-                                      user_path: user_path(user) }) %>
-      </li>
-    <% end %>
+    <%= render 'shared/user_index' %>
     <%= will_paginate %>
 </div>
