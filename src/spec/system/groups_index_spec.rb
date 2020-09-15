@@ -5,7 +5,7 @@ RSpec.describe "GroupsIndex", type: :system do
 
   before do
     @user = create(:user)
-    30.times do |n|
+    10.times do |n|
       eval("@group_#{n} = create(:groups, user: @user)")
     end
   end
