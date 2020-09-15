@@ -1,0 +1,13 @@
+<% if @groups.length != 0 %>
+  <% @groups.each do |group| %>
+    <li>
+      <%= react_component("Group", { group_image: attached_image(group),
+                                    group_name: group.name,
+                                    group_path: group_path(group),
+                                    group_habit: group.habit,
+                                    group_overview: group.overview }) %>
+    </li>
+  <% end %>
+<% else %>
+  <h3>対象グループは存在しません</h3>
+<% end %>

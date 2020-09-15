@@ -2,15 +2,7 @@
 <% provide(:page, "group") %>
 
 <div class="index">
-    <h2>コミュニティを探す</h2>
-    <% @groups.each do |group| %>
-      <li>
-        <%= react_component("Group", { group_image: attached_image(group),
-                                      group_name: group.name,
-                                      group_path: group_path(group),
-                                      group_habit: group.habit,
-                                      group_overview: group.overview }) %>
-      </li>
-    <% end %>
+    <h2><%= "コミュニティを探す" %></h2>
+    <%= render 'shared/group_index' %>
     <%= will_paginate %>
 </div>

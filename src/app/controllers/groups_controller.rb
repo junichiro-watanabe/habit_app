@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :logged_in_user
+  before_action :owner_user, only: [:edit, :edit_image, :update, :delete, :destroy]
 
   def index
     @groups = Group.paginate(page: params[:page], per_page: 7)
@@ -10,8 +11,9 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(group_params)
+    @group = current_user.groups.build(group_params)
     if @group.save
+      current_user.belong(@group)
       flash[:success] = "コミュニティ作成が完了しました。"
       redirect_to @group
     else
@@ -62,7 +64,7 @@ class GroupsController < ApplicationController
     end
   end
 
-  def delete_group
+  def delete
     @group = Group.find(params[:id])
   end
 
@@ -72,9 +74,19 @@ class GroupsController < ApplicationController
     redirect_to groups_path
   end
 
+  def member
+    @group = Group.find(params[:id])
+    @users = @group.members.paginate(page: params[:page], per_page: 7)
+  end
+
   private
 
     def group_params
       params.require(:group).permit(:name, :habit, :overview)
+    end
+
+    def owner_user
+      @group = Group.find(params[:id])
+      redirect_to groups_path unless @group.owner?(current_user)
     end
 end

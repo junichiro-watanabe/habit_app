@@ -1,4 +1,7 @@
 class Group < ApplicationRecord
+  has_many :belongs, dependent: :destroy
+  has_many :members, through: :belongs, source: :user
+  belongs_to :user
   has_one_attached :image
   validates :name, presence: true, length: {maximum: 50}
   validates :habit, presence: true, length: {maximum: 50}
@@ -10,5 +13,17 @@ class Group < ApplicationRecord
 
   def profile_image
     image.variant(resize_to_limit: [150, 150])
+  end
+
+  def add_member(user)
+    member << user
+  end
+
+  def member?(user)
+    member.include?(user)
+  end
+
+  def owner?(user)
+    self.user == user
   end
 end
