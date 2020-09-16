@@ -28,7 +28,7 @@ class User < ApplicationRecord
     end
 
     def leave(group)
-      Belong.find_by(group: group).destroy
+      belongs.find_by(group: group).destroy
     end
 
 end

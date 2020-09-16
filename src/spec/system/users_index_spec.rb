@@ -5,7 +5,7 @@ RSpec.describe "UsersIndex", type: :system do
 
   before do
     @user = create(:user)
-    10.times do |n|
+    1.upto 10 do |n|
       eval("@user_#{n} = create(:users)")
     end
   end

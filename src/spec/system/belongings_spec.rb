@@ -6,12 +6,14 @@ RSpec.describe "Belongings", type: :system do
   before do
     @user = create(:user)
     @group = create(:group, user:@user)
-    10.times do |n|
+    1.upto 10 do |n|
       eval("@group_#{n} = create(:groups, user: @user)")
     end
-    10.times do |n|
+    1.upto 9 do |n|
       eval("@user_#{n} = create(:users)")
-      eval("@user_#{n}.belong(@group)")
+      1.upto 10 do |m|
+        eval("@user_#{n}.belong(@group_#{m})")
+      end
     end
   end
 
@@ -40,7 +42,7 @@ RSpec.describe "Belongings", type: :system do
     end
   end
 
-  describe "所属コミュニティ一覧のテスト" do
+  describe "参加コミュニティ一覧のテスト" do
     it "一覧が正常に表示されている" do
       log_in_as_system(@user)
       visit belonging_user_path(@user)
@@ -87,6 +89,21 @@ RSpec.describe "Belongings", type: :system do
       users.each do |user|
         expect(page).to have_link user.name, href: user_path(user)
       end
+    end
+  end
+
+  describe "参加/脱退のテスト" do
+    it "参加する　→　脱退する" do
+      log_in_as_system(@user)
+      visit group_path(@group_10)
+      expect(page).to have_link "参加する", href: belong_path(@group_10)
+      expect(page).not_to have_link "脱退する", href: belong_path(@group_10)
+      click_link "参加する"
+      expect(current_path).to eq group_path(@group_10)
+      expect(page).not_to have_link "参加する", href: belong_path(@group_10)
+      expect(page).to have_link "脱退する", href: belong_path(@group_10)
+      click_link "脱退する"
+      expect(current_path).to eq group_path(@group_10)
     end
   end
 end

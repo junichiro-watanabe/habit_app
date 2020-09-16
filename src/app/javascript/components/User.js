@@ -19,4 +19,10 @@ class User extends React.Component {
   }
 }
 
+User.propTypes = {
+  user_image: PropTypes.string,
+  user_path: PropTypes.string,
+  user_name: PropTypes.string
+};
+
 export default User

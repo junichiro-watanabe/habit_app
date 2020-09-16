@@ -9,6 +9,8 @@
   <li><%= @group.overview %></li>
   <li>主催者：<%= link_to @group.user.name, user_path(@group.user) %></li>
   <li><%= link_to "メンバー", member_group_path(@group) %></li>
+  <li><%= react_component("Join", { belong: current_user.belonging?(@group),
+                                    link: belong_path(@group) }) %></li>
   <% if @group.owner?(current_user) %>
     <li><%= link_to "編集する", edit_group_path(@group) %></li>
     <li><%= link_to "画像変更する", edit_image_group_path(@group) %></li>
