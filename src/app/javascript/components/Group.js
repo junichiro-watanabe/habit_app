@@ -5,6 +5,16 @@ class Group extends React.Component {
     super(props)
   }
 
+  componentWillMount() {
+    setTimeout(() => {
+      this.setState({
+        txt: "読み込み中",
+        backGround: "white"
+      });
+      // alert("loading");
+    }, 2000);
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -21,5 +31,13 @@ class Group extends React.Component {
     );
   }
 }
+
+Group.propTypes = {
+  group_image: PropTypes.string,
+  group_name: PropTypes.string,
+  group_path: PropTypes.string,
+  group_habit: PropTypes.string,
+  group_overview: PropTypes.string,
+};
 
 export default Group

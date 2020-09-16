@@ -6,8 +6,8 @@ FactoryBot.define do
   end
 
   factory :groups, class: Group do
-    sequence(:name) { |n| "group#{n}" }
-    sequence(:habit) { |n| "habit#{n}" }
-    sequence(:overview) { |n| "overview#{n}" }
+    sequence(:name, 2) { |n| "group#{n}" }
+    sequence(:habit, 2) { |n| "habit#{n}" }
+    sequence(:overview, 2) { |n| "overview#{n}" }
   end
 end
