@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 class Group extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentWillMount() {

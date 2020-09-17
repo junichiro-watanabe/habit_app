@@ -18,7 +18,6 @@ RSpec.describe "Belongs", type: :request do
       log_in_as(@user_1)
       expect(logged_in?).to eq true
       expect{ patch belong_path(@group) }.to change{ Belong.count }.by(+1)
-      expect(response).to redirect_to group_path(@group)
     end
 
     it "参加する：ログインしていない" do
@@ -33,7 +32,6 @@ RSpec.describe "Belongs", type: :request do
       log_in_as(@user_2)
       expect(logged_in?).to eq true
       expect{ delete belong_path(@group) }.to change{ Belong.count }.by(-1)
-      expect(response).to redirect_to group_path(@group)
     end
 
     it "脱退する：ログインしていない" do
