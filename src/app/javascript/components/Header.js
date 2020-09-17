@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 class Header extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = { logged_in: false }
   }
 

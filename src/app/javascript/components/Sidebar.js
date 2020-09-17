@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 class Sidebar extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
