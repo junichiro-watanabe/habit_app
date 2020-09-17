@@ -10,6 +10,7 @@
     "@rails/webpacker": "4.2.2",
     "@vx/gradient": "^0.0.198",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "classname": "^0.0.0",
     "flubber": "^0.4.2",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 class User extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
@@ -18,5 +18,11 @@ class User extends React.Component {
     );
   }
 }
+
+User.propTypes = {
+  user_image: PropTypes.string,
+  user_path: PropTypes.string,
+  user_name: PropTypes.string
+};
 
 export default User

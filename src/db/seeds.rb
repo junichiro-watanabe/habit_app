@@ -26,30 +26,32 @@ User.create!(name: "ゲストユーザ",
 end
 
 2.times do |n|
-  group = Group.create!(name: Faker::Team.name,
-                        habit: Faker::Job.title,
-                        overview: Faker::Lorem.sentence,
-                        user_id: 1)
+  user = User.find(1)
+  group = user.groups.build(name: Faker::Team.name,
+                            habit: Faker::Job.title,
+                            overview: Faker::Lorem.sentence)
   if rand(2) == 0 || rand(2) == 1
     group.image.attach(io: File.open("db/fixtures/images/image (#{rand(200)}).png"), filename: "image (#{rand(200)}).png")
   end
   group.save
+  user.belong(group)
 end
 
 48.times do |n|
-  group = Group.create!(name: Faker::Team.name,
-                       habit: Faker::Job.title,
-                       overview: Faker::Lorem.sentence,
-                       user_id: rand(1..100))
+  user = User.find(rand(1..100))
+  group = user.groups.build(name: Faker::Team.name,
+                            habit: Faker::Job.title,
+                            overview: Faker::Lorem.sentence)
   if rand(2) == 0 || rand(2) == 1
     group.image.attach(io: File.open("db/fixtures/images/image (#{rand(200)}).png"), filename: "image (#{rand(200)}).png")
   end
   group.save
+  user.belong(group)
 end
 
 100.times do |n|
   user = User.find(n + 1)
-  10.times do |m|
+  1.upto 10 do |m|
     group = Group.find(rand(1..50))
     user.belong(group) until user.belonging?(group)
   end

@@ -82,7 +82,7 @@ class UsersController < ApplicationController
   end
 
   def belonging
-    @title = "所属コミュニティ"
+    @title = "参加コミュニティ"
     @user = User.find(params[:id])
     @groups = @user.belonging.paginate(page: params[:page], per_page: 7)
   end
