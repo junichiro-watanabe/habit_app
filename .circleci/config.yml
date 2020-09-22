@@ -23,9 +23,6 @@ jobs:
           name: docker-compose run app rails db:migrate
           command: docker-compose run app rails db:migrate
       - run:
-          name: docker-compose run app rails webpacker:compile RAILS_ENV=test
-          command: docker-compose run app rails webpacker:compile RAILS_ENV=test
-      - run:
           name: docker-compose run app rspec
           command: docker-compose run app rspec
       - run:
