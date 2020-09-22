@@ -26,7 +26,9 @@
 
 # Ignore unnecessary webpacker files
 /public/packs/*
+!/public/packs/.keep
 /public/packs-test/*
+!/public/packs-test/.keep
 /node_modules
 /yarn-error.log
 yarn-debug.log*
