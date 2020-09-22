@@ -14,5 +14,11 @@ COPY ./src/Gemfile Gemfile
 COPY ./src/Gemfile.lock Gemfile.lock
 RUN bundle install && \
     rails webpacker:install
+RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
+    echo "Asia/Tokyo" > /etc/timezone
 COPY ./src /habit_app
+RUN rails assets:precompile RAILS_ENV=production && \
+    yarn cache clean && \
+    rm -rf node_modules tmp/cache
+ENV RAILS_SERVE_STATIC_FILES="true"
 CMD ["bundle", "exec", "puma", "-e", "production", "-C", "config/puma.rb"]

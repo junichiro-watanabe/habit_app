@@ -12,6 +12,6 @@ class BelongsController < ApplicationController
   def destroy
     @group = Group.find(params[:id])
     current_user.leave(@group)
-    render json: nil
+    redirect_to groups_path
   end
 end

@@ -1,6 +1,7 @@
 class Group < ApplicationRecord
   has_many :belongs, dependent: :destroy
   has_many :members, through: :belongs, source: :user
+  has_many :achieved_list, through: :belongs, source: :belongs
   belongs_to :user
   has_one_attached :image
   validates :name, presence: true, length: {maximum: 50}

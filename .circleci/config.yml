@@ -46,15 +46,15 @@ workflows:
           account-url: AWS_ECR_ACCOUNT_URL
           create-repo: true
           dockerfile: docker/web/Dockerfile
-          repo: "habit_app_web"
+          repo: "ecstest-web"
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
       - aws-ecs/deploy-service-update:
           requires:
             - aws-ecr/build-and-push-image
-          family: "habit_app-task"
-          cluster-name: "habit_app-cluster"
-          service-name: "habit_app-service"
+          family: "ecstest-task"
+          cluster-name: "ecstest-cluster"
+          service-name: "ecstest-service"
           container-image-name-updates: "container=web,tag=${CIRCLE_SHA1}"
   deploy-app:
     jobs:
@@ -65,13 +65,13 @@ workflows:
           account-url: AWS_ECR_ACCOUNT_URL
           create-repo: true
           dockerfile: docker/app/Dockerfile_production
-          repo: "habit_app_app"
+          repo: "ecstest-app"
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
       - aws-ecs/deploy-service-update:
           requires:
             - aws-ecr/build-and-push-image
-          family: "habit_app-task"
-          cluster-name: "habit_app-cluster"
-          service-name: "habit_app-service"
+          family: "ecstest-task"
+          cluster-name: "ecstest-cluster"
+          service-name: "ecstest-service"
           container-image-name-updates: "container=app,tag=${CIRCLE_SHA1}"
