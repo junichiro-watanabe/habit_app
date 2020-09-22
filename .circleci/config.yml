@@ -17,17 +17,14 @@ jobs:
           command: docker-compose up --build -d
       - run: sleep 30
       - run:
-          name: docker-compose run app rails db:create
-          command: docker-compose run app rails db:create
+          name: docker-compose exec app rails db:create
+          command: docker-compose exec app rails db:create
       - run:
-          name: docker-compose run app rails db:migrate
-          command: docker-compose run app rails db:migrate
+          name: docker-compose exec app rails db:migrate
+          command: docker-compose exec app rails db:migrate
       - run:
-          name: docker-compose run app rails webpacker:compile RAILS_ENV=test
-          command: docker-compose run app rails webpacker:compile RAILS_ENV=test
-      - run:
-          name: docker-compose run app rspec
-          command: docker-compose run app rspec
+          name: docker-compose exec app rspec
+          command: docker-compose exec app rspec
       - run:
           name: docker-compose down
           command: docker-compose down
