@@ -59,7 +59,7 @@ workflows:
           tag: "${CIRCLE_SHA1}"
 
       - aws-ecs/deploy-service-update:
-        name: app-deploy
+          name: app-deploy
           requires:
             - app-build
           family: "ecstest-task"
