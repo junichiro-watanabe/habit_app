@@ -49,6 +49,8 @@ workflows:
           filters:
             branches:
               only: master
+          requires:
+            - test
           account-url: AWS_ECR_ACCOUNT_URL
           create-repo: true
           dockerfile: docker/web/Dockerfile
@@ -68,6 +70,8 @@ workflows:
           filters:
             branches:
               only: master
+          requires:
+            - test
           account-url: AWS_ECR_ACCOUNT_URL
           create-repo: true
           dockerfile: docker/app/Dockerfile_production
