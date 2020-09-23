@@ -43,9 +43,9 @@ workflows:
   test:
     jobs:
       - test
-
-workflows:
   deploy-web:
+    requires:
+      - test
     jobs:
       - aws-ecr/build-and-push-image:
           filters:
@@ -65,6 +65,8 @@ workflows:
           service-name: "ecstest-service"
           container-image-name-updates: "container=web,tag=${CIRCLE_SHA1}"
   deploy-app:
+    requires:
+      - test
     jobs:
       - aws-ecr/build-and-push-image:
           filters:
