@@ -5,86 +5,86 @@ orbs:
   aws-ecs: circleci/aws-ecs@0.0.8
 
 jobs:
-  - test:
-      machine:
-        image: circleci/classic:edge
-      working_directory: ~/repo
-      steps:
-        - checkout
-        - run:
-            name: Install Docker Compose
-            command: |
-              curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-Linux-x86_64 > ~/docker-compose
-              chmod +x ~/docker-compose
-              sudo mv ~/docker-compose /usr/local/bin/docker-compose
-        - run:
-            name: docker-compose up --build -d
-            command: docker-compose up --build -d
-        - run: sleep 30
-        - run:
-            name: docker-compose exec app rails db:create
-            command: docker-compose exec app rails db:create
-        - run:
-            name: docker-compose exec app rails db:migrate
-            command: docker-compose exec app rails db:migrate
-        - run:
-            name: docker-compose exec app bash -c "yes n | rails webpacker:install"
-            command: docker-compose exec app bash -c "yes n | rails webpacker:install"
-        - run:
-            name: docker-compose exec app rails webpacker:compile RAILS_ENV=test
-            command: docker-compose exec app rails webpacker:compile RAILS_ENV=test
-        - run:
-            name: docker-compose exec app rspec
-            command: docker-compose exec app rspec
-        - run:
-            name: docker-compose down
-            command: docker-compose down
+  test:
+    machine:
+      image: circleci/classic:edge
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-Linux-x86_64 > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - run:
+          name: docker-compose up --build -d
+          command: docker-compose up --build -d
+      - run: sleep 30
+      - run:
+          name: docker-compose exec app rails db:create
+          command: docker-compose exec app rails db:create
+      - run:
+          name: docker-compose exec app rails db:migrate
+          command: docker-compose exec app rails db:migrate
+      - run:
+          name: docker-compose exec app bash -c "yes n | rails webpacker:install"
+          command: docker-compose exec app bash -c "yes n | rails webpacker:install"
+      - run:
+          name: docker-compose exec app rails webpacker:compile RAILS_ENV=test
+          command: docker-compose exec app rails webpacker:compile RAILS_ENV=test
+      - run:
+          name: docker-compose exec app rspec
+          command: docker-compose exec app rspec
+      - run:
+          name: docker-compose down
+          command: docker-compose down
 
-  - deploy-web:
-      - aws-ecr/build-and-push-image:
-          filters:
-            branches:
-              only: master
-          account-url: AWS_ECR_ACCOUNT_URL
-          create-repo: true
-          dockerfile: docker/web/Dockerfile
-          repo: "ecstest-web"
-          region: AWS_REGION
-          tag: "${CIRCLE_SHA1}"
-      - aws-ecs/deploy-service-update:
-          requires:
-            - aws-ecr/build-and-push-image
-          family: "ecstest-task"
-          cluster-name: "ecstest-cluster"
-          service-name: "ecstest-service"
-          container-image-name-updates: "container=web,tag=${CIRCLE_SHA1}"
+  deploy-web:
+    - aws-ecr/build-and-push-image:
+        filters:
+          branches:
+            only: master
+        account-url: AWS_ECR_ACCOUNT_URL
+        create-repo: true
+        dockerfile: docker/web/Dockerfile
+        repo: "ecstest-web"
+        region: AWS_REGION
+        tag: "${CIRCLE_SHA1}"
+    - aws-ecs/deploy-service-update:
+        requires:
+          - aws-ecr/build-and-push-image
+        family: "ecstest-task"
+        cluster-name: "ecstest-cluster"
+        service-name: "ecstest-service"
+        container-image-name-updates: "container=web,tag=${CIRCLE_SHA1}"
 
-  - deploy-app:
-      - aws-ecr/build-and-push-image:
-          filters:
-            branches:
-              only: master
-          account-url: AWS_ECR_ACCOUNT_URL
-          create-repo: true
-          dockerfile: docker/app/Dockerfile_production
-          repo: "ecstest-app"
-          region: AWS_REGION
-          tag: "${CIRCLE_SHA1}"
-      - aws-ecs/deploy-service-update:
-          requires:
-            - aws-ecr/build-and-push-image
-          family: "ecstest-task"
-          cluster-name: "ecstest-cluster"
-          service-name: "ecstest-service"
-          container-image-name-updates: "container=app,tag=${CIRCLE_SHA1}"
+  deploy-app:
+    - aws-ecr/build-and-push-image:
+        filters:
+          branches:
+            only: master
+        account-url: AWS_ECR_ACCOUNT_URL
+        create-repo: true
+        dockerfile: docker/app/Dockerfile_production
+        repo: "ecstest-app"
+        region: AWS_REGION
+        tag: "${CIRCLE_SHA1}"
+    - aws-ecs/deploy-service-update:
+        requires:
+          - aws-ecr/build-and-push-image
+        family: "ecstest-task"
+        cluster-name: "ecstest-cluster"
+        service-name: "ecstest-service"
+        container-image-name-updates: "container=app,tag=${CIRCLE_SHA1}"
 
 workflows:
-  - test-and-deploy:
-      jobs:
-        - test
-        - deploy-web:
-            requires:
-              - test
-        - deploy-app:
-            requires:
-              - test
+  test:
+    jobs:
+      - test
+      - deploy-web:
+          requires:
+            - test
+      - deploy-app:
+          requires:
+            - test
