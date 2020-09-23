@@ -1,9 +1,4 @@
 version: 2.1
-
-orbs:
-  aws-ecr: circleci/aws-ecr@6.0.0
-  aws-ecs: circleci/aws-ecs@0.0.8
-
 jobs:
   test:
     machine:
@@ -40,51 +35,49 @@ jobs:
           name: docker-compose down
           command: docker-compose down
 
-  deploy-web:
-    - aws-ecr/build-and-push-image:
-        filters:
-          branches:
-            only: master
-        account-url: AWS_ECR_ACCOUNT_URL
-        create-repo: true
-        dockerfile: docker/web/Dockerfile
-        repo: "ecstest-web"
-        region: AWS_REGION
-        tag: "${CIRCLE_SHA1}"
-    - aws-ecs/deploy-service-update:
-        requires:
-          - aws-ecr/build-and-push-image
-        family: "ecstest-task"
-        cluster-name: "ecstest-cluster"
-        service-name: "ecstest-service"
-        container-image-name-updates: "container=web,tag=${CIRCLE_SHA1}"
-
-  deploy-app:
-    - aws-ecr/build-and-push-image:
-        filters:
-          branches:
-            only: master
-        account-url: AWS_ECR_ACCOUNT_URL
-        create-repo: true
-        dockerfile: docker/app/Dockerfile_production
-        repo: "ecstest-app"
-        region: AWS_REGION
-        tag: "${CIRCLE_SHA1}"
-    - aws-ecs/deploy-service-update:
-        requires:
-          - aws-ecr/build-and-push-image
-        family: "ecstest-task"
-        cluster-name: "ecstest-cluster"
-        service-name: "ecstest-service"
-        container-image-name-updates: "container=app,tag=${CIRCLE_SHA1}"
+orbs:
+  aws-ecr: circleci/aws-ecr@6.0.0
+  aws-ecs: circleci/aws-ecs@0.0.8
 
 workflows:
   test:
     jobs:
       - test
-      - deploy-web:
+  deploy-web:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          filters:
+            branches:
+              only: master
+          account-url: AWS_ECR_ACCOUNT_URL
+          create-repo: true
+          dockerfile: docker/web/Dockerfile
+          repo: "ecstest-web"
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+      - aws-ecs/deploy-service-update:
           requires:
-            - test
-      - deploy-app:
+            - aws-ecr/build-and-push-image
+          family: "ecstest-task"
+          cluster-name: "ecstest-cluster"
+          service-name: "ecstest-service"
+          container-image-name-updates: "container=web,tag=${CIRCLE_SHA1}"
+  deploy-app:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          filters:
+            branches:
+              only: master
+          account-url: AWS_ECR_ACCOUNT_URL
+          create-repo: true
+          dockerfile: docker/app/Dockerfile_production
+          repo: "ecstest-app"
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+      - aws-ecs/deploy-service-update:
           requires:
-            - test
+            - aws-ecr/build-and-push-image
+          family: "ecstest-task"
+          cluster-name: "ecstest-cluster"
+          service-name: "ecstest-service"
+          container-image-name-updates: "container=app,tag=${CIRCLE_SHA1}"
