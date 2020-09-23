@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :belongs, dependent: :destroy
   has_many :belonging, through: :belongs, source: :group
+  has_many :achieving, through: :belongs, source: :achievement
   has_many :groups, dependent: :destroy
   has_one_attached :image
   validates :name, presence: true, length: {maximum: 50}
@@ -21,6 +22,7 @@ class User < ApplicationRecord
 
     def belong(group)
       belonging << group
+      belongs.find_by(group: group).create_achievement
     end
 
     def belonging?(group)
@@ -29,6 +31,14 @@ class User < ApplicationRecord
 
     def leave(group)
       belongs.find_by(group: group).destroy
+    end
+
+    def achieved?(group)
+      achieving.find_by(belong: self.belongs.find_by(group: group)).achieved if self.belonging?(group)
+    end
+
+    def toggle_achieved(group)
+      self.achieving.find_by(belong: self.belongs.find_by(group: group)).toggle!(:achieved) if self.belonging?(group)
     end
 
 end

@@ -18,8 +18,8 @@ RSpec.describe "GroupsDelete", type: :system do
       expect(current_path).to eq delete_group_path(@group)
       click_link "削除する"
       page.driver.browser.switch_to.alert.accept
-      expect(current_path).to eq groups_path
       expect(page).to have_selector '.alert-success'
+      expect(current_path).to eq groups_path
     end
 
     it "フレンドリーフォロワーディング" do
@@ -31,8 +31,8 @@ RSpec.describe "GroupsDelete", type: :system do
       expect(current_path).to eq delete_group_path(@group)
       click_link "削除する"
       page.driver.browser.switch_to.alert.accept
-      expect(current_path).to eq groups_path
       expect(page).to have_selector '.alert-success'
+      expect(current_path).to eq groups_path
     end
 
     it "オーナ以外の人にはリンクが表示されない" do
