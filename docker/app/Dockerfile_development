@@ -13,12 +13,14 @@ WORKDIR /habit_app
 COPY ./src/Gemfile Gemfile
 COPY ./src/Gemfile.lock Gemfile.lock
 RUN bundle install && \
-    rails webpacker:install
+    bundle exec rails webpacker:install
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN useradd -Nm -u 1000 dev && \
   groupadd -g 1000 dev && \
   usermod -aG sudo dev && \
   usermod -u 1000 -g 1000 dev && \
   echo dev:password | chpasswd
+RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
+    echo "Asia/Tokyo" > /etc/timezone
 COPY ./src /habit_app
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

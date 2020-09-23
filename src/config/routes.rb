@@ -21,4 +21,5 @@ Rails.application.routes.draw do
     end
   end
   resources :belongs, only: [:update, :destroy]
+  resources :achievements, only: [:update]
 end
