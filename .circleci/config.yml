@@ -82,9 +82,9 @@ workflows:
   - test-and-deploy:
       jobs:
         - test
-        - deploy-web
+        - deploy-web:
             requires:
               - test
-        - deploy-app
+        - deploy-app:
             requires:
               - test
