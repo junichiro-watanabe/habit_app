@@ -40,7 +40,7 @@ orbs:
   aws-ecs: circleci/aws-ecs@0.0.8
 
 workflows:
-  test:
+  test-and-deploy:
     jobs:
       - test
 
@@ -49,6 +49,8 @@ workflows:
           filters:
             branches:
               only: master
+          requires:
+            - test
           account-url: AWS_ECR_ACCOUNT_URL
           create-repo: true
           dockerfile: docker/web/Dockerfile
@@ -57,6 +59,7 @@ workflows:
           tag: "${CIRCLE_SHA1}"
 
       - aws-ecs/deploy-service-update:
+        name: app-deploy
           requires:
             - app-build
           family: "ecstest-task"
@@ -69,6 +72,8 @@ workflows:
           filters:
             branches:
               only: master
+          requires:
+            - test
           account-url: AWS_ECR_ACCOUNT_URL
           create-repo: true
           dockerfile: docker/app/Dockerfile_production
@@ -77,6 +82,7 @@ workflows:
           tag: "${CIRCLE_SHA1}"
 
       - aws-ecs/deploy-service-update:
+          name: web-deploy
           requires:
             - web-build
           family: "ecstest-task"
