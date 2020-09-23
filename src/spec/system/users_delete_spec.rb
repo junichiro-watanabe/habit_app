@@ -13,8 +13,8 @@ RSpec.describe "UsersDelete", type: :system do
       visit delete_user_path(@user)
       click_link "閉鎖する"
       page.driver.browser.switch_to.alert.accept
-      expect(current_path).to eq root_path
       expect(page).to have_selector '.alert-success'
+      expect(current_path).to eq root_path
     end
 
     it "フレンドリーフォロワーディング" do
@@ -26,8 +26,8 @@ RSpec.describe "UsersDelete", type: :system do
       expect(current_path).to eq delete_user_path(@user)
       click_link "閉鎖する"
       page.driver.browser.switch_to.alert.accept
-      expect(current_path).to eq root_path
       expect(page).to have_selector '.alert-success'
+      expect(current_path).to eq root_path
     end
   end
 end
