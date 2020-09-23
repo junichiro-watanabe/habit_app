@@ -23,8 +23,8 @@ jobs:
           name: docker-compose exec app rails db:migrate
           command: docker-compose exec app rails db:migrate
       - run:
-          name: docker-compose exec app rails webpacker:install && rails webpacker:compile RAILS_ENV=test && rspec
-          command: docker-compose exec app rails webpacker:install && rails webpacker:compile RAILS_ENV=test && rspec
+          name: docker-compose exec app bash -c "yes n | rails webpacker:install && rails webpacker:compile RAILS_ENV=test && rspec"
+          command: docker-compose exec app bash -c "yes n | rails webpacker:install && rails webpacker:compile RAILS_ENV=test && rspec"
       - run:
           name: docker-compose down
           command: docker-compose down
