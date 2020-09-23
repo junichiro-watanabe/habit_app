@@ -40,43 +40,51 @@ orbs:
   aws-ecs: circleci/aws-ecs@0.0.8
 
 workflows:
-  test:
+  test-and-deploy:
     jobs:
       - test
-  deploy-web:
-    jobs:
+
       - aws-ecr/build-and-push-image:
+          name: app-build
           filters:
             branches:
               only: master
+          requires:
+            - test
           account-url: AWS_ECR_ACCOUNT_URL
           create-repo: true
           dockerfile: docker/web/Dockerfile
           repo: "ecstest-web"
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
+
       - aws-ecs/deploy-service-update:
+          name: app-deploy
           requires:
-            - aws-ecr/build-and-push-image
+            - app-build
           family: "ecstest-task"
           cluster-name: "ecstest-cluster"
           service-name: "ecstest-service"
           container-image-name-updates: "container=web,tag=${CIRCLE_SHA1}"
-  deploy-app:
-    jobs:
+
       - aws-ecr/build-and-push-image:
+          name: web-build
           filters:
             branches:
               only: master
+          requires:
+            - test
           account-url: AWS_ECR_ACCOUNT_URL
           create-repo: true
           dockerfile: docker/app/Dockerfile_production
           repo: "ecstest-app"
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
+
       - aws-ecs/deploy-service-update:
+          name: web-deploy
           requires:
-            - aws-ecr/build-and-push-image
+            - web-build
           family: "ecstest-task"
           cluster-name: "ecstest-cluster"
           service-name: "ecstest-service"
