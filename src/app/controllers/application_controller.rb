@@ -9,4 +9,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def redirect_to_user
+    if logged_in?
+      redirect_to current_user
+    end
+  end
+
 end

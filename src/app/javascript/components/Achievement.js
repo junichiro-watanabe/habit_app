@@ -25,8 +25,9 @@ class Achievement extends React.Component {
   render() {
     return (
       <React.Fragment>
+        <h3>本日の目標は{this.state.achieve ? "達成です！" : "未達です！"}</h3>
         <button onClick={this.toggleAchieve}>
-          {this.state.achieve ? "達成" : "未達"}
+          達成状況の変更
         </button>
       </React.Fragment>
     );
