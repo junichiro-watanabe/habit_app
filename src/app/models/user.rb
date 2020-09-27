@@ -34,11 +34,19 @@ class User < ApplicationRecord
     end
 
     def achieved?(group)
-      achieving.find_by(belong: self.belongs.find_by(group: group)).achieved if self.belonging?(group)
+      @achievement = achieving.find_by(belong: self.belongs.find_by(group: group))
+      @achievement.achieved if self.belonging?(group)
     end
 
     def toggle_achieved(group)
-      self.achieving.find_by(belong: self.belongs.find_by(group: group)).toggle!(:achieved) if self.belonging?(group)
+      if achieved?(group)
+        History.find_by(achievement: @achievement).destroy
+      else
+        @history = @achievement.histories.create(date: Date.today)
+        @history.create_micropost(user: self, content: "#{Date.today}分の#{group.name}の目標を達成しました。
+                                                        目標：#{group.habit}")
+      end
+      @achievement.toggle!(:achieved) if self.belonging?(group)
     end
 
 end
