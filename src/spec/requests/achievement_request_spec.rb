@@ -19,7 +19,8 @@ RSpec.describe "Achievements", type: :request do
       expect(logged_in?).to eq true
       expect(@user_1.achieved?(@group)).to eq false
       expect{ patch achievement_path(@group) }.to change{ @user_1.achieved?(@group) }.to(true).and change{ @user_1.microposts.count }.by(+1)
-      expect{ patch achievement_path(@group) }.to change{ @user_1.achieved?(@group) }.to(false).and change{ @user_1.microposts.count }.(-1)
+      expect{ patch achievement_path(@group) }.to change{ @user_1.achieved?(@group) }.to(false).and change{ @user_1.microposts.count }.by(-1)
+
     end
 
     it "達成状況の切り替え：ログインしていない" do

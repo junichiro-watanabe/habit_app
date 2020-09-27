@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :belonging, through: :belongs, source: :group
   has_many :achieving, through: :belongs, source: :achievement
   has_many :groups, dependent: :destroy
+  has_many :microposts, dependent: :destroy
   has_one_attached :image
   validates :name, presence: true, length: {maximum: 50}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -34,11 +35,19 @@ class User < ApplicationRecord
     end
 
     def achieved?(group)
-      achieving.find_by(belong: self.belongs.find_by(group: group)).achieved if self.belonging?(group)
+      @achievement = achieving.find_by(belong: self.belongs.find_by(group: group))
+      @achievement.achieved if self.belonging?(group)
     end
 
     def toggle_achieved(group)
-      self.achieving.find_by(belong: self.belongs.find_by(group: group)).toggle!(:achieved) if self.belonging?(group)
+      if achieved?(group)
+        History.find_by(achievement: @achievement).destroy
+      else
+        @history = @achievement.histories.create(date: Date.today)
+        @history.create_micropost(user: self, content: "#{Date.today}分の#{group.name}の目標を達成しました。
+                                                        目標：#{group.habit}")
+      end
+      @achievement.toggle!(:achieved) if self.belonging?(group)
     end
 
 end

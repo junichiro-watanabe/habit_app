@@ -356,7 +356,7 @@ RSpec.describe "Users", type: :request do
     end
 
     it "ユーザ削除：ログインしていない" do
-      expect{ delete user_path(@user) }.to change{ User.count }.by(-0)
+      expect{ delete user_path(@user) }.not_to change{ User.count }
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
     end
@@ -364,7 +364,7 @@ RSpec.describe "Users", type: :request do
     it "ユーザ削除：違うユーザ" do
       log_in_as(@other_user)
       expect(logged_in?).to eq true
-      expect{ delete user_path(@user) }.to change{ User.count }.by(-0)
+      expect{ delete user_path(@user) }.not_to change{ User.count }
       expect(response).to redirect_to root_path
     end
   end
