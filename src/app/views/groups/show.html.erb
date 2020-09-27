@@ -11,7 +11,7 @@
   <li><%= link_to "メンバー", member_group_path(@group) %></li>
   <li><%= react_component("Belong", {path: belong_path(@group), belong: current_user.belonging?(@group)}) %></li>
   <% if current_user.belonging?(@group) %>
-    <li><%= react_component("Achievement", {path: achievement_path(@group),achieve: current_user.achieved?(@group)}) %></li>
+    <li><%= react_component("Achievement", {path: achievement_path(@group), achieve: current_user.achieved?(@group)}) %></li>
   <% end %>
   <% if @group.owner?(current_user) %>
     <li><%= link_to "編集する", edit_group_path(@group) %></li>

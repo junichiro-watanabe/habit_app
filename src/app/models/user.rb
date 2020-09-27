@@ -41,13 +41,21 @@ class User < ApplicationRecord
 
     def toggle_achieved(group)
       if achieved?(group)
-        History.find_by(achievement: @achievement).destroy
+        History.find_by(achievement: @achievement, date: Date.today).destroy
       else
         @history = @achievement.histories.create(date: Date.today)
-        @history.create_micropost(user: self, content: "#{Date.today}分の#{group.name}の目標を達成しました。
+        @history.create_micropost(user: self, content: "#{@history.date} 分の #{group.name} の目標を達成しました。
                                                         目標：#{group.habit}")
       end
       @achievement.toggle!(:achieved) if self.belonging?(group)
+    end
+
+    def feed
+      group_ids = "SELECT group_id FROM belongs
+                   WHERE user_id = :user_id"
+      group_members_ids = "SELECT user_id FROM belongs
+                           WHERE group_id IN (#{group_ids})"
+      Micropost.where("user_id IN (#{group_members_ids}) OR user_id = :user_id", user_id: id)
     end
 
 end

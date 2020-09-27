@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2020_09_27_064915) do
     t.date "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["achievement_id", "date"], name: "index_histories_on_achievement_id_and_date"
+    t.index ["achievement_id", "date"], name: "index_histories_on_achievement_id_and_date", unique: true
     t.index ["achievement_id"], name: "index_histories_on_achievement_id"
     t.index ["date"], name: "index_histories_on_date"
   end

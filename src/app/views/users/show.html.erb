@@ -3,7 +3,8 @@
 <div class="user-profile">
   <% if current_user?(@user) %>
     <% provide(:page, "user_show") %>
-    activity
+    <%= render 'shared/feed_items' %>
+    <%= will_paginate @feed_items %>
   <% else %>
     <% provide(:page, "group") %>
     <li><%= @user.name %></li>

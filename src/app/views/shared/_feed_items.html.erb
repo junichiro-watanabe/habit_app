@@ -1,0 +1,9 @@
+<% if @feed_items.length != 0 %>
+  <% @feed_items.each do |feed_item| %>
+    <li><%= feed_item.user.name %></li>
+    <li><%= feed_item.created_at %></li>
+    <li><%= feed_item.content %></li>
+  <% end %>
+<% else %>
+  <h3>タイムラインはありません</h3>
+<% end %>
