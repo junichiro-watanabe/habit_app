@@ -21,7 +21,7 @@ RSpec.describe "Belongs", type: :request do
     end
 
     it "参加する：ログインしていない" do
-      expect{ patch belong_path(@group) }.to change{ Belong.count }.by(+0)
+      expect{ patch belong_path(@group) }.not_to change{ Belong.count }
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
     end
@@ -35,7 +35,7 @@ RSpec.describe "Belongs", type: :request do
     end
 
     it "脱退する：ログインしていない" do
-      expect{ delete belong_path(@group) }.to change{ Belong.count }.by(-0)
+      expect{ delete belong_path(@group) }.not_to change{ Belong.count }
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
     end
