@@ -7,6 +7,6 @@ class CreateHistories < ActiveRecord::Migration[6.0]
       t.timestamps
     end
     add_index :histories, :date
-    add_index :histories, [:achievement_id, :date]
+    add_index :histories, [:achievement_id, :date], unique:true
   end
 end

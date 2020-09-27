@@ -4,7 +4,7 @@ class Achievement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      belong: this.props.achieve
+      achieve: this.props.achieve
     }
   }
 
