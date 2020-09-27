@@ -335,7 +335,7 @@ RSpec.describe "Groups", type: :request do
     end
 
     it "コミュニティ削除：ログインしていない" do
-      expect{ delete group_path(@group_1) }.not_to change{ Group.count }
+      expect{ delete group_path(@group_1) }.to change{ Group.count }.by(-0)
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
     end
@@ -343,7 +343,7 @@ RSpec.describe "Groups", type: :request do
     it "コミュニティ削除：オーナ以外のユーザ" do
       log_in_as(@other_user)
       expect(logged_in?).to eq true
-      expect{ delete group_path(@group_1) }.not_to change{ Group.count }
+      expect{ delete group_path(@group_1) }.to change{ Group.count }.by(-0)
       expect(response).to redirect_to groups_path
     end
   end

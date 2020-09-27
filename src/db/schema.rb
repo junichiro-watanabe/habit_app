@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_27_064915) do
+ActiveRecord::Schema.define(version: 2020_09_20_122228) do
 
   create_table "achievements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "belong_id", null: false
@@ -63,27 +63,6 @@ ActiveRecord::Schema.define(version: 2020_09_27_064915) do
     t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
-  create_table "histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "achievement_id", null: false
-    t.date "date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["achievement_id", "date"], name: "index_histories_on_achievement_id_and_date"
-    t.index ["achievement_id"], name: "index_histories_on_achievement_id"
-    t.index ["date"], name: "index_histories_on_date"
-  end
-
-  create_table "microposts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.text "content"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "history_id", null: false
-    t.index ["history_id"], name: "index_microposts_on_history_id"
-    t.index ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
-    t.index ["user_id"], name: "index_microposts_on_user_id"
-  end
-
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -98,7 +77,4 @@ ActiveRecord::Schema.define(version: 2020_09_27_064915) do
   add_foreign_key "belongs", "groups"
   add_foreign_key "belongs", "users"
   add_foreign_key "groups", "users"
-  add_foreign_key "histories", "achievements"
-  add_foreign_key "microposts", "histories"
-  add_foreign_key "microposts", "users"
 end
