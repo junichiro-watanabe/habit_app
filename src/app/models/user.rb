@@ -10,6 +10,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: {maximum: 255},
                                     format: {with: VALID_EMAIL_REGEX},
                                     uniqueness: {case_sensitive: false}
+  validates :introduction, length: {maximum: 255}
   has_secure_password
   validates :password, presence: true, length: {minimum: 8}, allow_nil:true
   validates :image, content_type: { in: %w[image/jpeg image/gif image/png],
@@ -35,17 +36,26 @@ class User < ApplicationRecord
     end
 
     def achieved?(group)
-      @achievement = achieving.find_by(belong: self.belongs.find_by(group: group))
-      @achievement.achieved if self.belonging?(group)
+      if self.belonging?(group)
+        @achievement = achieving.find_by(belong: self.belongs.find_by(group: group))
+        if @achievement.histories.find_by(date: Date.today) == nil
+          @achievement.update(achieved: false)
+        else
+          @achievement.update(achieved: true)
+        end
+        @achievement.achieved
+      end
     end
 
     def toggle_achieved(group)
       if achieved?(group)
-        History.find_by(achievement: @achievement, date: Date.today).destroy
+        @history = History.find_by(achievement: @achievement, date: Date.today)
+        @history.destroy unless @history == nil
       else
-        @history = @achievement.histories.create(date: Date.today)
-        @history.create_micropost(user: self, content: "#{@history.date} 分の #{group.name} の目標を達成しました。
-                                                        目標：#{group.habit}")
+        if @achievement.histories.find_by(date: Date.today) == nil
+          @history = @achievement.histories.create(date: Date.today)
+          @history.create_micropost(user: self, content: "#{@history.date} 分の <a href=\"/groups/#{group.id}\">#{group.name}</a> の目標を達成しました。\n目標：#{group.habit}")
+        end
       end
       @achievement.toggle!(:achieved) if self.belonging?(group)
     end

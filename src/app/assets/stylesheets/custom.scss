@@ -234,9 +234,34 @@ input, textarea{
   border: 1px solid #bbb;
   border-radius: 10px;
   padding: 10px 5px;
-  text-align: center;
+  h3{
+    text-align: center;
+  }
   .btn{
     margin-top: 20px;
     margin-bottom: 20px;
+  }
+}
+
+/* マイクロポスト */
+.micropost{
+  margin-bottom: 10px;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  .micropost-user{
+    display: flex;
+    img{
+      margin: 20px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+    }
+  }
+  .micropost-content{
+    font-size: 15px;
+    margin: 0 10px 20px 10px;
+    p{
+      white-space: pre-wrap;
+    }
   }
 }
