@@ -20,7 +20,7 @@ class Achievement extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button onClick={this.toggleAchieve}>
+        <button className="btn btn-primary" onClick={this.toggleAchieve}>
           達成状況の変更
         </button>
       </React.Fragment>

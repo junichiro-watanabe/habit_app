@@ -20,6 +20,7 @@ class Belong extends React.Component {
         })
         this.props.setBelong(this.state.belong)
         this.props.setMemberCount(json.member_count)
+        this.props.setAchieved(json.achieved)
       }
     )
   }
@@ -36,6 +37,7 @@ class Belong extends React.Component {
         })
         this.props.setBelong(this.state.belong)
         this.props.setMemberCount(json.member_count)
+        this.props.setAchieved(json.achieved)
       }
     )
   }

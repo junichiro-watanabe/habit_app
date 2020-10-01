@@ -27,21 +27,50 @@ class GroupIntroduction extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="group">
-          <div className="group-head jumbotron">
-            <img src={this.props.group_image} />
-            <ol>
-              <li><h3>{this.props.group_name}</h3></li>
-              <li>主催者：<a href={this.props.owner_path}>{this.props.owner_name}</a></li>
-              <li>メンバー：<a href={this.props.member_path}>{this.state.memberCount}人が参加</a></li><br />
-              <Belong path={this.props.belong_path}
-                belong={this.state.belong}
-                memberCount={this.state.memberCount}
-                setBelong={this.setBelong}
-                setMemberCount={this.setMemberCount} />
-            </ol>
+        <div className="describe">
+          <div className="head">
+            {this.state.belong ?
+              <a className="alert alert-info">
+                このコミュニティに参加しています
+              </a> : null}
+            <div className="menu">
+              <img src={this.props.group_image} />
+              <ol>
+                <li><h3>{this.props.group_name}</h3></li>
+                <li>主催者：<a href={this.props.owner_path}>{this.props.owner_name}</a></li>
+                <li>メンバー：<a href={this.props.member_path}>{this.state.memberCount}人が参加</a></li><br />
+                <Belong path={this.props.belong_path}
+                  belong={this.state.belong}
+                  memberCount={this.state.memberCount}
+                  setBelong={this.setBelong}
+                  setMemberCount={this.setMemberCount}
+                  setAchieved={this.setAchieved} />
+              </ol>
+              {this.props.owner ?
+                <React.Fragment>
+                  <ul className="edit">
+                    <li><a href={this.props.edit_group_path}>編集する</a></li>
+                    <li><a href={this.props.edit_image_group_path}>画像変更する</a></li>
+                    <li><a href={this.props.delete_group_path}>削除する</a></li>
+                  </ul>
+                </React.Fragment> : null}
+            </div>
           </div>
-          <div className="group-body">
+          <div className="achievement">
+            {this.state.belong ?
+              <React.Fragment>
+                <h3>
+                  本日の目標は
+                  {this.state.achieved ? <a class="alert alert-success">達成</a> : <a className="alert alert-danger">未達</a>}
+                  です！
+                </h3>
+                <Achievement path={this.props.achievement_path}
+                  achieved={this.state.achieved}
+                  setAchieved={this.setAchieved} />
+              </React.Fragment> :
+              null}
+          </div>
+          <div className="body">
             <div>
               <h3>習慣</h3>
               <p>{this.props.group_habit}</p>
@@ -50,20 +79,6 @@ class GroupIntroduction extends React.Component {
               <h3>概要</h3>
               <p>{this.props.group_overview}</p>
             </div>
-            {this.state.belong ?
-              <React.Fragment>
-                <h3>本日の目標は{this.state.achieved ? "達成です！" : "未達です！"}</h3>
-                <Achievement path={this.props.achievement_path}
-                  achieved={this.state.achieved}
-                  setAchieved={this.setAchieved} />
-              </React.Fragment> :
-              null}
-            {this.props.owner ?
-              <React.Fragment>
-                <li><a href={this.props.edit_group_path}>編集する</a></li>
-                <li><a href={this.props.edit_image_group_path}>画像変更する</a></li>
-                <li><a href={this.props.delete_group_path}>削除する</a></li>
-              </React.Fragment> : null}
           </div>
         </div>
       </React.Fragment>
