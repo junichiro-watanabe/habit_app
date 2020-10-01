@@ -1,0 +1,14 @@
+<% if @feed_items.length != 0 %>
+  <% @feed_items.each do |feed_item| %>
+    <li>
+      <%= react_component("Micropost", { user_image: attached_image(feed_item.user),
+                                        user_name: feed_item.user.name,
+                                        user_path: user_path(feed_item.user),
+                                        content: feed_item.content,
+                                        time: "Posted #{time_ago_in_words(feed_item.created_at)} ago",
+                                        history: feed_item.history }) %>
+    </li>
+  <% end %>
+<% else %>
+  <h3>タイムラインはありません</h3>
+<% end %>

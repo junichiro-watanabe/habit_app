@@ -3,13 +3,10 @@
 <div class="user-profile">
   <% if current_user?(@user) %>
     <% provide(:page, "user_show") %>
-    activity
   <% else %>
     <% provide(:page, "group") %>
-    <li><%= @user.name %></li>
-    <li><%= link_to "フォロー", "#" %></li>
-    <li><%= link_to "フォロワー", "#" %></li>
-    <li><%= link_to "主催コミュニティ", owning_user_path(@user) %></li>
-    <li><%= link_to "参加コミュニティ", belonging_user_path(@user) %></li>
+    <%= render 'user_introduction' %>
   <% end %>
+  <%= render 'shared/feed_items' %>
+  <%= will_paginate @feed_items %>
 </div>

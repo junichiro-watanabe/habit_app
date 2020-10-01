@@ -27,4 +27,10 @@ class Group < ApplicationRecord
   def owner?(user)
     self.user == user
   end
+
+  def feed
+    group_members_ids = "SELECT user_id FROM belongs
+                         WHERE group_id = :group_id"
+    Micropost.where("user_id IN (#{group_members_ids})", group_id: id)
+  end
 end

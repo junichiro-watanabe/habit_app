@@ -17,6 +17,7 @@ User.create!(name: "ゲストユーザ",
 99.times do |n|
   user = User.create!(name: Faker::Name.name,
                      email: "test#{n}@example.com",
+                     introduction: Faker::Lorem.sentence,
                      password: "password",
                      password_confirmation: "password")
   if rand(2) == 0 || rand(2) == 1

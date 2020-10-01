@@ -25,13 +25,13 @@ class Header extends React.Component {
                   </button>
                 </div>
 
-                <div class="collapse navbar-collapse" id="header-menu">
+                <div className="collapse navbar-collapse" id="header-menu">
                   <ul className="nav nav-pills navbar-right">
                     {this.props.logged_in ?
                       <React.Fragment>
                         <li><a href={this.props.user_path}><span className="glyphicon glyphicon-book" aria-hidden="true"></span> マイページ</a></li>
                         <li><a href={this.props.edit_user_path}><span className="glyphicon glyphicon-user" aria-hidden="true"></span> プロフィール</a></li>
-                        <li><a href={this.props.groups_path}><span class="glyphicon glyphicon-tower" aria-hidden="true"></span> コミュニティ</a></li>
+                        <li><a href={this.props.groups_path}><span className="glyphicon glyphicon-tower" aria-hidden="true"></span> コミュニティ</a></li>
                         <li><a rel="nofollow" data-method="delete" href="/login"><span className="glyphicon glyphicon-log-out" aria-hidden="true"></span> ログアウト</a></li>
                       </React.Fragment> :
                       <React.Fragment>
@@ -51,7 +51,7 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  logged_in: PropTypes.boolean,
+  logged_in: PropTypes.bool,
   root_path: PropTypes.string,
   user_path: PropTypes.string,
   edit_user_path: PropTypes.string
