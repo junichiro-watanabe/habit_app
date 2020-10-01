@@ -20,7 +20,6 @@ class Group extends React.Component {
       <React.Fragment>
         <div className="item-info">
           <img src={this.props.group_image} />
-
           <ol>
             <a href={this.props.group_path}><li><h3>{this.props.group_name}</h3></li></a>
             <li>習慣：{this.props.group_habit}</li>

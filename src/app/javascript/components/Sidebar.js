@@ -8,14 +8,14 @@ class Sidebar extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <aside class="profile">
-          <div class="user-info">
+        <aside className="profile">
+          <div className="user-info">
             <img src={this.props.user_image} />
             <h4>{this.props.user_name}</h4>
           </div>
 
           <ul>
-            {this.props.links.map((item) => <li><a href={item.href}>{item.link}</a></li>)}
+            {this.props.links.map((item, index) => <li key={index}><a href={item.href}>{item.link}</a></li>)}
           </ul>
         </aside>
       </React.Fragment >

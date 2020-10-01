@@ -20,6 +20,6 @@ Rails.application.routes.draw do
       get :edit_image, :delete, :member
     end
   end
-  resources :belongs, only: [:update, :destroy]
+  resources :belongs, only: [:update, :destroy, :show]
   resources :achievements, only: [:update]
 end

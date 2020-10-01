@@ -3,7 +3,8 @@
     <li>
       <%= react_component("User", { user_image: attached_image(user),
                                     user_name: user.name,
-                                    user_path: user_path(user) }) %>
+                                    user_path: user_path(user),
+                                    user_introduction: user.introduction }) %>
     </li>
   <% end %>
 <% else %>

@@ -41,5 +41,10 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_valid
     end
 
+    it "自己紹介が255文字超過" do
+      user.introduction = "a"*256
+      expect(user).not_to be_valid
+    end
+
   end
 end

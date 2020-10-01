@@ -3,9 +3,6 @@ import PropTypes from "prop-types"
 class Achievement extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      belong: this.props.achieve
-    }
   }
 
   toggleAchieve = () => {
@@ -15,9 +12,7 @@ class Achievement extends React.Component {
     }).then((response) => response.json()
     ).then(
       (json) => {
-        this.setState({
-          achieve: json.achieved
-        })
+        this.props.setAchieved(json.achieved)
       }
     )
   }
@@ -25,8 +20,7 @@ class Achievement extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <h3>本日の目標は{this.state.achieve ? "達成です！" : "未達です！"}</h3>
-        <button onClick={this.toggleAchieve}>
+        <button className="btn btn-primary" onClick={this.toggleAchieve}>
           達成状況の変更
         </button>
       </React.Fragment>
@@ -35,7 +29,7 @@ class Achievement extends React.Component {
 }
 
 Achievement.propTypes = {
-  path: PropTypes.string
+  path: PropTypes.string,
 };
 
 export default Achievement

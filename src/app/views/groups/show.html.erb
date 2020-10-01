@@ -1,21 +1,28 @@
 <% provide(:title, @group.name) %>
 <% provide(:page, "group") %>
-<% provide(:page_name, "新しくコミュニティを作る") %>
-<% provide(:submit_name, "コミュニティ作成") %>
 
-<div class="group">
-  <li><%= @group.name %></li>
-  <li><%= @group.habit %></li>
-  <li><%= @group.overview %></li>
-  <li>主催者：<%= link_to @group.user.name, user_path(@group.user) %></li>
-  <li><%= link_to "メンバー", member_group_path(@group) %></li>
-  <li><%= react_component("Belong", {path: belong_path(@group), belong: current_user.belonging?(@group)}) %></li>
-  <% if current_user.belonging?(@group) %>
-    <li><%= react_component("Achievement", {path: achievement_path(@group),achieve: current_user.achieved?(@group)}) %></li>
-  <% end %>
-  <% if @group.owner?(current_user) %>
-    <li><%= link_to "編集する", edit_group_path(@group) %></li>
-    <li><%= link_to "画像変更する", edit_image_group_path(@group) %></li>
-    <li><%= link_to "削除する", delete_group_path(@group) %></li>
-  <% end %>
-</div>
+<%= react_component("GroupIntroduction",
+  {
+    group_image: attached_image(@group),
+    group_name: @group.name,
+    group_path: group_path(@group),
+    owner_name: @group.user.name,
+    owner_path: user_path(@group.user),
+    member_path: member_group_path(@group),
+    member_count: @group.members.count,
+    group_habit: @group.habit,
+    group_overview: @group.overview,
+    belong_path: belong_path(@group),
+    achievement_path: achievement_path(@group),
+    edit_group_path: edit_group_path(@group),
+    edit_image_group_path: edit_image_group_path(@group),
+    delete_group_path: delete_group_path(@group),
+    belong: current_user.belonging?(@group),
+    achieved: current_user.achieved?(@group),
+    owner: @group.owner?(current_user)
+  })
+%>
+
+<h2>目標達成タイムライン</h2>
+<%= render 'shared/feed_items' %>
+<%= will_paginate @feed_items %>
