@@ -271,20 +271,47 @@ input, textarea{
 }
 
 /* group */
-.group{
+.describe{
+  margin-top: 20px;
   background-color: #faffff;
-  .group-head{
+  .head{
     background-color: rgb(255, 243, 228);
     border-radius: 10px;
-    display: flex;
-    img{
-      margin: 20px;
-      border-radius: 50%;
-      width: 80px;
-      height: 80px;
+    padding: 30px;
+    a{
+      padding: 3px;
+    }
+    .menu{
+      margin: 10px 0 10px 0;
+      display: flex;
+      img{
+        margin: 20px;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+      }
+      .edit{
+        margin-left: auto;
+      }
     }
   }
-  .group-body{
-    margin-left: 20px;
+  .body{
+    border: 1px solid #bbb;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px rgb(235, 235, 235);
+    background-color: #faffff;
+    padding: 20px;
+  }
+}
+
+/* 達成ボタン */
+.achievement{
+  text-align: center;
+  margin-bottom: 30px;
+  button{
+    margin-top: 10px
+  }
+  a{
+    padding: 0px;
   }
 }
