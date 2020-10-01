@@ -37,7 +37,7 @@ class GroupIntroduction extends React.Component {
               <img src={this.props.group_image} />
               <ol>
                 <li><h3>{this.props.group_name}</h3></li>
-                <li>主催者：<a href={this.props.owner_path}>{this.props.owner_name}</a></li>
+                <li>オーナー：<a href={this.props.owner_path}>{this.props.owner_name}</a></li>
                 <li>メンバー：<a href={this.props.member_path}>{this.state.memberCount}人が参加</a></li><br />
                 <Belong path={this.props.belong_path}
                   belong={this.state.belong}
