@@ -170,6 +170,7 @@ input, textarea{
   border-radius: 10px;
   padding: 10px 5px;
   text-align: center;
+  background-color: #faffff;
   .user-info{
     img{
       margin: 20px 20px 5px 20px;
@@ -192,6 +193,8 @@ input, textarea{
 }
 
 .image-preview{
+  box-shadow: 3px 3px 3px rgb(235, 235, 235);
+  background-color: #faffff;
   img{
     margin: 20px;
     border-radius: 50%;
@@ -209,16 +212,15 @@ input, textarea{
   h2{
     margin-bottom: 20px;
   }
-  h3{
-    text-align: center;
-  }
   .item-info{
     display: flex;
     width: 90%;
     height: 150px;
     border: 1px solid #dadada;
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    box-shadow: 3px 3px 3px rgb(235, 235, 235);
+    background-color: #faffff;
     img{
       margin: 20px;
       border-radius: 50%;
@@ -234,9 +236,9 @@ input, textarea{
   border: 1px solid #bbb;
   border-radius: 10px;
   padding: 10px 5px;
-  h3{
-    text-align: center;
-  }
+  text-align: center;
+  box-shadow: 3px 3px 3px rgb(235, 235, 235);
+  background-color: #faffff;
   .btn{
     margin-top: 20px;
     margin-bottom: 20px;
@@ -245,9 +247,11 @@ input, textarea{
 
 /* マイクロポスト */
 .micropost{
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   border: 1px solid #bbb;
   border-radius: 10px;
+  box-shadow: 3px 3px 3px rgb(235, 235, 235);
+  background-color: #faffff;
   .micropost-user{
     display: flex;
     img{
@@ -263,5 +267,24 @@ input, textarea{
     p{
       white-space: pre-wrap;
     }
+  }
+}
+
+/* group */
+.group{
+  background-color: #faffff;
+  .group-head{
+    background-color: rgb(255, 243, 228);
+    border-radius: 10px;
+    display: flex;
+    img{
+      margin: 20px;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+    }
+  }
+  .group-body{
+    margin-left: 20px;
   }
 }

@@ -12,5 +12,6 @@
     <li><%= link_to "フォロワー", "#" %></li>
     <li><%= link_to "主催コミュニティ", owning_user_path(@user) %></li>
     <li><%= link_to "参加コミュニティ", belonging_user_path(@user) %></li>
+    <li>自己紹介：<%= @user.introduction %></li>
   <% end %>
 </div>
