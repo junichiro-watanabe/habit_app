@@ -272,7 +272,7 @@ input, textarea{
 
 /* group */
 .describe{
-  margin-top: 20px;
+  margin: 20px 0 40px 0;
   background-color: #faffff;
   .head{
     background-color: rgb(255, 243, 228);
@@ -298,16 +298,15 @@ input, textarea{
   .body{
     border: 1px solid #bbb;
     border-radius: 10px;
-    box-shadow: 3px 3px 3px rgb(235, 235, 235);
-    background-color: #faffff;
+    background-color: #fbfdff;
     padding: 20px;
+    margin-top: 30px;
   }
 }
 
 /* 達成ボタン */
 .achievement{
   text-align: center;
-  margin-bottom: 30px;
   button{
     margin-top: 10px
   }

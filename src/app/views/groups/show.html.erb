@@ -23,36 +23,6 @@
   })
 %>
 
-<%
-=begin%>
- <div class="group">
-  <div class="group-head jumbotron">
-    <%= image_tag(attached_image(@group)) %>
-    <ol>
-      <li><h3><%= @group.name %></h3><li>
-      <li>主催者：<%= link_to @group.user.name, user_path(@group.user) %></li>
-      <li>メンバー：<%= link_to "#{@group.members.count}人が参加", member_group_path(@group) %></li><br>
-      <%= react_component("Belong", {path: belong_path(@group), belong: current_user.belonging?(@group)}) %>
-    </ol>
-  </div>
-  <div class="group-body">
-    <div>
-      <h3>習慣</h3>
-      <p><%= @group.habit %></p>
-    </div>
-    <div>
-      <h3>概要</h3>
-      <p><%= @group.overview %></p>
-    </div>
-    <% if current_user.belonging?(@group) %>
-      <li><%= react_component("Achievement", {path: achievement_path(@group), achieve: current_user.achieved?(@group)}) %></li>
-    <% end %>
-    <% if @group.owner?(current_user) %>
-      <li><%= link_to "編集する", edit_group_path(@group) %></li>
-      <li><%= link_to "画像変更する", edit_image_group_path(@group) %></li>
-      <li><%= link_to "削除する", delete_group_path(@group) %></li>
-    <% end %>
-  </div>
-</div>
-<%
-=end%>
+<h2>目標達成タイムライン</h2>
+<%= render 'shared/feed_items' %>
+<%= will_paginate @feed_items %>

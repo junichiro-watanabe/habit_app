@@ -42,10 +42,18 @@ class Belong extends React.Component {
     )
   }
 
+  getClass() {
+    if (this.state.belong) {
+      return "btn btn-warning"
+    } else {
+      return "btn btn-default"
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
-        <button onClick={this.state.belong ? this.leave : this.belong}>
+        <button className={this.getClass()} onClick={this.state.belong ? this.leave : this.belong}>
           {this.state.belong ? "脱退する" : "参加する"}
         </button>
       </React.Fragment >
