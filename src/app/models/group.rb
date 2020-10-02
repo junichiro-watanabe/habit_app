@@ -29,8 +29,12 @@ class Group < ApplicationRecord
   end
 
   def feed
-    group_members_ids = "SELECT user_id FROM belongs
-                         WHERE group_id = :group_id"
-    Micropost.where("user_id IN (#{group_members_ids})", group_id: id)
+    belong_ids = "SELECT id FROM belongs
+                  WHERE group_id = :group_id"
+    achievement_ids = "SELECT id FROM achievements
+                       WHERE belong_id IN (#{belong_ids})"
+    history_ids = "SELECT id FROM histories
+                   WHERE achievement_id IN (#{achievement_ids})"
+    Micropost.where("history_id IN (#{history_ids})", group_id: id)
   end
 end
