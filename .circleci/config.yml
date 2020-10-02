@@ -45,7 +45,7 @@ workflows:
       - test
 
       - aws-ecr/build-and-push-image:
-          name: app-build
+          name: web-build
           filters:
             branches:
               only: master
@@ -59,16 +59,16 @@ workflows:
           tag: "${CIRCLE_SHA1}"
 
       - aws-ecs/deploy-service-update:
-          name: app-deploy
+          name: web-deploy
           requires:
-            - app-build
+            - web-build
           family: "ecstest-task"
           cluster-name: "ecstest-cluster"
           service-name: "ecstest-service"
           container-image-name-updates: "container=web,tag=${CIRCLE_SHA1}"
 
       - aws-ecr/build-and-push-image:
-          name: web-build
+          name: app-build
           filters:
             branches:
               only: master
@@ -82,9 +82,9 @@ workflows:
           tag: "${CIRCLE_SHA1}"
 
       - aws-ecs/deploy-service-update:
-          name: web-deploy
+          name: app-deploy
           requires:
-            - web-build
+            - app-build
           family: "ecstest-task"
           cluster-name: "ecstest-cluster"
           service-name: "ecstest-service"
