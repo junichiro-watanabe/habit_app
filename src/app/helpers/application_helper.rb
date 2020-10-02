@@ -1,5 +1,5 @@
 module ApplicationHelper
   def attached_image(model)
-    model.image.attached? ? rails_blob_path(model.image) : "/assets/default-#{model.class.name}.png"
+    model.image.attached? ? url_for(model.image) : "/assets/default-#{model.class.name}.png"
   end
 end
