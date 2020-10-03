@@ -1,0 +1,14 @@
+<div class="row search">
+  <%= form_with(scope: @controller, url: {action: @action}, method: :get, local: true) do |f| %>
+
+    <div class="col-md-8 col-md-offset-2">
+      <%= f.label "検索" %>
+      <%= f.text_field :search, class: "form-controll" %>
+    </div>
+
+    <div class="col-md-6 col-md-offset-3 submit">
+      <%= f.submit "検索開始", class: "btn btn-primary" %>
+    </div>
+
+  <% end %>
+</div>

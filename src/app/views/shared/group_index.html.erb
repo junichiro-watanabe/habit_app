@@ -1,0 +1,9 @@
+<% provide(:title, @title) %>
+<% provide(:page, "group") %>
+
+<div class="index">
+    <h2><%= @heading %></h2>
+    <%= render 'shared/search' %>
+    <%= render 'shared/group_items' %>
+    <%= will_paginate @groups, params: {controller: @controller, action: @action} %>
+</div>
