@@ -4,6 +4,11 @@ class UsersController < ApplicationController
 
   def index
     @users = User.paginate(page: params[:page], per_page: 7)
+    @title = "ユーザ一覧"
+    @heading = "仲間を探す"
+    @controller = ":users"
+    @action = ":index"
+    render 'shared/user_index'
   end
 
   def new

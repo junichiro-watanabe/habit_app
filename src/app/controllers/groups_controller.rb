@@ -83,6 +83,11 @@ class GroupsController < ApplicationController
   def member
     @group = Group.find(params[:id])
     @users = @group.members.paginate(page: params[:page], per_page: 7)
+    @title = "メンバー"
+    @heading = "#{@group.name} の メンバー"
+    @controller = ":groups"
+    @action = ":member"
+    render 'shared/user_index'
   end
 
   private
