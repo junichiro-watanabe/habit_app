@@ -213,7 +213,6 @@ input, textarea{
     margin-bottom: 20px;
   }
   .item{
-    width: 90%;
     border: 1px solid #dadada;
     border-radius: 10px;
     margin-bottom: 20px;
@@ -327,9 +326,15 @@ input, textarea{
   }
 }
 
+/* 達成情報 */
 .achievement-information{
   text-align: center;
   h3{
     margin-top: 0px;
   }
+}
+
+/* 検索 */
+.search{
+  margin-bottom: 10px;
 }
