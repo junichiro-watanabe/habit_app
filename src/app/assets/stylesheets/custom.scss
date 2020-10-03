@@ -212,20 +212,32 @@ input, textarea{
   h2{
     margin-bottom: 20px;
   }
-  .item-info{
-    display: flex;
+  .item{
     width: 90%;
-    height: 150px;
     border: 1px solid #dadada;
     border-radius: 10px;
     margin-bottom: 20px;
     box-shadow: 3px 3px 3px rgb(235, 235, 235);
     background-color: #faffff;
-    img{
-      margin: 20px;
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
+    padding: 10px 20px;
+    a{
+      padding: 0px;
+      margin-top: 10px;
+    }
+    .item-info{
+      display: flex;
+      img{
+        margin: 20px;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+      }
+      h4{
+        margin-top: 20px
+      }
+      .achievement{
+        margin-left: auto;
+      }
     }
   }
 }
@@ -270,7 +282,7 @@ input, textarea{
   }
 }
 
-/* group */
+/* グループ紹介 */
 .describe{
   margin: 20px 0 40px 0;
   background-color: #faffff;
