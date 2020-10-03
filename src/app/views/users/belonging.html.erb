@@ -1,8 +1,0 @@
-<% provide(:title, "参加コミュニティ") %>
-<% provide(:page, "group") %>
-
-<div class="index">
-    <h2><%= "#{@user.name} の参加コミュニティ" %></h2>
-    <%= render 'shared/group_index' %>
-    <%= will_paginate @groups, params: {controller: :users, action: :belonging} %>
-</div>

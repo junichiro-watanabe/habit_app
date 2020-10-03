@@ -375,7 +375,7 @@ RSpec.describe "Users", type: :request do
       expect(logged_in?).to eq true
       get owning_user_path(@user)
       expect(response).to have_http_status(200)
-      expect(response).to render_template 'users/owning'
+      expect(response).to render_template 'users/groups'
     end
 
     it "getリクエスト：ログインしていない" do
@@ -391,7 +391,7 @@ RSpec.describe "Users", type: :request do
       expect(logged_in?).to eq true
       get belonging_user_path(@user)
       expect(response).to have_http_status(200)
-      expect(response).to render_template 'users/belonging'
+      expect(response).to render_template 'users/groups'
     end
 
     it "getリクエスト：ログインしていない" do
