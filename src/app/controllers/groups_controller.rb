@@ -4,6 +4,11 @@ class GroupsController < ApplicationController
 
   def index
     @groups = Group.paginate(page: params[:page], per_page: 7)
+    @title = "コミュニティ一覧"
+    @heading = "コミュニティを探す"
+    @controller = ":groups"
+    @action = ":index"
+    render 'shared/group_index'
   end
 
   def new
