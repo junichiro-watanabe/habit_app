@@ -3,6 +3,7 @@
 <div class="user-profile">
   <% if current_user?(@user) %>
     <% provide(:page, "user_show") %>
+    <%= render 'achievement_information' %>
   <% else %>
     <% provide(:page, "group") %>
     <%= render 'user_introduction' %>

@@ -47,6 +47,16 @@ class User < ApplicationRecord
       end
     end
 
+    def not_achieved
+      not_achieved_list = []
+      belonging.each do |group|
+        unless achieved?(group)
+          not_achieved_list.push(group.id)
+        end
+      end
+      not_achieved_record = Group.where("id IN (?)", not_achieved_list )
+    end
+
     def toggle_achieved(group)
       if achieved?(group)
         @history = History.find_by(achievement: @achievement, date: Date.today)
