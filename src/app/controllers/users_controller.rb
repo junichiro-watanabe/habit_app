@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :edit, :edit_image, :update, :delete, :destroy, :owning, :belonging]
+  before_action :logged_in_user, only: [:index, :show, :edit, :edit_image, :update, :delete, :destroy, :owning, :belonging, :not_achieved]
   before_action :correct_user, only: [:edit, :edit_image, :update, :delete, :destroy]
 
   def index
@@ -82,14 +82,26 @@ class UsersController < ApplicationController
 
   def owning
     @title = "主催コミュニティ"
+    @action = ":owning"
     @user = User.find(params[:id])
     @groups = @user.groups.paginate(page: params[:page], per_page: 7)
+    render 'groups'
   end
 
   def belonging
     @title = "参加コミュニティ"
+    @action = ":belonging"
     @user = User.find(params[:id])
     @groups = @user.belonging.paginate(page: params[:page], per_page: 7)
+    render 'groups'
+  end
+
+  def not_achieved
+    @title = "目標未達コミュニティ"
+    @action = ":not_achieved"
+    @user = User.find(params[:id])
+    @groups = @user.not_achieved.paginate(page: params[:page], per_page: 7)
+    render 'groups'
   end
 
   private
