@@ -2,7 +2,7 @@
 <% provide(:page, "group") %>
 
 <div class="index">
-    <h2><%= "#{@user.name} の#{@title}" %></h2>
+    <h2><%= @heading %></h2>
     <%= render 'shared/group_index' %>
-    <%= eval("will_paginate @groups, params: {controller: :users, action: #{@action}}") %>
+    <%= eval("will_paginate @groups, params: {controller: #{@controller}, action: #{@action}}") %>
 </div>

@@ -19,7 +19,7 @@ RSpec.describe "Groups", type: :request do
       expect(logged_in?).to eq true
       get groups_path
       expect(response).to have_http_status(200)
-      expect(response).to render_template 'groups/index'
+      expect(response).to render_template 'shared/group_index'
     end
 
     it "getリクエスト：ログインしていない" do
@@ -354,7 +354,7 @@ RSpec.describe "Groups", type: :request do
       expect(logged_in?).to eq true
       get member_group_path(@group)
       expect(response).to have_http_status(200)
-      expect(response).to render_template 'groups/member'
+      expect(response).to render_template 'shared/user_index'
     end
 
     it "getリクエスト：ログインしていない" do

@@ -4,6 +4,17 @@ class UsersController < ApplicationController
 
   def index
     @users = User.paginate(page: params[:page], per_page: 7)
+    @title = "ユーザ一覧"
+    @heading = "仲間を探す"
+    @controller = :users
+    @action = :index
+    if params[:users] == nil
+      @users = User.paginate(page: params[:page], per_page: 7)
+    else
+      keyword = params[:users][:search]
+      @users = User.where("concat(name, introduction) LIKE :keyword", keyword: "%#{keyword}%").paginate(page: params[:page], per_page: 7)
+    end
+    render 'shared/user_index'
   end
 
   def new
@@ -81,33 +92,54 @@ class UsersController < ApplicationController
   end
 
   def owning
-    @title = "主催コミュニティ"
-    @action = ":owning"
     @user = User.find(params[:id])
-    @groups = @user.groups.paginate(page: params[:page], per_page: 7)
-    render 'groups'
+    @title = "主催コミュニティ"
+    @heading = "#{@user.name} の #{@title}"
+    @controller = :users
+    @action = :owning
+    if params[:users] == nil
+      @groups = @user.groups.paginate(page: params[:page], per_page: 7)
+    else
+      keyword = params[:users][:search]
+      @groups = @user.groups.where("concat(name, habit, overview) LIKE :keyword", keyword: "%#{keyword}%").paginate(page: params[:page], per_page: 7)
+    end
+    render 'shared/group_index'
   end
 
   def belonging
-    @title = "参加コミュニティ"
-    @action = ":belonging"
     @user = User.find(params[:id])
-    @groups = @user.belonging.paginate(page: params[:page], per_page: 7)
-    render 'groups'
+    @title = "参加コミュニティ"
+    @heading = "#{@user.name} の #{@title}"
+    @controller = :users
+    @action = :belonging
+    if params[:users] == nil
+      @groups = @user.belonging.paginate(page: params[:page], per_page: 7)
+    else
+      keyword = params[:users][:search]
+      @groups = @user.belonging.where("concat(name, habit, overview) LIKE :keyword", keyword: "%#{keyword}%").paginate(page: params[:page], per_page: 7)
+    end
+    render 'shared/group_index'
   end
 
   def not_achieved
-    @title = "目標未達コミュニティ"
-    @action = ":not_achieved"
     @user = User.find(params[:id])
-    @groups = @user.not_achieved.paginate(page: params[:page], per_page: 7)
-    render 'groups'
+    @title = "目標未達コミュニティ"
+    @heading = "#{@user.name} の #{@title}"
+    @controller = :users
+    @action = :not_achieved
+    if params[:users] == nil
+      @groups = @user.not_achieved.paginate(page: params[:page], per_page: 7)
+    else
+      keyword = params[:users][:search]
+      @groups = @user.not_achieved.where("concat(name, habit, overview) LIKE :keyword", keyword: "%#{keyword}%").paginate(page: params[:page], per_page: 7)
+    end
+    render 'shared/group_index'
   end
 
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :introduction, :password, :password_confirmation)
     end
 
     def correct_user
