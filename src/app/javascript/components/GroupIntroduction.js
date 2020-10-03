@@ -64,7 +64,8 @@ class GroupIntroduction extends React.Component {
                   {this.state.achieved ? <a class="alert alert-success">達成</a> : <a className="alert alert-danger">未達</a>}
                   です！
                 </h3>
-                <Achievement path={this.props.achievement_path}
+                <Achievement
+                  path={this.props.achievement_path}
                   achieved={this.state.achieved}
                   setAchieved={this.setAchieved} />
               </React.Fragment> :
