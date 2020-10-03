@@ -81,27 +81,33 @@ class UsersController < ApplicationController
   end
 
   def owning
-    @title = "主催コミュニティ"
-    @action = ":owning"
     @user = User.find(params[:id])
+    @title = "主催コミュニティ"
+    @heading = "#{@user.name} の #{@title}"
+    @controller = ":users"
+    @action = ":owning"
     @groups = @user.groups.paginate(page: params[:page], per_page: 7)
-    render 'groups'
+    render 'shared/group_index'
   end
 
   def belonging
-    @title = "参加コミュニティ"
-    @action = ":belonging"
     @user = User.find(params[:id])
+    @title = "参加コミュニティ"
+    @heading = "#{@user.name} の #{@title}"
+    @controller = ":users"
+    @action = ":belonging"
     @groups = @user.belonging.paginate(page: params[:page], per_page: 7)
-    render 'groups'
+    render 'shared/group_index'
   end
 
   def not_achieved
-    @title = "目標未達コミュニティ"
-    @action = ":not_achieved"
     @user = User.find(params[:id])
+    @title = "目標未達コミュニティ"
+    @heading = "#{@user.name} の #{@title}"
+    @controller = ":users"
+    @action = ":not_achieved"
     @groups = @user.not_achieved.paginate(page: params[:page], per_page: 7)
-    render 'groups'
+    render 'shared/group_index'
   end
 
   private
