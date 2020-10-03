@@ -18,7 +18,7 @@ RSpec.describe "Users", type: :request do
       expect(logged_in?).to eq true
       get users_path
       expect(response).to have_http_status(200)
-      expect(response).to render_template 'users/index'
+      expect(response).to render_template 'shared/user_index'
     end
 
     it "getリクエスト：ログインしていない" do

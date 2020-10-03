@@ -1,0 +1,8 @@
+<% provide(:title, @title) %>
+<% provide(:page, "group") %>
+
+<div class="index">
+    <h2><%= @heading %></h2>
+    <%= render 'shared/user_items' %>
+    <%= eval("will_paginate @users, params: {controller: #{@controller}, action: #{@action}}") %>
+</div>
