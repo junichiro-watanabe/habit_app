@@ -3,11 +3,16 @@ class GroupsController < ApplicationController
   before_action :owner_user, only: [:edit, :edit_image, :update, :delete, :destroy]
 
   def index
-    @groups = Group.paginate(page: params[:page], per_page: 7)
     @title = "コミュニティ一覧"
     @heading = "コミュニティを探す"
-    @controller = ":groups"
-    @action = ":index"
+    @controller = :groups
+    @action = :index
+    if params[:groups] == nil
+      @groups = Group.paginate(page: params[:page], per_page: 7)
+    else
+      keyword = params[:groups][:search]
+      @groups = Group.where("concat(name, habit, overview) LIKE :keyword", keyword: "%#{keyword}%").paginate(page: params[:page], per_page: 7)
+    end
     render 'shared/group_index'
   end
 
@@ -82,11 +87,16 @@ class GroupsController < ApplicationController
 
   def member
     @group = Group.find(params[:id])
-    @users = @group.members.paginate(page: params[:page], per_page: 7)
     @title = "メンバー"
     @heading = "#{@group.name} の メンバー"
-    @controller = ":groups"
-    @action = ":member"
+    @controller = :groups
+    @action = :member
+    if params[:groups] == nil
+      @users = @group.members.paginate(page: params[:page], per_page: 7)
+    else
+      keyword = params[:groups][:search]
+      @users = @group.members.where("concat(name, introduction) LIKE :keyword", keyword: "%#{keyword}%").paginate(page: params[:page], per_page: 7)
+    end
     render 'shared/user_index'
   end
 

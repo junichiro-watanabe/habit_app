@@ -3,6 +3,7 @@
 
 <div class="index">
     <h2><%= @heading %></h2>
+    <%= render 'shared/search' %>
     <%= render 'shared/group_items' %>
-    <%= eval("will_paginate @groups, params: {controller: #{@controller}, action: #{@action}}") %>
+    <%= will_paginate @groups, params: {controller: @controller, action: @action} %>
 </div>
