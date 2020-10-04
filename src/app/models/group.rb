@@ -35,6 +35,6 @@ class Group < ApplicationRecord
                        WHERE belong_id IN (#{belong_ids})"
     history_ids = "SELECT id FROM histories
                    WHERE achievement_id IN (#{achievement_ids})"
-    Micropost.where("history_id IN (#{history_ids})", group_id: id)
+    Micropost.where("history_id IN (#{history_ids})", group_id: id).order("created_at DESC")
   end
 end
