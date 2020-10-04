@@ -64,7 +64,7 @@ class User < ApplicationRecord
       else
         if @achievement.histories.find_by(date: Date.today) == nil
           @history = @achievement.histories.create(date: Date.today)
-          @history.create_micropost(user: self, content: "#{@history.date} 分の <a href=\"/groups/#{group.id}\">#{group.name}</a> の目標を達成しました。\n目標：#{group.habit}")
+          @history.microposts.create(user: self, content: "#{@history.date} 分の <a href=\"/groups/#{group.id}\">#{group.name}</a> の目標を達成しました。\n目標：#{group.habit}")
         end
       end
       @achievement.toggle!(:achieved) if self.belonging?(group)

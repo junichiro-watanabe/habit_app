@@ -1,11 +1,6 @@
 <div class="timeline-information">
- <% if current_user.not_achieved.count == 0 %>
-    <div class="alert alert-success">
-      <h3>今日の目標は全て達成しました。</h3>
-      <h4>お疲れさまでした！</h4>
-    </div>
-  <% else %>
-    <div class="alert alert-danger">
+ <% unless false %>
+    <div class="alert alert-warning">
       <h3>未達成の目標が <b><%= link_to current_user.not_achieved.count, not_achieved_user_path(current_user) %></b> 個あります。</h3>
       <h4>今日も目標達成できるように頑張りましょう！</h4>
     </div>

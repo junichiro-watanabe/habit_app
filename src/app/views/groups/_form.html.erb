@@ -8,13 +8,13 @@
       <h2><%= yield(:page_name) %></h2>
       <%= render 'shared/error_messages', object: f.object %>
 
-      <%= f.label "コミュニティ名を入力してください" %>
+      <%= f.label :name, "コミュニティ名を入力してください" %>
       <%= f.text_field :name, class: "form-controll" %>
 
-      <%= f.label "仲間と継続したい習慣を入力してください" %>
+      <%= f.label :habit, "仲間と継続したい習慣を入力してください" %>
       <%= f.text_field :habit, class: "form-controll" %>
 
-      <%= f.label "コミュニティの概要を入力してください" %>
+      <%= f.label :overview, "コミュニティの概要を入力してください" %>
       <%= f.text_area :overview, class: "form-controll" %>
     </div>
 

@@ -1,12 +1,17 @@
 <% if @feed_items.length != 0 %>
   <% @feed_items.each do |feed_item| %>
     <li>
-      <%= react_component("Micropost", { user_image: attached_image(feed_item.user),
-                                        user_name: feed_item.user.name,
-                                        user_path: user_path(feed_item.user),
-                                        content: feed_item.content,
-                                        time: "Posted #{time_ago_in_words(feed_item.created_at)} ago",
-                                        history: feed_item.history }) %>
+      <%= react_component("Micropost",
+      { user_image: attached_image(feed_item.user),
+        user_name: feed_item.user.name,
+        user_path: user_path(feed_item.user),
+        group_name: feed_item.history.achievement.belong.group.name,
+        group_path: group_path(feed_item.history.achievement.belong.group),
+        content: feed_item.content,
+        time: "Posted #{time_ago_in_words(feed_item.created_at)} ago",
+        history: feed_item.history,
+        encouragement: feed_item.encouragement
+      }) %>
     </li>
   <% end %>
 <% else %>

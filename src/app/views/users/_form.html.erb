@@ -9,23 +9,23 @@
       <%= render 'shared/error_messages', object: f.object %>
 
       <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-      <%= f.label "ユーザ名" %>
+      <%= f.label :name, "ユーザ名" %>
       <%= f.text_field :name, class: "form-controll"%>
 
       <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-      <%= f.label "メールアドレス" %>
+      <%= f.label :email, "メールアドレス" %>
       <%= f.email_field :email, class: "form-controll" %>
 
       <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-      <%= f.label "自己紹介" %>
+      <%= f.label :introduction, "自己紹介" %>
       <%= f.text_area :introduction, class: "form-controll" %>
 
       <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-      <%= f.label "パスワード" %>
+      <%= f.label :password, "パスワード" %>
       <%= f.password_field :password, class: "form-controll" %>
 
       <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-      <%= f.label "パスワード確認" %>
+      <%= f.label :password_confirmation, "パスワード確認" %>
       <%= f.password_field :password_confirmation, class: "form-controll" %>
     </div>
 
