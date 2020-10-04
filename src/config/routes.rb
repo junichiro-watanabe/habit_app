@@ -22,4 +22,9 @@ Rails.application.routes.draw do
   end
   resources :belongs, only: [:update, :destroy, :show]
   resources :achievements, only: [:update]
+  resources :achievements do
+    member do
+      post :encourage
+    end
+  end
 end
