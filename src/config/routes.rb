@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :users
   resources :users do
     member do
-      get :edit_image, :delete, :owning, :belonging, :not_achieved
+      get :edit_image, :delete, :owning, :belonging, :not_achieved, :encouraged
     end
   end
   get '/create_group', to: 'groups#new'

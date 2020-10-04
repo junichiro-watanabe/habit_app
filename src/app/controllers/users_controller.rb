@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :edit, :edit_image, :update, :delete, :destroy, :owning, :belonging, :not_achieved]
+  before_action :logged_in_user, only: [:index, :show, :edit, :edit_image, :update, :delete, :destroy, :owning, :belonging, :not_achieved, :encouraged]
   before_action :correct_user, only: [:edit, :edit_image, :update, :delete, :destroy]
 
   def index
@@ -134,6 +134,12 @@ class UsersController < ApplicationController
       @groups = @user.not_achieved.where("concat(name, habit, overview) LIKE :keyword", keyword: "%#{keyword}%").paginate(page: params[:page], per_page: 7)
     end
     render 'shared/group_index'
+  end
+
+  def encouraged
+    @user = User.find(params[:id])
+    @feed_items = @user.encouraged_feed.paginate(page: params[:page], per_page: 7)
+    render 'show'
   end
 
   private
