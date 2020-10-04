@@ -2,6 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import Belong from "./Belong"
 import Achievement from "./Achievement"
+import Encouragement from "./Encouragement"
 class GroupIntroduction extends React.Component {
   constructor(props) {
     super(props);
@@ -71,6 +72,13 @@ class GroupIntroduction extends React.Component {
               </React.Fragment> :
               null}
           </div>
+          <div className="encouragement">
+            {this.state.achieved ?
+              <React.Fragment>
+                <Encouragement path={this.props.encouragement_path} />
+              </React.Fragment> :
+              null}
+          </div>
           <div className="body">
             <div>
               <h3>習慣</h3>
@@ -104,7 +112,8 @@ GroupIntroduction.propTypes = {
   delete_group_path: PropTypes.string,
   belong: PropTypes.bool,
   achieved: PropTypes.bool,
-  owner: PropTypes.bool
+  owner: PropTypes.bool,
+  encouragement_path: PropTypes.string
 };
 
 export default GroupIntroduction
