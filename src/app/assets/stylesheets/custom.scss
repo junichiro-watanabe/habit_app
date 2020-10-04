@@ -326,8 +326,21 @@ input, textarea{
   }
 }
 
-/* 達成情報 */
-.achievement-information{
+/* 煽り機能 */
+.encouragement{
+  margin-top: 20px;
+}
+
+.encouragement-micropost{
+  background-color: rgb(255, 243, 220);
+}
+
+.glyphicon-fire{
+  color: red;
+}
+
+/* タイムライン表示 */
+.timeline-information{
   text-align: center;
   h3{
     margin-top: 0px;

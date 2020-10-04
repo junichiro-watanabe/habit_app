@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_27_064915) do
+ActiveRecord::Schema.define(version: 2020_10_03_223806) do
 
   create_table "achievements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "belong_id", null: false
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2020_09_27_064915) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "history_id", null: false
+    t.boolean "encouragement", default: false
     t.index ["history_id"], name: "index_microposts_on_history_id"
     t.index ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_microposts_on_user_id"

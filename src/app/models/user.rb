@@ -64,7 +64,7 @@ class User < ApplicationRecord
       else
         if @achievement.histories.find_by(date: Date.today) == nil
           @history = @achievement.histories.create(date: Date.today)
-          @history.create_micropost(user: self, content: "#{@history.date} 分の <a href=\"/groups/#{group.id}\">#{group.name}</a> の目標を達成しました。\n目標：#{group.habit}")
+          @history.microposts.create(user: self, content: "#{@history.date} 分の <a href=\"/groups/#{group.id}\">#{group.name}</a> の目標を達成しました。\n目標：#{group.habit}")
         end
       end
       @achievement.toggle!(:achieved) if self.belonging?(group)
@@ -76,6 +76,15 @@ class User < ApplicationRecord
       group_members_ids = "SELECT user_id FROM belongs
                            WHERE group_id IN (#{group_ids})"
       Micropost.where("user_id IN (#{group_members_ids}) OR user_id = :user_id", user_id: id)
+    end
+
+    def encouraged_feed
+      group_ids = "SELECT group_id FROM belongs
+                   WHERE user_id = :user_id"
+      group_members_ids = "SELECT user_id FROM belongs
+                           WHERE group_id IN (#{group_ids})
+                           AND user_id != :user_id"
+      Micropost.where("user_id IN (#{group_members_ids}) AND encouragement = true", user_id: id)
     end
 
 end
