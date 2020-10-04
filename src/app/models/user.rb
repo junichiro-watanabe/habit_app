@@ -75,7 +75,9 @@ class User < ApplicationRecord
                    WHERE user_id = :user_id"
       group_members_ids = "SELECT user_id FROM belongs
                            WHERE group_id IN (#{group_ids})"
-      Micropost.where("user_id IN (#{group_members_ids}) OR user_id = :user_id", user_id: id)
+      Micropost.where("user_id IN (#{group_members_ids})
+                       OR user_id = :user_id",
+                       user_id: id).order("created_at DESC")
     end
 
     def encouraged_feed
@@ -84,7 +86,16 @@ class User < ApplicationRecord
       group_members_ids = "SELECT user_id FROM belongs
                            WHERE group_id IN (#{group_ids})
                            AND user_id != :user_id"
-      Micropost.where("user_id IN (#{group_members_ids}) AND encouragement = true", user_id: id)
+      belong_ids = "SELECT id FROM belongs
+                    WHERE user_id IN (#{group_members_ids})"
+      achievement_ids = "SELECT id FROM achievements
+                         WHERE belong_id IN (#{belong_ids})"
+      history_ids = "SELECT id FROM histories
+                     WHERE achievement_id IN (#{achievement_ids})
+                     AND date = :today"
+      Micropost.where("history_id IN (#{history_ids})
+                       AND encouragement = true",
+                       user_id: id, today: Date.today).order("created_at DESC")
     end
 
 end
