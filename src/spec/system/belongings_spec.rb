@@ -93,19 +93,28 @@ RSpec.describe "Belongings", type: :system do
   end
 
   describe "参加/脱退のテスト" do
-    it "参加する　→　脱退する" do
+    it "参加する　→　目標達成項目表示 → 脱退する → 目標達成項目非表示" do
       log_in_as_system(@user)
       visit group_path(@group_10)
       expect(page).to have_button "参加する"
       expect(page).not_to have_button "脱退する"
+      expect(page).not_to have_content "このコミュニティに参加しています"
+      expect(page).not_to have_content "本日の目標は未達です！"
+      expect(page).not_to have_button "達成状況の変更"
       click_button "参加する"
       expect(current_path).to eq group_path(@group_10)
       expect(page).not_to have_button "参加する"
       expect(page).to have_button "脱退する"
+      expect(page).to have_content "このコミュニティに参加しています"
+      expect(page).to have_content "本日の目標は未達です！"
+      expect(page).to have_button "達成状況の変更"
       click_button "脱退する"
       expect(current_path).to eq group_path(@group_10)
       expect(page).to have_button "参加する"
       expect(page).not_to have_button "脱退する"
+      expect(page).not_to have_content "このコミュニティに参加しています"
+      expect(page).not_to have_content "本日の目標は未達です！"
+      expect(page).not_to have_button "達成状況の変更"
     end
   end
 end
