@@ -18,6 +18,7 @@ RSpec.describe "UsersIndex", type: :system do
       users = User.paginate(page: 1, per_page: 7)
       users.each do |user|
         expect(page).to have_link user.name, href: user_path(user)
+        expect(page).to have_content user.introduction
       end
     end
 

@@ -18,14 +18,20 @@ RSpec.describe "Achievements", type: :system do
       visit group_path(@group)
       expect(page).not_to have_content "本日の目標は達成です！"
       expect(page).to have_content "本日の目標は未達です！"
+      expect(page).not_to have_selector "#encouragement"
+      expect(page).not_to have_button "煽る"
       click_button "達成状況の変更"
       expect(current_path).to eq group_path(@group)
       expect(page).to have_content "本日の目標は達成です！"
       expect(page).not_to have_content "本日の目標は未達です！"
+      expect(page).to have_selector "#encouragement"
+      expect(page).to have_button "煽る"
       click_button "達成状況の変更"
       expect(current_path).to eq group_path(@group)
       expect(page).not_to have_content "本日の目標は達成です！"
       expect(page).to have_content "本日の目標は未達です！"
+      expect(page).not_to have_selector "#encouragement"
+      expect(page).not_to have_button "煽る"
     end
 
     it "所属していないユーザ" do

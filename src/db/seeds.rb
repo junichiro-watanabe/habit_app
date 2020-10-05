@@ -26,7 +26,7 @@ User.create!(name: "ゲストユーザ",
 
 (users_json.length).times do |n|
   user = User.create!(name: Faker::Name.name,
-                     email: "test#{n+1}@example.com",
+                     email: "test#{n + 2}@example.com",
                      introduction: users_json[n]["introduction"],
                      password: "password",
                      password_confirmation: "password")

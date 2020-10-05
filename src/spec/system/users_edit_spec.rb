@@ -13,6 +13,7 @@ RSpec.describe "UsersEdit", type: :system do
       visit edit_user_path(@user)
       fill_in "user_name", with: "valid_name"
       fill_in "user_email", with: "valid_email@valid.com"
+      fill_in "user_introduction", with: "valid_introduction"
       fill_in "user_password", with: "password"
       fill_in "user_password_confirmation", with: "password"
       click_button "編集する"
@@ -25,6 +26,7 @@ RSpec.describe "UsersEdit", type: :system do
       visit edit_user_path(@user)
       fill_in "user_name", with: ""
       fill_in "user_email", with: ""
+      fill_in "user_introduction", with: ""
       fill_in "user_password", with: "password"
       fill_in "user_password_confirmation", with: "password"
       click_button "編集する"
@@ -41,6 +43,7 @@ RSpec.describe "UsersEdit", type: :system do
       expect(current_path).to eq edit_user_path(@user)
       fill_in "user_name", with: "valid_name"
       fill_in "user_email", with: "valid_email@valid.com"
+      fill_in "user_introduction", with: "valid_introduction"
       fill_in "user_password", with: "password"
       fill_in "user_password_confirmation", with: "password"
       click_button "編集する"
