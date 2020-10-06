@@ -2,7 +2,7 @@
 <% provide(:page, "group") %>
 
 <%= react_component("GroupIntroduction",
-  {
+  { group_id: @group.id,
     group_image: attached_image(@group),
     group_name: @group.name,
     group_path: group_path(@group),

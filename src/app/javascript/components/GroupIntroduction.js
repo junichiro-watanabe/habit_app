@@ -40,7 +40,9 @@ class GroupIntroduction extends React.Component {
                 <li><h3>{this.props.group_name}</h3></li>
                 <li>オーナー：<a href={this.props.owner_path}>{this.props.owner_name}</a></li>
                 <li>メンバー：<a href={this.props.member_path}>{this.state.memberCount}人が参加</a></li><br />
-                <Belong path={this.props.belong_path}
+                <Belong
+                  id={this.props.group_id}
+                  path={this.props.belong_path}
                   belong={this.state.belong}
                   memberCount={this.state.memberCount}
                   setBelong={this.setBelong}
@@ -66,6 +68,7 @@ class GroupIntroduction extends React.Component {
                   です！
                 </h3>
                 <Achievement
+                  id={this.props.group_id}
                   path={this.props.achievement_path}
                   achieved={this.state.achieved}
                   setAchieved={this.setAchieved} />
@@ -96,6 +99,7 @@ class GroupIntroduction extends React.Component {
 }
 
 GroupIntroduction.propTypes = {
+  group_id: PropTypes.number,
   group_image: PropTypes.string,
   group_name: PropTypes.string,
   group_path: PropTypes.string,

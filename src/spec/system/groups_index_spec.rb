@@ -18,6 +18,9 @@ RSpec.describe "GroupsIndex", type: :system do
       groups = Group.paginate(page: 1, per_page: 7)
       groups.each do |group|
         expect(page).to have_link group.name, href: group_path(group)
+        expect(page).to have_link group.user.name, href: user_path(group.user)
+        expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
+        expect(page).to have_content group.habit
       end
     end
 
@@ -28,6 +31,13 @@ RSpec.describe "GroupsIndex", type: :system do
       fill_in "session_password", with: "password"
       click_button "ログイン"
       expect(current_path).to eq groups_path
+      groups = Group.paginate(page: 1, per_page: 7)
+      groups.each do |group|
+        expect(page).to have_link group.name, href: group_path(group)
+        expect(page).to have_link group.user.name, href: user_path(group.user)
+        expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
+        expect(page).to have_content group.habit
+      end
     end
   end
 end
