@@ -20,6 +20,8 @@ class AchievementsController < ApplicationController
       flash[:success] = "#{@group.name} のメンバーを煽りました"
       redirect_to @group
     else
+      @feed_items = @group.feed.paginate(page: params[:page], per_page: 7)
+      flash.now[:danger] = "煽りに失敗しました"
       render 'groups/show'
     end
   end
