@@ -112,6 +112,7 @@ RSpec.describe "Belongings", type: :system do
     it "参加する　→　目標達成項目表示 → 脱退する → 目標達成項目非表示" do
       log_in_as_system(@user)
       visit group_path(@group_10)
+      expect(current_path).to eq group_path(@group_10)
       expect(page).to have_button "参加する"
       expect(page).not_to have_button "脱退する"
       expect(page).to have_selector "#belong_#{@group_10.id}"
@@ -141,12 +142,58 @@ RSpec.describe "Belongings", type: :system do
   end
 
   describe "未達成コミュニティ一覧のテスト" do
-    it "本日分のマイページで未達成コミュニティ数が表示される → 一覧が正常に表示されている → 全て達成" do
-
+    it "本日分のマイページで未達成コミュニティ数が表示される → 一覧が正常に表示されている → 全て達成 → 次の日にはリセット" do
+      log_in_as_system(@user_1)
+      visit user_path(@user_1)
+      expect(current_path).to eq user_path(@user_1)
+      expect(page).to have_link @user_1.not_achieved.count.to_s, href: not_achieved_user_path(@user_1)
+      click_link @user_1.not_achieved.count.to_s
+      expect(current_path).to eq not_achieved_user_path(@user_1)
+      groups = @user_1.not_achieved.paginate(page: 1, per_page: 7)
+      groups.each do |group|
+        expect(page).to have_link group.name, href: group_path(group)
+        expect(page).to have_link group.user.name, href: user_path(group.user)
+        expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
+        expect(page).to have_content group.habit
+        expect(page).to have_selector "#achieve_#{group.id}"
+        click_button "achieve_#{group.id}"
+      end
+      visit current_path
+      groups = @user_1.not_achieved.paginate(page: 1, per_page: 7)
+      groups.each do |group|
+        expect(page).to have_link group.name, href: group_path(group)
+        expect(page).to have_link group.user.name, href: user_path(group.user)
+        expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
+        expect(page).to have_content group.habit
+        expect(page).to have_selector "#achieve_#{group.id}"
+        click_button "achieve_#{group.id}"
+      end
+      visit user_path(@user_1)
+      expect(current_path).to eq user_path(@user_1)
+      expect(page).to have_content "今日の目標は全て達成しました"
+      travel_to(Date.tomorrow) do
+        visit user_path(@user_1)
+        expect(current_path).to eq user_path(@user_1)
+        expect(page).to have_link @user_1.not_achieved.count.to_s, href: not_achieved_user_path(@user_1)
+      end
     end
 
     it "フレンドリーフォロワーディング" do
-
+      visit not_achieved_user_path(@user_1)
+      expect(current_path).to eq login_path
+      fill_in "session_email", with: @user_1.email
+      fill_in "session_password", with: "password"
+      click_button "ログイン"
+      expect(current_path).to eq not_achieved_user_path(@user_1)
+      groups = @user_1.not_achieved.paginate(page: 1, per_page: 7)
+      groups.each do |group|
+        expect(page).to have_link group.name, href: group_path(group)
+        expect(page).to have_link group.user.name, href: user_path(group.user)
+        expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
+        expect(page).to have_content group.habit
+        expect(page).to have_selector "#achieve_#{group.id}"
+      end
     end
+
   end
 end
