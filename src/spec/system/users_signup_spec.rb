@@ -7,6 +7,7 @@ RSpec.describe "UsersSignup", type: :system do
       expect(current_path).to eq signup_path
       fill_in "user_name", with: "valid_user"
       fill_in "user_email", with: "valid_user@valid.com"
+      fill_in "user_introduction", with: "valid_introduction"
       fill_in "user_password", with: "password"
       fill_in "user_password_confirmation", with: "password"
       click_button "新規登録"
@@ -20,6 +21,7 @@ RSpec.describe "UsersSignup", type: :system do
       expect(current_path).to eq signup_path
       fill_in "user_name", with: ""
       fill_in "user_email", with: ""
+      fill_in "user_introduction", with: ""
       fill_in "user_password", with: "password"
       fill_in "user_password_confirmation", with: "password"
       click_button "新規登録"
