@@ -41,6 +41,7 @@ RSpec.describe "Users", type: :request do
       expect{ post users_path,
               params: {user: {name: "valid_user",
                                email: "valid_email@valid.com",
+                               introduction: "valid_introduction",
                                password: "valid_password",
                                password_confirmation: "valid_password"}}
       }.to change{ User.count }.by(+1)
@@ -53,6 +54,7 @@ RSpec.describe "Users", type: :request do
       expect{ post users_path,
               params: {user: {name: "",
                               email: "",
+                              introduction: "",
                               password: "",
                               password_confirmation: ""}}
       }.to change{ User.count }.by(+0)
@@ -64,6 +66,7 @@ RSpec.describe "Users", type: :request do
       expect{ post users_path,
               params: {user: {name: "test",
                                email: "user@example.com",
+                               introduction: "valid_introduction",
                                password: "password",
                                password_confirmation: "password"}}
       }.to change{ User.count }.by(+0)
@@ -75,6 +78,7 @@ RSpec.describe "Users", type: :request do
       expect{ post users_path,
               params: {user: {name: "test",
                                email: "hogehoge@example.com",
+                               introduction: "valid_introduction",
                                password: "password",
                                password_confirmation: "p@ssw0rd"}}
       }.to change{ User.count }.by(+0)
@@ -159,6 +163,7 @@ RSpec.describe "Users", type: :request do
             params: {edit_element: "profile",
                      user: {name: name,
                             email: email,
+                            introduction: "valid_introduction",
                             password: "valid_password",
                             password_confirmation: "valid_password"}}
       expect(response).to redirect_to user_path(@user)
@@ -174,6 +179,7 @@ RSpec.describe "Users", type: :request do
             params: {edit_element: "profile",
                      user: {name: "",
                             email: "",
+                            introduction: "",
                             password: "",
                             password_confirmation: ""}}
       expect(response).to render_template 'users/edit'
@@ -187,6 +193,7 @@ RSpec.describe "Users", type: :request do
             params: {edit_element: "profile",
                      user: {name: "test",
                             email: "other_user@example.com",
+                            introduction: "valid_introduction",
                             password: "password",
                             password_confirmation: "password"}}
       expect(response).to render_template 'users/edit'
@@ -200,6 +207,7 @@ RSpec.describe "Users", type: :request do
             params: {edit_element: "profile",
                      user: {name: "test",
                             email: "hogehoge@example.com",
+                            introduction: "valid_introduction",
                             password: "password",
                             password_confirmation: "p@ssw0rd"}}
       expect(response).to render_template 'users/edit'
@@ -215,6 +223,7 @@ RSpec.describe "Users", type: :request do
             params: {edit_element: "profile",
                      user: {name: name,
                             email: email,
+                            introduction: "valid_introduction",
                             password: "valid_password",
                             password_confirmation: "valid_password"}}
       expect(response).to redirect_to login_path
@@ -232,6 +241,7 @@ RSpec.describe "Users", type: :request do
             params: {edit_element: "profile",
                      user: {name: name,
                             email: email,
+                            introduction: "valid_introduction",
                             password: "valid_password",
                             password_confirmation: "valid_password"}}
       expect(response).to redirect_to root_path
@@ -396,6 +406,38 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get belonging_user_path(@user)
+      expect(response).to redirect_to login_path
+      expect(flash.any?).to eq true
+    end
+  end
+
+  describe "not_achievedのテスト" do
+    it "getリクエスト：ログイン状態" do
+      log_in_as(@user)
+      expect(logged_in?).to eq true
+      get not_achieved_user_path(@user)
+      expect(response).to have_http_status(200)
+      expect(response).to render_template 'shared/group_index'
+    end
+
+    it "getリクエスト：ログインしていない" do
+      get not_achieved_user_path(@user)
+      expect(response).to redirect_to login_path
+      expect(flash.any?).to eq true
+    end
+  end
+
+  describe "encouragedのテスト" do
+    it "getリクエスト：ログイン状態" do
+      log_in_as(@user)
+      expect(logged_in?).to eq true
+      get encouraged_user_path(@user)
+      expect(response).to have_http_status(200)
+      expect(response).to render_template 'show'
+    end
+
+    it "getリクエスト：ログインしていない" do
+      get encouraged_user_path(@user)
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
     end

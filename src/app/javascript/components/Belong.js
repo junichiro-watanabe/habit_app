@@ -53,7 +53,7 @@ class Belong extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button className={this.getClass()} onClick={this.state.belong ? this.leave : this.belong}>
+        <button id={"belong_" + this.props.id} className={this.getClass()} onClick={this.state.belong ? this.leave : this.belong}>
           {this.state.belong ? "脱退する" : "参加する"}
         </button>
       </React.Fragment >
@@ -62,6 +62,7 @@ class Belong extends React.Component {
 }
 
 Belong.propTypes = {
+  id: PropTypes.number,
   path: PropTypes.string,
   belong: PropTypes.bool
 };

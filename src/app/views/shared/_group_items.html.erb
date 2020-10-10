@@ -1,17 +1,18 @@
 <% if @groups.length != 0 %>
   <% @groups.each do |group| %>
     <li>
-      <%= react_component("Group", { group_image: attached_image(group),
-                                    group_name: group.name,
-                                    group_path: group_path(group),
-                                    group_habit: group.habit,
-                                    achievement_path: achievement_path(group),
-                                    owner_name: group.user.name,
-                                    owner_path: user_path(group.user),
-                                    member_path: member_group_path(group),
-                                    member_count: group.members.count,
-                                    belong: current_user.belonging?(group),
-                                    achieved: current_user.achieved?(group) }) %>
+      <%= react_component("Group", { group_id: group.id,
+                                     group_image: attached_image(group),
+                                     group_name: group.name,
+                                     group_path: group_path(group),
+                                     group_habit: group.habit,
+                                     achievement_path: achievement_path(group),
+                                     owner_name: group.user.name,
+                                     owner_path: user_path(group.user),
+                                     member_path: member_group_path(group),
+                                     member_count: group.members.count,
+                                     belong: current_user.belonging?(group),
+                                     achieved: current_user.achieved?(group) }) %>
     </li>
   <% end %>
 <% else %>
