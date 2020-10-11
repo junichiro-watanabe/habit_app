@@ -1,29 +1,26 @@
 <% provide(:title, @group.name) %>
 <% provide(:page, "group") %>
 
-<%= react_component("GroupIntroduction",
-  { group_id: @group.id,
-    group_image: attached_image(@group),
-    group_name: @group.name,
-    group_path: group_path(@group),
-    owner_name: @group.user.name,
-    owner_path: user_path(@group.user),
-    member_path: member_group_path(@group),
-    member_count: @group.members.count,
-    group_habit: @group.habit,
-    group_overview: @group.overview,
-    belong_path: belong_path(@group),
-    achievement_path: achievement_path(@group),
-    edit_group_path: edit_group_path(@group),
-    edit_image_group_path: edit_image_group_path(@group),
-    delete_group_path: delete_group_path(@group),
-    belong: current_user.belonging?(@group),
-    achieved: current_user.achieved?(@group),
-    owner: @group.owner?(current_user),
-    encouragement_path: encourage_achievement_path(@group)
-  })
-%>
+<%= react_component("GroupIntroduction", { group_id: @group.id,
+                                           group_image: attached_image(@group),
+                                           group_name: @group.name,
+                                           group_path: group_path(@group),
+                                           owner_name: @group.user.name,
+                                           owner_path: user_path(@group.user),
+                                           member_path: member_group_path(@group),
+                                           member_count: @group.members.count,
+                                           group_habit: @group.habit,
+                                           group_overview: @group.overview,
+                                           belong_path: belong_path(@group),
+                                           achievement_path: achievement_path(@group),
+                                           edit_group_path: edit_group_path(@group),
+                                           edit_image_group_path: edit_image_group_path(@group),
+                                           delete_group_path: delete_group_path(@group),
+                                           belong: current_user.belonging?(@group),
+                                           achieved: current_user.achieved?(@group),
+                                           owner: @group.owner?(current_user),
+                                           encouragement_path: encourage_achievement_path(@group) }) %>
 
-<h2>目標達成タイムライン</h2>
+<h2>タイムライン</h2>
 <%= render 'shared/feed_items' %>
 <%= will_paginate @feed_items %>

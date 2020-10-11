@@ -2,8 +2,8 @@
   <%= react_component("Sidebar", { user_image: attached_image(current_user),
                                    user_name: current_user.name,
                                    links: [{link: "タイムライン", href: user_path(@user)},
-                                           {link: "フォロー", href: "#"},
-                                           {link: "フォロワー", href: "#"},
+                                           {link: "フォロー", href: following_user_path(@user)},
+                                           {link: "フォロワー", href: followers_user_path(@user)},
                                            {link: "ダイレクトメッセージ", href: "#"}] }) %>
 <% elsif yield(:page) == "user_edit" %>
   <%= react_component("Sidebar", { user_image: attached_image(current_user),
