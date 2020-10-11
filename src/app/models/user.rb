@@ -79,23 +79,36 @@ class User < ApplicationRecord
     end
 
     def feed
+      following_ids = "SELECT followed_id FROM relationships
+                       WHERE follower_id = :user_id"
       group_ids = "SELECT group_id FROM belongs
                    WHERE user_id = :user_id"
       group_members_ids = "SELECT user_id FROM belongs
                            WHERE group_id IN (#{group_ids})"
-      Micropost.where("user_id IN (#{group_members_ids})
-                       OR user_id = :user_id",
-                       user_id: id).order("created_at DESC")
+      belong_ids = "SELECT id FROM belongs
+                    WHERE user_id IN (#{following_ids})
+                    OR user_id IN (#{group_members_ids})
+                    AND group_id IN (#{group_ids})"
+      achievement_ids = "SELECT id FROM achievements
+                         WHERE belong_id IN (#{belong_ids})"
+      history_ids = "SELECT id FROM histories
+                     WHERE achievement_id IN (#{achievement_ids})"
+      Micropost.where("history_id IN (#{history_ids})",
+                       user_id: id, today: Date.today).order("created_at DESC")
     end
 
     def encouraged_feed
+      following_ids = "SELECT followed_id FROM relationships
+                       WHERE follower_id = :user_id"
       group_ids = "SELECT group_id FROM belongs
                    WHERE user_id = :user_id"
       group_members_ids = "SELECT user_id FROM belongs
                            WHERE group_id IN (#{group_ids})
                            AND user_id != :user_id"
       belong_ids = "SELECT id FROM belongs
-                    WHERE user_id IN (#{group_members_ids})"
+                    WHERE user_id IN (#{following_ids})
+                    OR user_id IN (#{group_members_ids})
+                    AND group_id IN (#{group_ids})"
       achievement_ids = "SELECT id FROM achievements
                          WHERE belong_id IN (#{belong_ids})"
       history_ids = "SELECT id FROM histories
