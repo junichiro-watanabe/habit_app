@@ -15,4 +15,7 @@
     <h3>自己紹介</h3>
     <p><%= @user.introduction %></p>
   </div>
+  <%= react_component("Follow", { id: @user.id,
+                                  path: relationship_path(@user),
+                                  follow: current_user.following?(@user) }) %>
 </div>
