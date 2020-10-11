@@ -70,7 +70,11 @@ class Follow extends React.Component {
 Follow.propTypes = {
   id: PropTypes.number,
   path: PropTypes.string,
-  follow: PropTypes.bool
+  follow: PropTypes.bool,
+  active_following_count: PropTypes.number,
+  active_followers_count: PropTypes.number,
+  passive_following_count: PropTypes.number,
+  passive_followers_count: PropTypes.number,
 };
 
 export default Follow

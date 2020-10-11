@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :edit, :edit_image, :update, :delete, :destroy, :owning, :belonging, :not_achieved, :encouraged]
+  before_action :logged_in_user, only: [:index, :show, :edit, :edit_image, :update, :delete, :destroy, :owning, :belonging, :not_achieved, :encouraged, :following, :followers]
   before_action :correct_user, only: [:edit, :edit_image, :update, :delete, :destroy]
 
   def index
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     if current_user?(@user)
       @feed_items = @user.feed.paginate(page: params[:page], per_page: 7)
     else
-      @feed_items = Micropost.where(user: @user).paginate(page: params[:page], per_page: 7)
+      @feed_items = Micropost.where(user: @user).paginate(page: params[:page], per_page: 7).order("created_at DESC")
     end
   end
 
@@ -140,6 +140,36 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @feed_items = @user.encouraged_feed.paginate(page: params[:page], per_page: 7)
     render 'show'
+  end
+
+  def following
+    @user = User.find(params[:id])
+    @title = "フォロー 一覧"
+    @heading = "#{@user.name} の #{@title}"
+    @controller = :users
+    @action = :following
+    if params[:users] == nil
+      @users = @user.following.paginate(page: params[:page], per_page: 7)
+    else
+      keyword = params[:users][:search]
+      @users = @user.following.paginate(page: params[:page], per_page: 7).where("concat(name, introduction) LIKE :keyword", keyword: "%#{keyword}%").paginate(page: params[:page], per_page: 7)
+    end
+    render 'shared/user_index'
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @title = "フォロワーー 一覧"
+    @heading = "#{@user.name} の #{@title}"
+    @controller = :users
+    @action = :followers
+    if params[:users] == nil
+      @users = @user.followers.paginate(page: params[:page], per_page: 7)
+    else
+      keyword = params[:users][:search]
+      @users = @user.followers.paginate(page: params[:page], per_page: 7).where("concat(name, introduction) LIKE :keyword", keyword: "%#{keyword}%").paginate(page: params[:page], per_page: 7)
+    end
+    render 'shared/user_index'
   end
 
   private

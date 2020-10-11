@@ -26,8 +26,8 @@ RSpec.describe "SiteLayout", type: :system do
     it "リンクが正常" do
       log_in_as_system(@user)
       visit user_path(@user_1)
-      expect(page).to have_link "フォロー", href: "#"
-      expect(page).to have_link "フォロワー", href: "#"
+      expect(page).to have_link "#{@user_1.following.count}人", href: following_user_path(@user_1)
+      expect(page).to have_link "#{@user_1.followers.count}人", href: followers_user_path(@user_1)
       expect(page).to have_link "主催コミュニティ", href: owning_user_path(@user_1)
       expect(page).to have_link "参加コミュニティ", href: belonging_user_path(@user_1)
     end
