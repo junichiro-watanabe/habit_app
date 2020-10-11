@@ -154,7 +154,7 @@ class UsersController < ApplicationController
       keyword = params[:users][:search]
       @users = @user.following.paginate(page: params[:page], per_page: 7).where("concat(name, introduction) LIKE :keyword", keyword: "%#{keyword}%").paginate(page: params[:page], per_page: 7)
     end
-    render 'shared/user_index'
+    render 'follow'
   end
 
   def followers
@@ -169,7 +169,7 @@ class UsersController < ApplicationController
       keyword = params[:users][:search]
       @users = @user.followers.paginate(page: params[:page], per_page: 7).where("concat(name, introduction) LIKE :keyword", keyword: "%#{keyword}%").paginate(page: params[:page], per_page: 7)
     end
-    render 'shared/user_index'
+    render 'follow'
   end
 
   private
