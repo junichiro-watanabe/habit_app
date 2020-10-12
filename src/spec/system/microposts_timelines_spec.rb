@@ -6,20 +6,26 @@ RSpec.describe "MicropostsTimelines", type: :system do
   before do
     @user = create(:user)
     @other_user = create(:other_user)
-    1.upto 2 do |n|
+    @other_user_2 = create(:users)
+    1.upto 3 do |n|
       eval("@group_#{n} = create(:groups, user: @user)")
     end
     @user.belong(@group_1)
-    @user.belong(@group_2)
     @other_user.belong(@group_1)
+    @other_user.belong(@group_2)
+    @other_user_2.belong(@group_3)
     @user.toggle_achieved(@group_1)
-    @user.toggle_achieved(@group_2)
     @other_user.toggle_achieved(@group_1)
+    @other_user.toggle_achieved(@group_2)
+    @other_user_2.toggle_achieved(@group_3)
+    @user.follow(@other_user_2)
     log_in_as(@user)
     post encourage_achievement_path(@group_1), params: {content: "user_group_1_content"}
-    post encourage_achievement_path(@group_2), params: {content: "user_group_2_content"}
     log_in_as(@other_user)
     post encourage_achievement_path(@group_1), params: {content: "other_user_group_1_content"}
+    post encourage_achievement_path(@group_2), params: {content: "other_user_group_2_content"}
+    log_in_as(@other_user_2)
+    post encourage_achievement_path(@group_3), params: {content: "other_user_2_group_3_content"}
   end
 
   describe "マイページのタイムラインのテスト" do
@@ -29,13 +35,17 @@ RSpec.describe "MicropostsTimelines", type: :system do
       expect(current_path).to eq user_path(@user)
       expect(page).to have_link @user.name, href: user_path(@user)
       expect(page).to have_link @other_user.name, href: user_path(@other_user)
+      expect(page).to have_link @other_user_2.name, href: user_path(@other_user_2)
       expect(page).to have_link @group_1.name, href: group_path(@group_1)
       expect(page).to have_content "#{Date.today} 分の #{@group_1.name} の目標を達成しました。"
-      expect(page).to have_link @group_2.name, href: group_path(@group_2)
-      expect(page).to have_content "#{Date.today} 分の #{@group_2.name} の目標を達成しました。"
+      expect(page).not_to have_link @group_2.name, href: group_path(@group_2)
+      expect(page).not_to have_content "#{Date.today} 分の #{@group_2.name} の目標を達成しました。"
+      expect(page).to have_link @group_3.name, href: group_path(@group_3)
+      expect(page).to have_content "#{Date.today} 分の #{@group_3.name} の目標を達成しました。"
       expect(page).to have_content "#{@group_1.name} の #{@user.name} が煽っています"
-      expect(page).to have_content "#{@group_2.name} の #{@user.name} が煽っています"
       expect(page).to have_content "#{@group_1.name} の #{@other_user.name} が煽っています"
+      expect(page).not_to have_content "#{@group_2.name} の #{@other_user.name} が煽っています"
+      expect(page).to have_content "#{@group_3.name} の #{@other_user_2.name} が煽っています"
     end
 
     it "本日分の煽られた数がマイページに表示されている → 煽られた一覧が正常に表示されている → 次の日にはリセット" do
@@ -64,30 +74,38 @@ RSpec.describe "MicropostsTimelines", type: :system do
       expect(current_path).to eq user_path(@user)
       expect(page).to have_link @user.name, href: user_path(@user)
       expect(page).to have_link @other_user.name, href: user_path(@other_user)
+      expect(page).to have_link @other_user_2.name, href: user_path(@other_user_2)
       expect(page).to have_link @group_1.name, href: group_path(@group_1)
       expect(page).to have_content "#{Date.today} 分の #{@group_1.name} の目標を達成しました。"
-      expect(page).to have_link @group_2.name, href: group_path(@group_2)
-      expect(page).to have_content "#{Date.today} 分の #{@group_2.name} の目標を達成しました。"
+      expect(page).not_to have_link @group_2.name, href: group_path(@group_2)
+      expect(page).not_to have_content "#{Date.today} 分の #{@group_2.name} の目標を達成しました。"
+      expect(page).to have_link @group_3.name, href: group_path(@group_3)
+      expect(page).to have_content "#{Date.today} 分の #{@group_3.name} の目標を達成しました。"
       expect(page).to have_content "#{@group_1.name} の #{@user.name} が煽っています"
-      expect(page).to have_content "#{@group_2.name} の #{@user.name} が煽っています"
       expect(page).to have_content "#{@group_1.name} の #{@other_user.name} が煽っています"
+      expect(page).not_to have_content "#{@group_2.name} の #{@other_user.name} が煽っています"
+      expect(page).to have_content "#{@group_3.name} の #{@other_user_2.name} が煽っています"
     end
   end
 
-  describe "ユーザ照会画面のタイムラインのテスト" do
+  describe "ユーザ紹介画面のタイムラインのテスト" do
     it "達成報告/煽りが正常に表示されている" do
       log_in_as_system(@user)
       visit user_path(@other_user)
       expect(current_path).to eq user_path(@other_user)
       expect(page).not_to have_link @user.name, href: user_path(@user)
       expect(page).to have_link @other_user.name, href: user_path(@other_user)
+      expect(page).not_to have_link @other_user_2.name, href: user_path(@other_user_2)
       expect(page).to have_link @group_1.name, href: group_path(@group_1)
       expect(page).to have_content "#{Date.today} 分の #{@group_1.name} の目標を達成しました。"
-      expect(page).not_to have_link @group_2.name, href: group_path(@group_2)
-      expect(page).not_to have_content "#{Date.today} 分の #{@group_2.name} の目標を達成しました。"
+      expect(page).to have_link @group_2.name, href: group_path(@group_2)
+      expect(page).to have_content "#{Date.today} 分の #{@group_2.name} の目標を達成しました。"
+      expect(page).not_to have_link @group_3.name, href: group_path(@group_3)
+      expect(page).not_to have_content "#{Date.today} 分の #{@group_3.name} の目標を達成しました。"
       expect(page).not_to have_content "#{@group_1.name} の #{@user.name} が煽っています"
-      expect(page).not_to have_content "#{@group_2.name} の #{@user.name} が煽っています"
       expect(page).to have_content "#{@group_1.name} の #{@other_user.name} が煽っています"
+      expect(page).to have_content "#{@group_2.name} の #{@other_user.name} が煽っています"
+      expect(page).not_to have_content "#{@group_3.name} の #{@other_user_2.name} が煽っています"
     end
 
     it "フレンドリーフォロワーディング" do
@@ -99,13 +117,17 @@ RSpec.describe "MicropostsTimelines", type: :system do
       expect(current_path).to eq user_path(@other_user)
       expect(page).not_to have_link @user.name, href: user_path(@user)
       expect(page).to have_link @other_user.name, href: user_path(@other_user)
+      expect(page).not_to have_link @other_user_2.name, href: user_path(@other_user_2)
       expect(page).to have_link @group_1.name, href: group_path(@group_1)
       expect(page).to have_content "#{Date.today} 分の #{@group_1.name} の目標を達成しました。"
-      expect(page).not_to have_link @group_2.name, href: group_path(@group_2)
-      expect(page).not_to have_content "#{Date.today} 分の #{@group_2.name} の目標を達成しました。"
+      expect(page).to have_link @group_2.name, href: group_path(@group_2)
+      expect(page).to have_content "#{Date.today} 分の #{@group_2.name} の目標を達成しました。"
+      expect(page).not_to have_link @group_3.name, href: group_path(@group_3)
+      expect(page).not_to have_content "#{Date.today} 分の #{@group_3.name} の目標を達成しました。"
       expect(page).not_to have_content "#{@group_1.name} の #{@user.name} が煽っています"
-      expect(page).not_to have_content "#{@group_2.name} の #{@user.name} が煽っています"
       expect(page).to have_content "#{@group_1.name} の #{@other_user.name} が煽っています"
+      expect(page).to have_content "#{@group_2.name} の #{@other_user.name} が煽っています"
+      expect(page).not_to have_content "#{@group_3.name} の #{@other_user_2.name} が煽っています"
     end
   end
 
@@ -116,13 +138,17 @@ RSpec.describe "MicropostsTimelines", type: :system do
       expect(current_path).to eq group_path(@group_1)
       expect(page).to have_link @user.name, href: user_path(@user)
       expect(page).to have_link @other_user.name, href: user_path(@other_user)
+      expect(page).not_to have_link @other_user_2.name, href: user_path(@other_user_2)
       expect(page).to have_link @group_1.name, href: group_path(@group_1)
       expect(page).to have_content "#{Date.today} 分の #{@group_1.name} の目標を達成しました。"
       expect(page).not_to have_link @group_2.name, href: group_path(@group_2)
       expect(page).not_to have_content "#{Date.today} 分の #{@group_2.name} の目標を達成しました。"
+      expect(page).not_to have_link @group_3.name, href: group_path(@group_3)
+      expect(page).not_to have_content "#{Date.today} 分の #{@group_3.name} の目標を達成しました。"
       expect(page).to have_content "#{@group_1.name} の #{@user.name} が煽っています"
-      expect(page).not_to have_content "#{@group_2.name} の #{@user.name} が煽っています"
       expect(page).to have_content "#{@group_1.name} の #{@other_user.name} が煽っています"
+      expect(page).not_to have_content "#{@group_2.name} の #{@other_user.name} が煽っています"
+      expect(page).not_to have_content "#{@group_3.name} の #{@other_user_2.name} が煽っています"
     end
 
     it "フレンドリーフォロワーディング" do
@@ -132,15 +158,20 @@ RSpec.describe "MicropostsTimelines", type: :system do
       fill_in "session_password", with: "password"
       click_button "ログイン"
       expect(current_path).to eq group_path(@group_1)
+      expect(current_path).to eq group_path(@group_1)
       expect(page).to have_link @user.name, href: user_path(@user)
       expect(page).to have_link @other_user.name, href: user_path(@other_user)
+      expect(page).not_to have_link @other_user_2.name, href: user_path(@other_user_2)
       expect(page).to have_link @group_1.name, href: group_path(@group_1)
       expect(page).to have_content "#{Date.today} 分の #{@group_1.name} の目標を達成しました。"
       expect(page).not_to have_link @group_2.name, href: group_path(@group_2)
       expect(page).not_to have_content "#{Date.today} 分の #{@group_2.name} の目標を達成しました。"
+      expect(page).not_to have_link @group_3.name, href: group_path(@group_3)
+      expect(page).not_to have_content "#{Date.today} 分の #{@group_3.name} の目標を達成しました。"
       expect(page).to have_content "#{@group_1.name} の #{@user.name} が煽っています"
-      expect(page).not_to have_content "#{@group_2.name} の #{@user.name} が煽っています"
       expect(page).to have_content "#{@group_1.name} の #{@other_user.name} が煽っています"
+      expect(page).not_to have_content "#{@group_2.name} の #{@other_user.name} が煽っています"
+      expect(page).not_to have_content "#{@group_3.name} の #{@other_user_2.name} が煽っています"
     end
   end
 
