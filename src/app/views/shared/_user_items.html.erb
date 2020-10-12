@@ -1,10 +1,13 @@
 <% if @users.length != 0 %>
   <% @users.each do |user| %>
-    <li>
+    <li id = <%= "user-#{user.id}" %>>
       <%= react_component("User", { user_image: attached_image(user),
                                     user_name: user.name,
                                     user_path: user_path(user),
-                                    user_introduction: user.introduction }) %>
+                                    user_introduction: user.introduction,
+                                    relationship_path: relationship_path(user),
+                                    follow: current_user.following?(user),
+                                    current_user: current_user?(user) }) %>
     </li>
   <% end %>
 <% else %>

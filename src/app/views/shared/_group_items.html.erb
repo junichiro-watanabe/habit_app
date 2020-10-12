@@ -1,8 +1,7 @@
 <% if @groups.length != 0 %>
   <% @groups.each do |group| %>
-    <li>
-      <%= react_component("Group", { group_id: group.id,
-                                     group_image: attached_image(group),
+    <li id = <%= "group-#{group.id}" %>>
+      <%= react_component("Group", { group_image: attached_image(group),
                                      group_name: group.name,
                                      group_path: group_path(group),
                                      group_habit: group.habit,

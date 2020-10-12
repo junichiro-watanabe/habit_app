@@ -443,4 +443,36 @@ RSpec.describe "Users", type: :request do
     end
   end
 
+  describe "followingのテスト" do
+    it "getリクエスト：ログイン状態" do
+      log_in_as(@user)
+      expect(logged_in?).to eq true
+      get following_user_path(@user)
+      expect(response).to have_http_status(200)
+      expect(response).to render_template 'follow'
+    end
+
+    it "getリクエスト：ログインしていない" do
+      get following_user_path(@user)
+      expect(response).to redirect_to login_path
+      expect(flash.any?).to eq true
+    end
+  end
+
+  describe "followersのテスト" do
+    it "getリクエスト：ログイン状態" do
+      log_in_as(@user)
+      expect(logged_in?).to eq true
+      get followers_user_path(@user)
+      expect(response).to have_http_status(200)
+      expect(response).to render_template 'follow'
+    end
+
+    it "getリクエスト：ログインしていない" do
+      get followers_user_path(@user)
+      expect(response).to redirect_to login_path
+      expect(flash.any?).to eq true
+    end
+  end
+
 end
