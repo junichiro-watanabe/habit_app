@@ -68,7 +68,6 @@ class GroupIntroduction extends React.Component {
                   です！
                 </h3>
                 <Achievement
-                  id={this.props.group_id}
                   path={this.props.achievement_path}
                   achieved={this.state.achieved}
                   setAchieved={this.setAchieved} />
@@ -99,7 +98,6 @@ class GroupIntroduction extends React.Component {
 }
 
 GroupIntroduction.propTypes = {
-  group_id: PropTypes.number,
   group_image: PropTypes.string,
   group_name: PropTypes.string,
   group_path: PropTypes.string,

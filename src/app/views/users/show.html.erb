@@ -7,8 +7,7 @@
     <%= render 'encouragement_information' %>
   <% else %>
     <% provide(:page, "group") %>
-    <%= react_component("UserIntroduction", { user_id: @user.id,
-                                              relationship_path: relationship_path(@user),
+    <%= react_component("UserIntroduction", { relationship_path: relationship_path(@user),
                                               follow: current_user.following?(@user),
                                               active_following_count: current_user.following.count,
                                               active_followers_count: current_user.followers.count,

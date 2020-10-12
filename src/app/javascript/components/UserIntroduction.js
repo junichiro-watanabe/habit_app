@@ -29,13 +29,13 @@ class UserIntroduction extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div class="describe">
-          <div class="head">
+        <div className="describe">
+          <div className="head">
             {this.state.follow ?
               <a className="alert alert-info">
                 このユーザをフォローしています
               </a> : null}
-            <div class="menu">
+            <div className="menu">
               <img src={this.props.user_image} />
               <ol>
                 <li><h3>{this.props.user_name}</h3></li>
@@ -44,7 +44,6 @@ class UserIntroduction extends React.Component {
                 <li><a href={this.props.owning_path}>主催コミュニティ</a></li>
                 <li><a href={this.props.belonging_path}>参加コミュニティ</a></li><br />
                 <Follow
-                  id={this.props.user_id}
                   path={this.props.relationship_path}
                   follow={this.state.follow}
                   setFollow={this.setFollow}
@@ -52,7 +51,7 @@ class UserIntroduction extends React.Component {
               </ol>
             </div>
           </div>
-          <div class="body">
+          <div className="body">
             <h3>自己紹介</h3>
             <p>{this.props.user_introduction}</p>
           </div>
@@ -63,7 +62,6 @@ class UserIntroduction extends React.Component {
 }
 
 UserIntroduction.propTypes = {
-  user_id: PropTypes.number,
   relationship_path: PropTypes.string,
   follow: PropTypes.bool,
   active_following_count: PropTypes.number,
