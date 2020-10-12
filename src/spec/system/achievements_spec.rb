@@ -12,8 +12,8 @@ RSpec.describe "Achievements", type: :system do
     @user_1.belong(@group)
   end
 
-  describe "目標達成 → 目標未達" do
-    it "所属しているユーザ：グループ紹介画面から" do
+  describe "目標達成のテスト" do
+    it "目標達成 → 目標未達：所属しているユーザ(グループ紹介画面から)" do
       log_in_as_system(@user_1)
       visit group_path(@group)
       expect(current_path).to eq group_path(@group)
@@ -41,7 +41,7 @@ RSpec.describe "Achievements", type: :system do
       expect(page).not_to have_button "煽る"
     end
 
-    it "所属しているユーザ：参加グループ一覧から" do
+    it "目標達成 → 目標未達：所属しているユーザ(参加グループ一覧から)" do
       log_in_as_system(@user_1)
       visit belonging_user_path(@user_1)
       expect(current_path).to eq belonging_user_path(@user_1)
@@ -56,7 +56,7 @@ RSpec.describe "Achievements", type: :system do
       expect(page).to have_content "未達"
     end
 
-    it "所属していないユーザ" do
+    it "目標達成 → 目標未達：所属していないユーザ" do
       log_in_as_system(@user_2)
       visit group_path(@group)
       expect(current_path).to eq group_path(@group)

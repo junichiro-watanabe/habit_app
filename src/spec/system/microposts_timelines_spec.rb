@@ -88,7 +88,7 @@ RSpec.describe "MicropostsTimelines", type: :system do
     end
   end
 
-  describe "ユーザ照会画面のタイムラインのテスト" do
+  describe "ユーザ紹介画面のタイムラインのテスト" do
     it "達成報告/煽りが正常に表示されている" do
       log_in_as_system(@user)
       visit user_path(@other_user)
