@@ -21,6 +21,7 @@ RSpec.describe "GroupsIndex", type: :system do
         expect(page).to have_link group.user.name, href: user_path(group.user)
         expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
         expect(page).to have_content group.habit
+        expect(page).to have_selector "#group-#{group.id}"
       end
     end
 
@@ -37,6 +38,7 @@ RSpec.describe "GroupsIndex", type: :system do
         expect(page).to have_link group.user.name, href: user_path(group.user)
         expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
         expect(page).to have_content group.habit
+        expect(page).to have_selector "#group-#{group.id}"
       end
     end
 
@@ -55,6 +57,7 @@ RSpec.describe "GroupsIndex", type: :system do
         expect(page).not_to have_link group.name, href: group_path(group)
         expect(page).not_to have_link "#{group.members.count}人が参加", href: member_group_path(group)
         expect(page).not_to have_content group.habit
+        expect(page).not_to have_selector "#group-#{group.id}"
       end
     end
   end

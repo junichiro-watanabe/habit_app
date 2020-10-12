@@ -20,7 +20,7 @@ class Achievement extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button id={"achieve_" + this.props.id} className="btn btn-primary" onClick={this.toggleAchieve}>
+        <button className="btn btn-primary" onClick={this.toggleAchieve}>
           達成状況の変更
         </button>
       </React.Fragment>
@@ -29,7 +29,6 @@ class Achievement extends React.Component {
 }
 
 Achievement.propTypes = {
-  id: PropTypes.number,
   path: PropTypes.string,
 };
 

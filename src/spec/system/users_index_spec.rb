@@ -19,6 +19,7 @@ RSpec.describe "UsersIndex", type: :system do
       users.each do |user|
         expect(page).to have_link user.name, href: user_path(user)
         expect(page).to have_content user.introduction
+        expect(page).to have_selector "#user-#{user.id}"
       end
     end
 
@@ -43,6 +44,7 @@ RSpec.describe "UsersIndex", type: :system do
       users.each do |user|
         expect(page).not_to have_link user.name, href: user_path(user)
         expect(page).not_to have_content user.introduction
+        expect(page).not_to have_selector "#user-#{user.id}"
       end
     end
   end

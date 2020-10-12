@@ -9,18 +9,47 @@ RSpec.describe "Followings", type: :system do
       eval("@user_#{n} = create(:users)")
       eval("@user_#{n}.follow(@user)")
     end
-    2.upto 10 do |n|
+    11.upto 20 do |n|
+      eval("@user_#{n} = create(:users)")
       eval("@user.follow(@user_#{n})")
     end
   end
 
   describe "フォロー/アンフォローのテスト" do
     it "フォロー → アンフォロー：ユーザ紹介画面から" do
-
+      log_in_as_system(@user)
+      visit user_path(@user_1)
+      expect(current_path).to eq user_path(@user_1)
+      expect(page).to have_button "フォローする"
+      expect(page).not_to have_button "フォローを外す"
+      expect(page).not_to have_content "このユーザをフォローしています"
+      click_button "フォローする"
+      expect(page).not_to have_button "フォローする"
+      expect(page).to have_button "フォローを外す"
+      expect(page).to have_content "このユーザをフォローしています"
+      click_button "フォローを外す"
+      expect(page).to have_button "フォローする"
+      expect(page).not_to have_button "フォローを外す"
+      expect(page).not_to have_content "このユーザをフォローしています"
     end
 
     it "フォロー → アンフォロー：ユーザ一覧から" do
-
+      log_in_as_system(@user)
+      visit users_path
+      expect(current_path).to eq users_path
+      within "#user-#{@user_1.id}" do
+        expect(page).to have_button "フォローする"
+        expect(page).not_to have_button "フォローを外す"
+        expect(page).not_to have_content "このユーザをフォローしています"
+        click_button "フォローする"
+        expect(page).not_to have_button "フォローする"
+        expect(page).to have_button "フォローを外す"
+        expect(page).to have_content "このユーザをフォローしています"
+        click_button "フォローを外す"
+        expect(page).to have_button "フォローする"
+        expect(page).not_to have_button "フォローを外す"
+        expect(page).not_to have_content "このユーザをフォローしています"
+      end
     end
   end
 
@@ -33,6 +62,7 @@ RSpec.describe "Followings", type: :system do
       users.each do |user|
         expect(page).to have_link user.name, href: user_path(user)
         expect(page).to have_content user.introduction
+        expect(page).to have_selector "#user-#{user.id}"
       end
     end
 
@@ -47,6 +77,7 @@ RSpec.describe "Followings", type: :system do
       users.each do |user|
         expect(page).to have_link user.name, href: user_path(user)
         expect(page).to have_content user.introduction
+        expect(page).to have_selector "#user-#{user.id}"
       end
     end
   end
@@ -60,6 +91,7 @@ RSpec.describe "Followings", type: :system do
       users.each do |user|
         expect(page).to have_link user.name, href: user_path(user)
         expect(page).to have_content user.introduction
+        expect(page).to have_selector "#user-#{user.id}"
       end
     end
 
@@ -74,6 +106,7 @@ RSpec.describe "Followings", type: :system do
       users.each do |user|
         expect(page).to have_link user.name, href: user_path(user)
         expect(page).to have_content user.introduction
+        expect(page).to have_selector "#user-#{user.id}"
       end
     end
   end

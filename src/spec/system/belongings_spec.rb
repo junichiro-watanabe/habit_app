@@ -28,6 +28,7 @@ RSpec.describe "Belongings", type: :system do
         expect(page).to have_link group.user.name, href: user_path(group.user)
         expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
         expect(page).to have_content group.habit
+        expect(page).to have_selector "#group-#{group.id}"
       end
     end
 
@@ -44,6 +45,7 @@ RSpec.describe "Belongings", type: :system do
         expect(page).to have_link group.user.name, href: user_path(group.user)
         expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
         expect(page).to have_content group.habit
+        expect(page).to have_selector "#group-#{group.id}"
       end
     end
   end
@@ -59,7 +61,7 @@ RSpec.describe "Belongings", type: :system do
         expect(page).to have_link group.user.name, href: user_path(group.user)
         expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
         expect(page).to have_content group.habit
-        expect(page).to have_selector "#achieve_#{group.id}"
+        expect(page).to have_selector "#group-#{group.id}"
       end
     end
 
@@ -76,7 +78,7 @@ RSpec.describe "Belongings", type: :system do
         expect(page).to have_link group.user.name, href: user_path(group.user)
         expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
         expect(page).to have_content group.habit
-        expect(page).to have_selector "#achieve_#{group.id}"
+        expect(page).to have_selector "#group-#{group.id}"
       end
     end
   end
@@ -90,6 +92,7 @@ RSpec.describe "Belongings", type: :system do
       users.each do |user|
         expect(page).to have_link user.name, href: user_path(user)
         expect(page).to have_content @user_1.introduction
+        expect(page).to have_selector "#user-#{user.id}"
       end
     end
 
@@ -104,6 +107,7 @@ RSpec.describe "Belongings", type: :system do
       users.each do |user|
         expect(page).to have_link user.name, href: user_path(user)
         expect(page).to have_content @user_1.introduction
+        expect(page).to have_selector "#user-#{user.id}"
       end
     end
   end
@@ -115,29 +119,23 @@ RSpec.describe "Belongings", type: :system do
       expect(current_path).to eq group_path(@group_10)
       expect(page).to have_button "参加する"
       expect(page).not_to have_button "脱退する"
-      expect(page).to have_selector "#belong_#{@group_10.id}"
       expect(page).not_to have_content "このコミュニティに参加しています"
       expect(page).not_to have_content "本日の目標は未達です！"
       expect(page).not_to have_button "達成状況の変更"
-      expect(page).not_to have_selector "#achieve_#{@group_10.id}"
       click_button "参加する"
       expect(current_path).to eq group_path(@group_10)
       expect(page).not_to have_button "参加する"
       expect(page).to have_button "脱退する"
-      expect(page).to have_selector "#belong_#{@group_10.id}"
       expect(page).to have_content "このコミュニティに参加しています"
       expect(page).to have_content "本日の目標は未達です！"
       expect(page).to have_button "達成状況の変更"
-      expect(page).to have_selector "#achieve_#{@group_10.id}"
       click_button "脱退する"
       expect(current_path).to eq group_path(@group_10)
       expect(page).to have_button "参加する"
       expect(page).not_to have_button "脱退する"
-      expect(page).to have_selector "#belong_#{@group_10.id}"
       expect(page).not_to have_content "このコミュニティに参加しています"
       expect(page).not_to have_content "本日の目標は未達です！"
       expect(page).not_to have_button "達成状況の変更"
-      expect(page).not_to have_selector "#achieve_#{@group_10.id}"
     end
   end
 
@@ -151,22 +149,24 @@ RSpec.describe "Belongings", type: :system do
       expect(current_path).to eq not_achieved_user_path(@user_1)
       groups = @user_1.not_achieved.paginate(page: 1, per_page: 7)
       groups.each do |group|
-        expect(page).to have_link group.name, href: group_path(group)
-        expect(page).to have_link group.user.name, href: user_path(group.user)
-        expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
-        expect(page).to have_content group.habit
-        expect(page).to have_selector "#achieve_#{group.id}"
-        click_button "achieve_#{group.id}"
+        within "#group-#{group.id}" do
+          expect(page).to have_link group.name, href: group_path(group)
+          expect(page).to have_link group.user.name, href: user_path(group.user)
+          expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
+          expect(page).to have_content group.habit
+          click_button "達成状況の変更"
+        end
       end
       visit current_path
       groups = @user_1.not_achieved.paginate(page: 1, per_page: 7)
       groups.each do |group|
-        expect(page).to have_link group.name, href: group_path(group)
-        expect(page).to have_link group.user.name, href: user_path(group.user)
-        expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
-        expect(page).to have_content group.habit
-        expect(page).to have_selector "#achieve_#{group.id}"
-        click_button "achieve_#{group.id}"
+        within "#group-#{group.id}" do
+          expect(page).to have_link group.name, href: group_path(group)
+          expect(page).to have_link group.user.name, href: user_path(group.user)
+          expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
+          expect(page).to have_content group.habit
+          click_button "達成状況の変更"
+        end
       end
       visit user_path(@user_1)
       expect(current_path).to eq user_path(@user_1)
@@ -191,7 +191,7 @@ RSpec.describe "Belongings", type: :system do
         expect(page).to have_link group.user.name, href: user_path(group.user)
         expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
         expect(page).to have_content group.habit
-        expect(page).to have_selector "#achieve_#{group.id}"
+        expect(page).to have_selector "#group-#{group.id}"
       end
     end
 

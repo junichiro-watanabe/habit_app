@@ -59,7 +59,7 @@ class Follow extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button id={"follow_" + this.props.id} className={this.getClass()} onClick={this.state.follow ? this.unfollow : this.follow}>
+        <button className={this.getClass()} onClick={this.state.follow ? this.unfollow : this.follow}>
           {this.state.follow ? "フォローを外す" : "フォローする"}
         </button>
       </React.Fragment>
@@ -68,7 +68,6 @@ class Follow extends React.Component {
 }
 
 Follow.propTypes = {
-  id: PropTypes.number,
   path: PropTypes.string,
   follow: PropTypes.bool,
   active_following_count: PropTypes.number,

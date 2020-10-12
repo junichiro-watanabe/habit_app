@@ -38,7 +38,6 @@ class Group extends React.Component {
                     {this.state.achieved ? <a class="alert alert-success">達成</a> : <a className="alert alert-danger">未達</a>}
                   </h4>
                   <Achievement
-                    id={this.props.group_id}
                     path={this.props.achievement_path}
                     achieved={this.state.achieved}
                     setAchieved={this.setAchieved} />
@@ -53,7 +52,6 @@ class Group extends React.Component {
 }
 
 Group.propTypes = {
-  group_id: PropTypes.number,
   group_image: PropTypes.string,
   group_name: PropTypes.string,
   group_path: PropTypes.string,
