@@ -11,7 +11,8 @@
                                      member_path: member_group_path(group),
                                      member_count: group.members.count,
                                      belong: current_user.belonging?(group),
-                                     achieved: current_user.achieved?(group) }) %>
+                                     achieved: current_user.achieved?(group),
+                                     token: create_authenticity_token }) %>
     </li>
   <% end %>
 <% else %>

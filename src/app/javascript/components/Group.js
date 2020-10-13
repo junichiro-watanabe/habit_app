@@ -35,11 +35,12 @@ class Group extends React.Component {
               {this.state.belong ?
                 <React.Fragment>
                   <h4>
-                    {this.state.achieved ? <a class="alert alert-success">達成</a> : <a className="alert alert-danger">未達</a>}
+                    {this.state.achieved ? <a className="alert alert-success">達成</a> : <a className="alert alert-danger">未達</a>}
                   </h4>
                   <Achievement
                     path={this.props.achievement_path}
                     achieved={this.state.achieved}
+                    token={this.props.token}
                     setAchieved={this.setAchieved} />
                 </React.Fragment> :
                 null}
@@ -62,7 +63,8 @@ Group.propTypes = {
   member_path: PropTypes.string,
   member_count: PropTypes.number,
   belong: PropTypes.bool,
-  achieved: PropTypes.bool
+  achieved: PropTypes.bool,
+  token: PropTypes.string
 };
 
 export default Group
