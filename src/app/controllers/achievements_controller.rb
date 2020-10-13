@@ -1,5 +1,4 @@
 class AchievementsController < ApplicationController
-  protect_from_forgery except: [:update, :encourage]
   before_action :logged_in_user
   before_action :belonged_to_group
   before_action :achieved_habit, only: [:encourage]

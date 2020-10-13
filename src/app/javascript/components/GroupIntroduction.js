@@ -45,6 +45,7 @@ class GroupIntroduction extends React.Component {
                   path={this.props.belong_path}
                   belong={this.state.belong}
                   memberCount={this.state.memberCount}
+                  token={this.props.token}
                   setBelong={this.setBelong}
                   setMemberCount={this.setMemberCount}
                   setAchieved={this.setAchieved} />
@@ -64,12 +65,13 @@ class GroupIntroduction extends React.Component {
               <React.Fragment>
                 <h3>
                   本日の目標は
-                  {this.state.achieved ? <a class="alert alert-success">達成</a> : <a className="alert alert-danger">未達</a>}
+                  {this.state.achieved ? <a className="alert alert-success">達成</a> : <a className="alert alert-danger">未達</a>}
                   です！
                 </h3>
                 <Achievement
                   path={this.props.achievement_path}
                   achieved={this.state.achieved}
+                  token={this.props.token}
                   setAchieved={this.setAchieved} />
               </React.Fragment> :
               null}
@@ -77,7 +79,9 @@ class GroupIntroduction extends React.Component {
           <div className="encouragement">
             {this.state.achieved ?
               <React.Fragment>
-                <Encouragement path={this.props.encouragement_path} />
+                <Encouragement
+                  path={this.props.encouragement_path}
+                  token={this.props.token} />
               </React.Fragment> :
               null}
           </div>
@@ -115,7 +119,8 @@ GroupIntroduction.propTypes = {
   belong: PropTypes.bool,
   achieved: PropTypes.bool,
   owner: PropTypes.bool,
-  encouragement_path: PropTypes.string
+  encouragement_path: PropTypes.string,
+  token: PropTypes.string
 };
 
 export default GroupIntroduction

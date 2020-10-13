@@ -46,6 +46,7 @@ class UserIntroduction extends React.Component {
                 <Follow
                   path={this.props.relationship_path}
                   follow={this.state.follow}
+                  token={this.props.token}
                   setFollow={this.setFollow}
                   setFollowCount={this.setFollowCount} />
               </ol>
@@ -75,6 +76,7 @@ UserIntroduction.propTypes = {
   owning_path: PropTypes.string,
   belonging_path: PropTypes.string,
   user_introduction: PropTypes.string,
+  token: PropTypes.string
 };
 
 export default UserIntroduction

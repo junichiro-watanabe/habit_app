@@ -33,6 +33,7 @@ class User extends React.Component {
                 <Follow
                   path={this.props.relationship_path}
                   follow={this.state.follow}
+                  token={this.props.token}
                   setFollow={this.setFollow} />}
             </div>
           </div>
@@ -49,7 +50,8 @@ User.propTypes = {
   user_introduction: PropTypes.string,
   relationship_path: PropTypes.string,
   follow: PropTypes.bool,
-  current_user: PropTypes.bool
+  current_user: PropTypes.bool,
+  token: PropTypes.string
 };
 
 export default User
