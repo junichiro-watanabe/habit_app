@@ -8,7 +8,7 @@
         group_name: feed_item.history.achievement.belong.group.name,
         group_path: group_path(feed_item.history.achievement.belong.group),
         content: feed_item.content,
-        time: "Posted #{time_ago_in_words(feed_item.created_at)} ago",
+        time: feed_item.created_at.strftime("%Y-%m-%d %H:%M"),
         history: feed_item.history,
         encouragement: feed_item.encouragement
       }) %>

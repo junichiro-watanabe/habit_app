@@ -12,6 +12,14 @@ class User < ApplicationRecord
                                    foreign_key: "followed_id",
                                    dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
+  has_many :active_messages, class_name: "Message",
+                             foreign_key: "sender_id",
+                             dependent: :destroy
+  has_many :receivers, through: :active_messages, source: :receiver
+  has_many :passive_messages, class_name: "Message",
+                              foreign_key: :receiver,
+                              dependent: :destroy
+  has_many :senders, through: :passive_messages, source: :sender
   has_one_attached :image
   validates :name, presence: true, length: {maximum: 50}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i

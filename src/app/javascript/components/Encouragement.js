@@ -16,7 +16,7 @@ class Encouragement extends React.Component {
             <span className="glyphicon glyphicon-fire" aria-hidden="true"></span>
             <textarea className="form-control" name="content" id="encouragement" placeholder="煽ってください"></textarea>
           </div>
-          <button type="submit" clasNames="btn btn-warning">煽る</button>
+          <button type="submit" className="btn btn-warning">煽る</button>
         </form>
       </React.Fragment>
     );

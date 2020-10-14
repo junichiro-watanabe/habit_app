@@ -22,13 +22,13 @@ class Micropost extends React.Component {
             <div>
               {this.props.encouragement ?
                 <React.Fragment>
-                  <h3>
+                  <h4>
                     <span className="glyphicon glyphicon-fire" aria-hidden="true"></span>
                     &nbsp;&nbsp;<a href={this.props.group_path}>{this.props.group_name}</a>
                     &nbsp;の&nbsp;<a href={this.props.user_path}>{this.props.user_name}</a>
                     &nbsp;が煽っています
                     &nbsp;&nbsp;<span className="glyphicon glyphicon-fire" aria-hidden="true"></span>
-                  </h3>
+                  </h4>
                 </React.Fragment> :
                 <a href={this.props.user_path}><li><h4>{this.props.user_name}</h4></li></a>}
               <p>{this.props.time}</p>

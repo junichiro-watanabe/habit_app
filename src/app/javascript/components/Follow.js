@@ -76,7 +76,9 @@ Follow.propTypes = {
   active_followers_count: PropTypes.number,
   passive_following_count: PropTypes.number,
   passive_followers_count: PropTypes.number,
-  token: PropTypes.string
+  token: PropTypes.string,
+  setFollow: PropTypes.func,
+  setFollowCount: PropTypes.func
 };
 
 export default Follow

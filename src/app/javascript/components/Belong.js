@@ -67,7 +67,10 @@ Belong.propTypes = {
   id: PropTypes.number,
   path: PropTypes.string,
   belong: PropTypes.bool,
-  token: PropTypes.string
+  token: PropTypes.string,
+  setBelong: PropTypes.func,
+  setMemberCount: PropTypes.func,
+  setAchieved: PropTypes.func
 };
 
 export default Belong
