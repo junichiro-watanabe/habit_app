@@ -31,7 +31,8 @@ class Achievement extends React.Component {
 
 Achievement.propTypes = {
   path: PropTypes.string,
-  token: PropTypes.string
+  token: PropTypes.string,
+  setAchieved: PropTypes.func
 };
 
 export default Achievement

@@ -5,9 +5,8 @@ class BelongsController < ApplicationController
     group = Group.find(params[:id])
     current_user.belong(group)
     response = Belong.where(user: current_user).find_by(group: group)
-    response = response.attributes
-    response.store("member_count", group.members.count)
-    response.store("achieved", current_user.achieved?(group))
+    response = response.attributes.merge({"member_count": group.members.count,
+                                          "achieved": current_user.achieved?(group)})
     render json: response
   end
 

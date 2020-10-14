@@ -19,8 +19,10 @@
                                               followers_path: followers_user_path(@user),
                                               owning_path: owning_user_path(@user),
                                               belonging_path: belonging_user_path(@user),
-                                              user_introduction: @user.introduction }) %>
+                                              user_introduction: @user.introduction,
+                                              token: create_authenticity_token }) %>
   <% end %>
+  <%= link_to  "メッセージ", message_path(@user) %>
   <h2>タイムライン</h2>
   <%= render 'shared/feed_items' %>
   <%= will_paginate @feed_items %>

@@ -123,7 +123,7 @@ footer{
 input, textarea{
   border: 1px solid #bbb;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .form{
@@ -281,6 +281,7 @@ input, textarea{
     margin: 0 10px 20px 10px;
     p{
       white-space: pre-wrap;
+      word-wrap: break-word;
     }
   }
 }
@@ -315,7 +316,7 @@ input, textarea{
     border-radius: 10px;
     background-color: #fbfdff;
     padding: 20px;
-    margin-top: 30px;
+    margin-top: 60px;
   }
 }
 
@@ -333,6 +334,90 @@ input, textarea{
 /* 煽り機能 */
 .encouragement{
   margin-top: 20px;
+  button{
+    float: right;
+    clear: both;
+  }
+}
+
+/* メッセージ機能 */
+.message{
+  margin-top: 20px;
+  p{
+    margin: 0px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .message-history{
+    overflow: auto;
+    height: 500px;
+    padding: 10px
+  }
+  button{
+    float: right;
+    clear: both;
+  }
+  .myself{
+    width: 350px;
+    float: right;
+    clear: both;
+    display: flex;
+    margin-bottom: 15px;
+  }
+  .yourself{
+    width: 350px;
+    float: left;
+    clear: both;
+    display: flex;
+    margin-bottom: 15px;
+  }
+  .myself-message{
+    position: relative;
+    width: 290px;
+    padding: 5px;
+    background-color: #06ffff;
+    border: 1px solid #06ffff;
+    border-radius: 10px;
+    margin-right: 10px;
+  }
+  .myself-message::before {
+    content: "";
+    position: absolute;
+    border: 12px solid transparent;
+    border-left: 12px solid #06ffff;
+    top: 10%;
+    left: 100%;
+  }
+  .yourself-message{
+    position: relative;
+    width: 290px;
+    padding: 5px;
+    background-color: #06ffff;
+    border: 1px solid #06ffff;
+    border-radius: 10px;
+    margin-left: auto;
+  }
+  .yourself-message::before {
+    content: "";
+    position: absolute;
+    border: 12px solid transparent;
+    border-right: 12px solid #06ffff;
+    top: 10%;
+    left: -24px;
+  }
+  .user-info{
+    display: flex;
+    margin-bottom: 10px;
+  }
+  .time{
+    margin-left: auto;
+    font-size: xx-small;
+  }
+  img{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .encouragement-micropost{
@@ -346,9 +431,6 @@ input, textarea{
 /* タイムライン表示 */
 .timeline-information{
   text-align: center;
-  h3{
-    margin-top: 0px;
-  }
 }
 
 /* 検索 */
