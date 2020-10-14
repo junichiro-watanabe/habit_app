@@ -34,30 +34,38 @@ class GroupIntroduction extends React.Component {
               <a className="alert alert-info">
                 このコミュニティに参加しています
               </a> : null}
-            <div className="menu">
-              <img src={this.props.group_image} />
-              <ol>
-                <li><h3>{this.props.group_name}</h3></li>
-                <li>オーナー：<a href={this.props.owner_path}>{this.props.owner_name}</a></li>
-                <li>メンバー：<a href={this.props.member_path}>{this.state.memberCount}人が参加</a></li><br />
-                <Belong
-                  id={this.props.group_id}
-                  path={this.props.belong_path}
-                  belong={this.state.belong}
-                  memberCount={this.state.memberCount}
-                  token={this.props.token}
-                  setBelong={this.setBelong}
-                  setMemberCount={this.setMemberCount}
-                  setAchieved={this.setAchieved} />
-              </ol>
-              {this.props.owner ?
-                <React.Fragment>
-                  <ul className="edit">
-                    <li><a href={this.props.edit_group_path}>編集する</a></li>
-                    <li><a href={this.props.edit_image_group_path}>画像変更する</a></li>
-                    <li><a href={this.props.delete_group_path}>削除する</a></li>
-                  </ul>
-                </React.Fragment> : null}
+            <div className="menu row">
+              <div className="user-image col-md-3">
+                <img src={this.props.group_image} />
+              </div>
+              <div className="col-md-9 row">
+                <div className="col-md-8">
+                  <div className="list">
+                    <li><h3>{this.props.group_name}</h3></li>
+                    <li>オーナー：<a href={this.props.owner_path}>{this.props.owner_name}</a></li>
+                    <li>メンバー：<a href={this.props.member_path}>{this.state.memberCount}人が参加</a></li><br />
+                  </div>
+                  <div className="belong">
+                    <Belong
+                      id={this.props.group_id}
+                      path={this.props.belong_path}
+                      belong={this.state.belong}
+                      memberCount={this.state.memberCount}
+                      token={this.props.token}
+                      setBelong={this.setBelong}
+                      setMemberCount={this.setMemberCount}
+                      setAchieved={this.setAchieved} />
+                  </div>
+                </div>
+                <div className="edit list col-md-4">
+                  {this.props.owner ?
+                    <React.Fragment>
+                      <li><a href={this.props.edit_group_path}>編集する</a></li>
+                      <li><a href={this.props.edit_image_group_path}>画像変更する</a></li>
+                      <li><a href={this.props.delete_group_path}>削除する</a></li>
+                    </React.Fragment> : null}
+                </div>
+              </div>
             </div>
           </div>
           <div className="achievement">
@@ -95,8 +103,8 @@ class GroupIntroduction extends React.Component {
               <p>{this.props.group_overview}</p>
             </div>
           </div>
-        </div>
-      </React.Fragment>
+        </div >
+      </React.Fragment >
     );
   }
 }

@@ -50,21 +50,25 @@ class Message extends React.Component {
           {this.state.message.map((item, index) =>
             item.myself ?
               <React.Fragment>
-                <div className="myself" key={index}>
-                  <div className="myself-message">
+                <div className="myself row" key={index}>
+                  <div className="myself-message col-md-offset-4 col-md-6 col-xs-offset-1 col-xs-8">
                     <div className="user-info">
                       <a href={this.props.my_path}><li><p>{this.props.my_name}</p></li></a>
                       <p className="time">{item.time}</p>
                     </div>
                     <p>{item.content}</p>
                   </div>
-                  <a href={this.props.my_path}><img src={this.props.my_image} /></a>
+                  <div className="user-image col-md-2 col-xs-3">
+                    <a href={this.props.my_path}><img src={this.props.my_image} /></a>
+                  </div>
                 </div>
               </React.Fragment> :
               <React.Fragment>
-                <div className="yourself" key={index}>
-                  <a href={this.props.your_path}><img src={this.props.your_image} /></a>
-                  <div className="yourself-message">
+                <div className="yourself row" key={index}>
+                  <div className="user-image col-md-2 col-xs-3">
+                    <a href={this.props.your_path}><img src={this.props.your_image} /></a>
+                  </div>
+                  <div className="yourself-message col-md-6 col-xs-8">
                     <div className="user-info">
                       <a href={this.props.your_path}><li><p>{this.props.your_name}</p></li></a>
                       <p className="time">{item.time}</p>

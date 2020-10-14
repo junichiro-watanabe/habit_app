@@ -35,21 +35,27 @@ class UserIntroduction extends React.Component {
               <a className="alert alert-info">
                 このユーザをフォローしています
               </a> : null}
-            <div className="menu">
-              <img src={this.props.user_image} />
-              <ol>
-                <li><h3>{this.props.user_name}</h3></li>
-                <li>フォロー：<a href={this.props.following_path}>{this.state.passiveFollowingCount}人</a></li>
-                <li>フォロワー：<a href={this.props.followers_path}>{this.state.passiveFollowersCount}人</a></li>
-                <li><a href={this.props.owning_path}>主催コミュニティ</a></li>
-                <li><a href={this.props.belonging_path}>参加コミュニティ</a></li><br />
+            <div className="menu row">
+              <div className="user-image col-md-3">
+                <img src={this.props.user_image} />
+              </div>
+              <div className="col-md-5">
+                <div className="list">
+                  <li><h3>{this.props.user_name}</h3></li>
+                  <li>フォロー：<a href={this.props.following_path}>{this.state.passiveFollowingCount}人</a></li>
+                  <li>フォロワー：<a href={this.props.followers_path}>{this.state.passiveFollowersCount}人</a></li>
+                  <li><a href={this.props.owning_path}>主催コミュニティ</a></li>
+                  <li><a href={this.props.belonging_path}>参加コミュニティ</a></li><br />
+                </div>
+              </div>
+              <div className="follow col-md-4">
                 <Follow
                   path={this.props.relationship_path}
                   follow={this.state.follow}
                   token={this.props.token}
                   setFollow={this.setFollow}
                   setFollowCount={this.setFollowCount} />
-              </ol>
+              </div>
             </div>
           </div>
           <div className="body">
