@@ -24,13 +24,17 @@ class Group extends React.Component {
               このコミュニティに参加しています
             </a> : null}
           <div className="item-info row">
-            <img className="col-md-3" src={this.props.group_image} />
-            <ol className="col-md-6">
-              <a href={this.props.group_path}><li><h3>{this.props.group_name}</h3></li></a>
-              <li>オーナー：<a href={this.props.owner_path}>{this.props.owner_name}</a></li>
-              <li>メンバー：<a href={this.props.member_path}>{this.state.memberCount}人が参加</a></li>
-              <li>習慣：{this.props.group_habit}</li>
-            </ol>
+            <div className="user-image col-md-2">
+              <img src={this.props.group_image} />
+            </div>
+            <div className="col-md-7">
+              <div className="list">
+                <a href={this.props.group_path}><li><h3>{this.props.group_name}</h3></li></a>
+                <li>オーナー：<a href={this.props.owner_path}>{this.props.owner_name}</a></li>
+                <li>メンバー：<a href={this.props.member_path}>{this.state.memberCount}人が参加</a></li>
+                <li>習慣：{this.props.group_habit}</li>
+              </div>
+            </div>
             <div className="achievement col-md-3">
               {this.state.belong ?
                 <React.Fragment>

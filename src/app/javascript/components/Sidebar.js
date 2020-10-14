@@ -14,9 +14,11 @@ class Sidebar extends React.Component {
             <h4>{this.props.user_name}</h4>
           </div>
 
-          <ul>
-            {this.props.links.map((item, index) => <li key={index}><a href={item.href}>{item.link}</a></li>)}
-          </ul>
+          <div className="list">
+            <ul>
+              {this.props.links.map((item, index) => <li key={index}><a href={item.href}>{item.link}</a></li>)}
+            </ul>
+          </div>
         </aside>
       </React.Fragment >
     );

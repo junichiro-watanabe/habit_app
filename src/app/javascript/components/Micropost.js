@@ -26,7 +26,7 @@ class Micropost extends React.Component {
                     <span className="glyphicon glyphicon-fire" aria-hidden="true"></span>
                     &nbsp;&nbsp;<a href={this.props.group_path}>{this.props.group_name}</a>
                     &nbsp;の&nbsp;<a href={this.props.user_path}>{this.props.user_name}</a>
-                    &nbsp;が煽っています
+                    &nbsp;さんが煽っています
                     &nbsp;&nbsp;<span className="glyphicon glyphicon-fire" aria-hidden="true"></span>
                   </h4>
                 </React.Fragment> :

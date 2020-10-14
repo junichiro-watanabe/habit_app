@@ -28,6 +28,15 @@ ul,li{
   }
 }
 
+.user-image{
+  text-align: center;
+}
+
+.list{
+  display: inline-block;
+  text-align: left;
+}
+
 /* header */
 .fixed-header{
   position: fixed;
@@ -224,7 +233,7 @@ input, textarea{
       margin-top: 10px;
     }
     .item-info{
-      display: flex;
+      text-align: center;
       img{
         margin: 20px;
         border-radius: 50%;
@@ -234,12 +243,6 @@ input, textarea{
       }
       h4{
         margin-top: 20px
-      }
-      .achievement{
-        margin-left: auto;
-      }
-      .follow{
-        margin: auto auto;
       }
     }
   }
@@ -267,6 +270,7 @@ input, textarea{
   border-radius: 10px;
   box-shadow: 3px 3px 3px rgb(235, 235, 235);
   background-color: #faffff;
+  padding: 10px;
   .micropost-user{
     display: flex;
     img{
@@ -278,7 +282,7 @@ input, textarea{
   }
   .micropost-content{
     font-size: 15px;
-    margin: 0 10px 20px 10px;
+    margin: 0 10px 0px 10px;
     p{
       white-space: pre-wrap;
       word-wrap: break-word;
@@ -286,7 +290,7 @@ input, textarea{
   }
 }
 
-/* グループ紹介 */
+/* グループ・ユーザ紹介 */
 .describe{
   margin: 20px 0 40px 0;
   background-color: #faffff;
@@ -298,16 +302,16 @@ input, textarea{
       padding: 0px;
     }
     .menu{
+      text-align: center;
       margin: 10px 0 10px 0;
-      display: flex;
       img{
         margin: 20px;
         border-radius: 50%;
-        width: 80px;
-        height: 80px;
+        width: 100px;
+        height: 100px;
       }
       .edit{
-        margin-left: auto;
+        margin-top: 10px;
       }
     }
   }
@@ -331,9 +335,22 @@ input, textarea{
   }
 }
 
+/* フォローボタン */
+.follow{
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+/* 参加ボタン */
+.follow{
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
 /* 煽り機能 */
 .encouragement{
   margin-top: 20px;
+  margin-bottom: 10px;
   button{
     float: right;
     clear: both;
@@ -349,36 +366,24 @@ input, textarea{
     word-wrap: break-word;
   }
   .message-history{
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     height: 500px;
-    padding: 10px
+    padding: 10px 20px 10px 10px
   }
   button{
     float: right;
     clear: both;
   }
   .myself{
-    width: 350px;
-    float: right;
-    clear: both;
-    display: flex;
-    margin-bottom: 15px;
-  }
-  .yourself{
-    width: 350px;
-    float: left;
-    clear: both;
-    display: flex;
     margin-bottom: 15px;
   }
   .myself-message{
     position: relative;
-    width: 290px;
     padding: 5px;
     background-color: #06ffff;
     border: 1px solid #06ffff;
     border-radius: 10px;
-    margin-right: 10px;
   }
   .myself-message::before {
     content: "";
@@ -388,9 +393,11 @@ input, textarea{
     top: 10%;
     left: 100%;
   }
+  .yourself{
+    margin-bottom: 15px;
+  }
   .yourself-message{
     position: relative;
-    width: 290px;
     padding: 5px;
     background-color: #06ffff;
     border: 1px solid #06ffff;
@@ -415,8 +422,8 @@ input, textarea{
   }
   img{
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 80%;
+    height: 80%;
   }
 }
 
