@@ -28,4 +28,5 @@ Rails.application.routes.draw do
     end
   end
   resources :relationships, only: [:update, :destroy]
+  resources :messages, only: [:show, :update]
 end

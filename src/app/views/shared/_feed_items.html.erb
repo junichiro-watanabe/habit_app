@@ -1,37 +1,6 @@
 <% if @feed_items.length != 0 %>
   <% @feed_items.each do |feed_item| %>
 
-<%
-=begin%>
- <div class="micropost">
-        <div class="micropost-user">
-          <img src=<%= attached_image(feed_item.user) %> />
-          <div>
-            <% if feed_item.encouragement %>
-                <h3>
-                  <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
-                  &nbsp;&nbsp;<a href={this.props.group_path}>{this.props.group_name}</a>
-                  &nbsp;の&nbsp;<a href={this.props.user_path}>{this.props.user_name}</a>
-                  &nbsp;が煽っています
-                  &nbsp;&nbsp;<span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
-                </h3>
-            <% else %>
-              <a href=<%= user_path(feed_item.user) %>><li><h4><%= feed_item.user.name %></h4></li></a>
-            <% end %>
-            <p><%= "Posted #{time_ago_in_words(feed_item.created_at)} ago" %></p>
-          </div>
-        </div>
-        <div class="micropost-content">
-          <% if(feed_item.history && !feed_item.encouragement) %>
-            <p dangerouslySetInnerHTML={{ __html: <%= feed_item.content %> }} />
-          <% else %>
-            <p><%= feed_item.content %></p>
-          <% end %>
-        </div>
-      </div>
-<%
-=end%>
-
  <%= react_component("Micropost",
       { user_image: attached_image(feed_item.user),
         user_name: feed_item.user.name,
@@ -39,7 +8,7 @@
         group_name: feed_item.history.achievement.belong.group.name,
         group_path: group_path(feed_item.history.achievement.belong.group),
         content: feed_item.content,
-        time: "Posted #{time_ago_in_words(feed_item.created_at)} ago",
+        time: feed_item.created_at.strftime("%Y-%m-%d %H:%M"),
         history: feed_item.history,
         encouragement: feed_item.encouragement
       }) %>

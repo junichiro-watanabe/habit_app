@@ -1,0 +1,21 @@
+<% provide(:page, "user_show") %>
+
+<% if current_user?(@user) %>
+<h3>メッセージ一覧</h3>
+  <div class="message-list">
+    <%= render 'messages/message' %>
+  </div>
+<% else %>
+<h3><%= link_to  @user.name, user_path(@user) %> さんとの トークルーム</h3>
+  <div class="message">
+    <%= react_component("Message", { path: message_path(@user),
+                                    token: create_authenticity_token,
+                                    message: @message,
+                                    my_name: current_user.name,
+                                    your_name: @user.name,
+                                    my_path: user_path(current_user),
+                                    your_path: user_path(@user),
+                                    my_image: attached_image(current_user),
+                                    your_image: attached_image(@user) })%>
+  </div>
+<% end %>

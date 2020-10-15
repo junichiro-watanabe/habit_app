@@ -8,7 +8,8 @@ class Achievement extends React.Component {
   toggleAchieve = () => {
     fetch(this.props.path, {
       method: 'PATCH',
-      headers: new Headers({ "Content-type": "application/json" })
+      headers: new Headers({ "Content-type": "application/json" }),
+      body: JSON.stringify({ "authenticity_token": this.props.token })
     }).then((response) => response.json()
     ).then(
       (json) => {
@@ -30,6 +31,8 @@ class Achievement extends React.Component {
 
 Achievement.propTypes = {
   path: PropTypes.string,
+  token: PropTypes.string,
+  setAchieved: PropTypes.func
 };
 
 export default Achievement
