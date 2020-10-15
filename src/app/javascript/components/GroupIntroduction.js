@@ -31,9 +31,9 @@ class GroupIntroduction extends React.Component {
         <div className="describe">
           <div className="head">
             {this.state.belong ?
-              <a className="alert alert-info">
+              <span className="alert alert-info">
                 このコミュニティに参加しています
-              </a> : null}
+              </span> : null}
             <div className="menu row">
               <div className="user-image col-md-3">
                 <img src={this.props.group_image} />

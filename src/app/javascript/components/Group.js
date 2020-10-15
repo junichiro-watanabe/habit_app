@@ -20,9 +20,9 @@ class Group extends React.Component {
       <React.Fragment>
         <div className="item">
           {this.state.belong ?
-            <a className="alert alert-info">
+            <span className="alert alert-info">
               このコミュニティに参加しています
-            </a> : null}
+            </span> : null}
           <div className="item-info row">
             <div className="user-image col-md-2">
               <img src={this.props.group_image} />

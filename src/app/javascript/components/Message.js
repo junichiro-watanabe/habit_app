@@ -83,9 +83,9 @@ class Message extends React.Component {
 
         <form className="message-form" onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <textarea className="form-control" value={this.state.value} onChange={this.handleChange}></textarea>
+            <textarea className="form-control" value={this.state.value} id="message" onChange={this.handleChange}></textarea>
           </div>
-          <button type="submit" className="btn btn-warning" onClick={this.scrollToBottom}>送る</button>
+          <button type="submit" className="btn btn-warning" onClick={this.scrollToBottom}>送信</button>
         </form>
       </React.Fragment >
     );

@@ -15,6 +15,7 @@ RSpec.describe "SiteLayout", type: :system do
   describe "ホーム画面のテスト" do
     it "リンクが正常" do
       visit root_path
+      expect(page).to have_link "Habit App", href: root_path
       expect(page).to have_link "ホーム", href: root_path
       expect(page).to have_link "ログイン", href: login_path
       expect(page).to have_link "新規登録", href: signup_path
@@ -30,6 +31,7 @@ RSpec.describe "SiteLayout", type: :system do
       expect(page).to have_link "#{@user_1.followers.count}人", href: followers_user_path(@user_1)
       expect(page).to have_link "主催コミュニティ", href: owning_user_path(@user_1)
       expect(page).to have_link "参加コミュニティ", href: belonging_user_path(@user_1)
+      expect(page).to have_link "メッセージを送る", href: message_path(@user_1)
     end
 
     it "表示情報が正常" do

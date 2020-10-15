@@ -1,0 +1,26 @@
+<% if @messages.length != 0 %>
+  <% @messages.each do |message| %>
+    <div class="message">
+      <div class="message-sender">
+        <% if current_user.last_message(message)[0].sender_id == current_user.id %>
+          <span class="alert alert-info">メッセージを送信しました</span>
+        <% else %>
+          <span class="alert alert-warning">メッセージを受信しました</span>
+        <% end %>
+      </div>
+      <div class="message-user">
+        <%= image_tag  attached_image(message) %>
+        <div>
+          <h4><%= message.name %></h4>
+          <%= current_user.last_message(message)[0].created_at.strftime("%Y-%m-%d %H:%M") %>
+        </div>
+      </div>
+      <div class="message-content">
+        <p><%= current_user.last_message(message)[0].content %></p>
+      </div>
+      <a href=<%= message_path(message) %>>&nbsp;</a>
+    </div>
+  <% end %>
+<% else %>
+  <h3>メッセージはありません</h3>
+<% end %>
