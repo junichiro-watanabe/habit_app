@@ -17,7 +17,7 @@ class User < ApplicationRecord
                              dependent: :destroy
   has_many :receivers, through: :active_messages, source: :receiver
   has_many :passive_messages, class_name: "Message",
-                              foreign_key: :receiver,
+                              foreign_key: "receiver_id",
                               dependent: :destroy
   has_many :senders, through: :passive_messages, source: :sender
   has_one_attached :image
@@ -141,6 +141,14 @@ class User < ApplicationRecord
 
     def followed_by?(other_user)
       followers.include?(other_user)
+    end
+
+    def last_message(user)
+      message_ids = "SELECT id FROM messages
+                     where sender_id = :current_user_id AND receiver_id = :user_id
+                     OR sender_id = :user_id AND receiver_id = :current_user_id"
+      Message.where("id IN (#{message_ids})",
+                               current_user_id: id, user_id: user.id).order("created_at DESC").limit(1)
     end
 
 end

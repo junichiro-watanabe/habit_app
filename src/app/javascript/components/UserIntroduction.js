@@ -32,9 +32,9 @@ class UserIntroduction extends React.Component {
         <div className="describe">
           <div className="head">
             {this.state.follow ?
-              <a className="alert alert-info">
+              <span className="alert alert-info">
                 このユーザをフォローしています
-              </a> : null}
+              </span> : null}
             <div className="menu row">
               <div className="user-image col-md-3">
                 <img src={this.props.user_image} />
@@ -54,7 +54,8 @@ class UserIntroduction extends React.Component {
                   follow={this.state.follow}
                   token={this.props.token}
                   setFollow={this.setFollow}
-                  setFollowCount={this.setFollowCount} />
+                  setFollowCount={this.setFollowCount} /><br />
+                <a href={this.props.message_path}><button className="send-message btn btn-default">メッセージを送る</button></a>
               </div>
             </div>
           </div>
@@ -63,7 +64,7 @@ class UserIntroduction extends React.Component {
             <p>{this.props.user_introduction}</p>
           </div>
         </div>
-      </React.Fragment>
+      </React.Fragment >
     );
   }
 }
@@ -82,7 +83,8 @@ UserIntroduction.propTypes = {
   owning_path: PropTypes.string,
   belonging_path: PropTypes.string,
   user_introduction: PropTypes.string,
-  token: PropTypes.string
+  token: PropTypes.string,
+  message_path: PropTypes.string
 };
 
 export default UserIntroduction
