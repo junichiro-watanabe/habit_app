@@ -94,7 +94,7 @@ class UsersController < ApplicationController
   def owning
     @user = User.find(params[:id])
     @title = "主催コミュニティ"
-    @heading = "#{@user.name} の #{@title}"
+    @heading = "#{@user.name}  さんの #{@title}"
     @controller = :users
     @action = :owning
     if params[:users] == nil
@@ -109,7 +109,7 @@ class UsersController < ApplicationController
   def belonging
     @user = User.find(params[:id])
     @title = "参加コミュニティ"
-    @heading = "#{@user.name} の #{@title}"
+    @heading = "#{@user.name}  さんの #{@title}"
     @controller = :users
     @action = :belonging
     if params[:users] == nil
@@ -124,7 +124,7 @@ class UsersController < ApplicationController
   def not_achieved
     @user = User.find(params[:id])
     @title = "目標未達コミュニティ"
-    @heading = "#{@user.name} の #{@title}"
+    @heading = "#{@user.name}  さんの #{@title}"
     @controller = :users
     @action = :not_achieved
     if params[:users] == nil
@@ -145,7 +145,7 @@ class UsersController < ApplicationController
   def following
     @user = User.find(params[:id])
     @title = "フォロー 一覧"
-    @heading = "#{@user.name} の #{@title}"
+    @heading = "#{@user.name}  さんの #{@title}"
     @controller = :users
     @action = :following
     if params[:users] == nil
@@ -164,7 +164,7 @@ class UsersController < ApplicationController
   def followers
     @user = User.find(params[:id])
     @title = "フォロワーー 一覧"
-    @heading = "#{@user.name} の #{@title}"
+    @heading = "#{@user.name}  さんの #{@title}"
     @controller = :users
     @action = :followers
     if params[:users] == nil

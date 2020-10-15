@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_11_121541) do
+ActiveRecord::Schema.define(version: 2020_10_13_130637) do
 
   create_table "achievements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "belong_id", null: false
@@ -71,6 +71,17 @@ ActiveRecord::Schema.define(version: 2020_10_11_121541) do
     t.index ["achievement_id", "date"], name: "index_histories_on_achievement_id_and_date", unique: true
     t.index ["achievement_id"], name: "index_histories_on_achievement_id"
     t.index ["date"], name: "index_histories_on_date"
+  end
+
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "sender_id"
+    t.integer "receiver_id"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["receiver_id"], name: "index_messages_on_receiver_id"
+    t.index ["sender_id", "receiver_id"], name: "index_messages_on_sender_id_and_receiver_id"
+    t.index ["sender_id"], name: "index_messages_on_sender_id"
   end
 
   create_table "microposts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|

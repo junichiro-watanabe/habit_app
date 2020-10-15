@@ -11,7 +11,8 @@ class Belong extends React.Component {
   belong = () => {
     fetch(this.props.path, {
       method: 'PATCH',
-      headers: new Headers({ "Content-type": "application/json" })
+      headers: new Headers({ "Content-type": "application/json" }),
+      body: JSON.stringify({ "authenticity_token": this.props.token })
     }).then((response) => response.json()
     ).then(
       (json) => {
@@ -28,7 +29,8 @@ class Belong extends React.Component {
   leave = () => {
     fetch(this.props.path, {
       method: 'DELETE',
-      headers: new Headers({ "Content-type": "application/json" })
+      headers: new Headers({ "Content-type": "application/json" }),
+      body: JSON.stringify({ "authenticity_token": this.props.token })
     }).then((response) => response.json()
     ).then(
       (json) => {
@@ -64,7 +66,11 @@ class Belong extends React.Component {
 Belong.propTypes = {
   id: PropTypes.number,
   path: PropTypes.string,
-  belong: PropTypes.bool
+  belong: PropTypes.bool,
+  token: PropTypes.string,
+  setBelong: PropTypes.func,
+  setMemberCount: PropTypes.func,
+  setAchieved: PropTypes.func
 };
 
 export default Belong

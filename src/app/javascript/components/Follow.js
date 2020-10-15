@@ -11,7 +11,8 @@ class Follow extends React.Component {
   follow = () => {
     fetch(this.props.path, {
       method: 'PATCH',
-      headers: new Headers({ "Content-type": "application/json" })
+      headers: new Headers({ "Content-type": "application/json" }),
+      body: JSON.stringify({ "authenticity_token": this.props.token })
     }).then((response) => response.json()
     ).then(
       (json) => {
@@ -31,7 +32,8 @@ class Follow extends React.Component {
   unfollow = () => {
     fetch(this.props.path, {
       method: 'DELETE',
-      headers: new Headers({ "Content-type": "application/json" })
+      headers: new Headers({ "Content-type": "application/json" }),
+      body: JSON.stringify({ "authenticity_token": this.props.token })
     }).then((response) => response.json()
     ).then(
       (json) => {
@@ -74,6 +76,9 @@ Follow.propTypes = {
   active_followers_count: PropTypes.number,
   passive_following_count: PropTypes.number,
   passive_followers_count: PropTypes.number,
+  token: PropTypes.string,
+  setFollow: PropTypes.func,
+  setFollowCount: PropTypes.func
 };
 
 export default Follow

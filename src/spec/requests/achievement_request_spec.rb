@@ -67,5 +67,12 @@ RSpec.describe "Achievements", type: :request do
       expect(response).to redirect_to group_path(@group)
       expect(flash.any?).to eq true
     end
+
+    it "煽り投稿：文字列255文字超過" do
+      log_in_as(@user_1)
+      expect{ post encourage_achievement_path(@group), params: {content: "a"*255} }.not_to change{ @user_1.microposts.count }
+      expect(response).to redirect_to group_path(@group)
+      expect(flash.any?).to eq true
+    end
   end
 end

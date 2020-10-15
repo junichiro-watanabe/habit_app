@@ -19,7 +19,8 @@
                                            belong: current_user.belonging?(@group),
                                            achieved: current_user.achieved?(@group),
                                            owner: @group.owner?(current_user),
-                                           encouragement_path: encourage_achievement_path(@group) }) %>
+                                           encouragement_path: encourage_achievement_path(@group),
+                                           token: create_authenticity_token }) %>
 
 <h2>タイムライン</h2>
 <%= render 'shared/feed_items' %>

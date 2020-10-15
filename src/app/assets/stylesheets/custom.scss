@@ -28,6 +28,15 @@ ul,li{
   }
 }
 
+.user-image{
+  text-align: center;
+}
+
+.list{
+  display: inline-block;
+  text-align: left;
+}
+
 /* header */
 .fixed-header{
   position: fixed;
@@ -123,7 +132,7 @@ footer{
 input, textarea{
   border: 1px solid #bbb;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .form{
@@ -219,12 +228,12 @@ input, textarea{
     box-shadow: 3px 3px 3px rgb(235, 235, 235);
     background-color: #faffff;
     padding: 10px 20px;
-    a{
+    span{
       padding: 0px;
       margin-top: 10px;
     }
     .item-info{
-      display: flex;
+      text-align: center;
       img{
         margin: 20px;
         border-radius: 50%;
@@ -234,12 +243,6 @@ input, textarea{
       }
       h4{
         margin-top: 20px
-      }
-      .achievement{
-        margin-left: auto;
-      }
-      .follow{
-        margin: auto auto;
       }
     }
   }
@@ -267,6 +270,7 @@ input, textarea{
   border-radius: 10px;
   box-shadow: 3px 3px 3px rgb(235, 235, 235);
   background-color: #faffff;
+  padding: 10px;
   .micropost-user{
     display: flex;
     img{
@@ -278,14 +282,15 @@ input, textarea{
   }
   .micropost-content{
     font-size: 15px;
-    margin: 0 10px 20px 10px;
+    margin: 0 10px 0px 10px;
     p{
       white-space: pre-wrap;
+      word-wrap: break-word;
     }
   }
 }
 
-/* グループ紹介 */
+/* グループ・ユーザ紹介 */
 .describe{
   margin: 20px 0 40px 0;
   background-color: #faffff;
@@ -293,20 +298,20 @@ input, textarea{
     background-color: rgb(255, 243, 228);
     border-radius: 10px;
     padding: 30px;
-    a{
+    span{
       padding: 0px;
     }
     .menu{
+      text-align: center;
       margin: 10px 0 10px 0;
-      display: flex;
       img{
         margin: 20px;
         border-radius: 50%;
-        width: 80px;
-        height: 80px;
+        width: 100px;
+        height: 100px;
       }
       .edit{
-        margin-left: auto;
+        margin-top: 10px;
       }
     }
   }
@@ -315,7 +320,7 @@ input, textarea{
     border-radius: 10px;
     background-color: #fbfdff;
     padding: 20px;
-    margin-top: 30px;
+    margin-top: 60px;
   }
 }
 
@@ -330,9 +335,152 @@ input, textarea{
   }
 }
 
+/* フォローボタン */
+.follow{
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+/* メッセージボタン */
+.follow{
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+/* 参加ボタン */
+.send-message{
+  margin-top: 10px;
+}
+
+/* メッセージ機能 */
+.message{
+  margin-top: 20px;
+  p{
+    margin: 0px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .message-history{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 500px;
+    padding: 10px 20px 10px 10px
+  }
+  button{
+    float: right;
+  }
+  .myself{
+    margin-bottom: 15px;
+  }
+  .myself-message{
+    position: relative;
+    padding: 5px;
+    background-color: #06ffff;
+    border: 1px solid #06ffff;
+    border-radius: 10px;
+  }
+  .myself-message::before {
+    content: "";
+    position: absolute;
+    border: 12px solid transparent;
+    border-left: 12px solid #06ffff;
+    top: 10%;
+    left: 100%;
+  }
+  .yourself{
+    margin-bottom: 15px;
+  }
+  .yourself-message{
+    position: relative;
+    padding: 5px;
+    background-color: #06ffff;
+    border: 1px solid #06ffff;
+    border-radius: 10px;
+    margin-left: auto;
+  }
+  .yourself-message::before {
+    content: "";
+    position: absolute;
+    border: 12px solid transparent;
+    border-right: 12px solid #06ffff;
+    top: 10%;
+    left: -24px;
+  }
+  .user-info{
+    display: flex;
+    margin-bottom: 10px;
+  }
+  .time{
+    margin-left: auto;
+    font-size: xx-small;
+  }
+  img{
+    border-radius: 50%;
+    width: 60%;
+    height: 60%;
+  }
+}
+
+.message-list{
+  margin-top: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 500px;
+  .message{
+    border: 1px solid #bbb;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px rgb(235, 235, 235);
+    background-color: #faffff;
+    padding: 10px;
+    margin-right: 20px;
+    position: relative;
+    :hover{
+      opacity: 0.3;
+      background-color: rgb(203, 238, 255);
+    }
+    a{
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .message-sender{
+      span{
+        padding: 0;
+        margin: 0;
+        float: right;
+      }
+    }
+    .message-user{
+      clear: both;
+      display: flex;
+      img{
+        margin: 20px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .message-content{
+      font-size: 15px;
+      margin: 0 10px 10px 10px;
+      p{
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+    }
+  }
+}
+
 /* 煽り機能 */
 .encouragement{
   margin-top: 20px;
+  margin-bottom: 10px;
+  button{
+    float: right;
+  }
 }
 
 .encouragement-micropost{
@@ -346,9 +494,6 @@ input, textarea{
 /* タイムライン表示 */
 .timeline-information{
   text-align: center;
-  h3{
-    margin-top: 0px;
-  }
 }
 
 /* 検索 */
