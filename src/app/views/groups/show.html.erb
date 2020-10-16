@@ -22,6 +22,6 @@
                                            encouragement_path: encourage_achievement_path(@group),
                                            token: create_authenticity_token }) %>
 
-<h2>タイムライン</h2>
+<h3>タイムライン</h3>
 <%= render 'shared/feed_items' %>
 <%= will_paginate @feed_items %>
