@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Group, type: :model do
   let(:group){  user = create(:user)
                 user.groups.build(name: "valid_name",
-                                    habit: "valid_habit",
-                                    overview: "valid_overview") }
+                                  habit: "valid_habit",
+                                  overview: "valid_overview") }
 
   describe "有効性のテスト" do
     it "有効な情報" do

@@ -10,7 +10,11 @@
         content: feed_item.content,
         time: feed_item.created_at.strftime("%Y-%m-%d %H:%M"),
         history: feed_item.history,
-        encouragement: feed_item.encouragement
+        encouragement: feed_item.encouragement,
+        like_path: like_path(feed_item),
+        like: current_user.like?(feed_item),
+        like_count: feed_item.likers.count,
+        token: create_authenticity_token
       }) %>
 
   <% end %>

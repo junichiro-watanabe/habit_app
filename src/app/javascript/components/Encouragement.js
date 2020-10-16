@@ -15,6 +15,8 @@ class Encouragement extends React.Component {
             <label for="encouragement">&nbsp;&nbsp;目標達成お疲れさまでした！メンバーに対して煽ることができます&nbsp;&nbsp;</label>
             <span className="glyphicon glyphicon-fire" aria-hidden="true"></span>
             <textarea className="form-control" name="content" id="encouragement" placeholder="煽ってください"></textarea>
+            <p>※この機能はあくまで他のユーザを鼓舞するための機能です</p>
+            <p>※誹謗中傷を目的としたご利用はお控えください</p>
           </div>
           <button type="submit" className="btn btn-warning">煽る</button>
         </form>
