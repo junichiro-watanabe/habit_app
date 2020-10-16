@@ -18,7 +18,7 @@ class Like extends React.Component {
     ).then(
       (json) => {
         this.setState({
-          like: true,
+          like: json.like,
           likeCount: json.like_count
         })
       }
@@ -34,7 +34,7 @@ class Like extends React.Component {
     ).then(
       (json) => {
         this.setState({
-          like: false,
+          like: json.like,
           likeCount: json.like_count
         })
       }

@@ -1,0 +1,14 @@
+<% if request.referer&.include?(user_path(current_user)) %>
+  <%= provide(:page, "user_show") %>
+<% else %>
+  <%= provide(:page, "group") %>
+<% end %>
+
+<div class="likers">
+  <%= render 'shared/feed_items' %>
+  <div class="index">
+    <h2>いいね したユーザー</h2>
+    <%= render 'shared/user_items' %>
+    <%= will_paginate @users, params: {controller: :likes, action: :show} %>
+  </div>
+</div>

@@ -1,5 +1,9 @@
 <% provide(:title, @title) %>
-<% provide(:page, "group") %>
+<% if current_user?(@user) %>
+  <% provide(:page, "user_show") %>
+<% else %>
+  <% provide(:page, "group") %>
+<% end %>
 
 <div class="index">
     <h2><%= @heading %></h2>

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :users
   resources :users do
     member do
-      get :edit_image, :delete, :owning, :belonging, :not_achieved, :encouraged, :following, :followers
+      get :edit_image, :delete, :owning, :belonging, :not_achieved, :encouraged, :following, :followers, :like_feeds
     end
   end
   get '/create_group', to: 'groups#new'
@@ -29,5 +29,5 @@ Rails.application.routes.draw do
   end
   resources :relationships, only: [:update, :destroy]
   resources :messages, only: [:show, :update]
-  resources :likes, only: [:update, :destroy]
+  resources :likes, only: [:show, :update, :destroy]
 end

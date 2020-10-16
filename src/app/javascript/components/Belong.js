@@ -17,7 +17,7 @@ class Belong extends React.Component {
     ).then(
       (json) => {
         this.setState({
-          belong: true
+          belong: json.belong
         })
         this.props.setBelong(this.state.belong)
         this.props.setMemberCount(json.member_count)
@@ -35,7 +35,7 @@ class Belong extends React.Component {
     ).then(
       (json) => {
         this.setState({
-          belong: false
+          belong: json.belong
         })
         this.props.setBelong(this.state.belong)
         this.props.setMemberCount(json.member_count)
