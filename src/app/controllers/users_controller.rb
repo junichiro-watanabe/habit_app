@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :edit, :edit_image, :update, :delete, :destroy, :owning, :belonging, :not_achieved, :encouraged, :following, :followers]
+  before_action :logged_in_user, only: [:index, :show, :edit, :edit_image, :update, :delete, :destroy, :owning, :belonging, :not_achieved, :encouraged, :following, :followers, :like_feeds]
   before_action :correct_user, only: [:edit, :edit_image, :update, :delete, :destroy]
 
   def index
@@ -174,7 +174,7 @@ class UsersController < ApplicationController
 
   def like_feeds
     @user = User.find(params[:id])
-    @feed_items = @user.like_feeds.paginate(page: params[:page], per_page: 7)
+    @feed_items = @user.like_feeds.paginate(page: params[:page], per_page: 7).order("created_at DESC")
   end
 
   private
