@@ -449,7 +449,7 @@ RSpec.describe "Users", type: :request do
       expect(logged_in?).to eq true
       get following_user_path(@user)
       expect(response).to have_http_status(200)
-      expect(response).to render_template 'follow'
+      expect(response).to render_template 'shared/user_index'
     end
 
     it "getリクエスト：ログインしていない" do
@@ -465,7 +465,7 @@ RSpec.describe "Users", type: :request do
       expect(logged_in?).to eq true
       get followers_user_path(@user)
       expect(response).to have_http_status(200)
-      expect(response).to render_template 'follow'
+      expect(response).to render_template 'shared/user_index'
     end
 
     it "getリクエスト：ログインしていない" do
