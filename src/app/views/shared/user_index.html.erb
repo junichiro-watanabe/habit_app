@@ -1,8 +1,12 @@
 <% provide(:title, @title) %>
-<% provide(:page, "group") %>
+<% if current_user?(@user) %>
+  <% provide(:page, "user_show") %>
+<% else %>
+  <% provide(:page, "group") %>
+<% end %>
 
 <div class="index">
-    <h2><%= @heading %></h2>
+    <h3><%= @heading %></h3>
     <%= render 'shared/search' %>
     <%= render 'shared/user_items' %>
     <%= will_paginate @users, params: {controller: @controller, action: @action} %>

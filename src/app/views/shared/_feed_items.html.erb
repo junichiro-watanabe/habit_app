@@ -1,18 +1,22 @@
 <% if @feed_items.length != 0 %>
   <% @feed_items.each do |feed_item| %>
-
- <%= react_component("Micropost",
-      { user_image: attached_image(feed_item.user),
-        user_name: feed_item.user.name,
-        user_path: user_path(feed_item.user),
-        group_name: feed_item.history.achievement.belong.group.name,
-        group_path: group_path(feed_item.history.achievement.belong.group),
-        content: feed_item.content,
-        time: feed_item.created_at.strftime("%Y-%m-%d %H:%M"),
-        history: feed_item.history,
-        encouragement: feed_item.encouragement
-      }) %>
-
+    <li id = <%= "micropost-#{feed_item.id}" %>>
+      <%= react_component("Micropost",
+            { user_image: attached_image(feed_item.user),
+              user_name: feed_item.user.name,
+              user_path: user_path(feed_item.user),
+              group_name: feed_item.history.achievement.belong.group.name,
+              group_path: group_path(feed_item.history.achievement.belong.group),
+              content: feed_item.content,
+              time: feed_item.created_at.strftime("%Y-%m-%d %H:%M"),
+              history: feed_item.history,
+              encouragement: feed_item.encouragement,
+              like_path: like_path(feed_item),
+              like: current_user.like?(feed_item),
+              like_count: feed_item.likers.count,
+              token: create_authenticity_token
+            }) %>
+      </li>
   <% end %>
 <% else %>
   <h3>タイムラインはありません</h3>

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :edit, :edit_image, :update, :delete, :destroy, :owning, :belonging, :not_achieved, :encouraged, :following, :followers]
+  before_action :logged_in_user, only: [:index, :show, :edit, :edit_image, :update, :delete, :destroy, :owning, :belonging, :not_achieved, :encouraged, :following, :followers, :like_feeds]
   before_action :correct_user, only: [:edit, :edit_image, :update, :delete, :destroy]
 
   def index
@@ -154,11 +154,7 @@ class UsersController < ApplicationController
       keyword = params[:users][:search]
       @users = @user.following.paginate(page: params[:page], per_page: 7).where("concat(name, introduction) LIKE :keyword", keyword: "%#{keyword}%").paginate(page: params[:page], per_page: 7)
     end
-    if current_user?(@user)
-      render 'follow'
-    else
-      render 'shared/user_index'
-    end
+    render 'shared/user_index'
   end
 
   def followers
@@ -173,11 +169,12 @@ class UsersController < ApplicationController
       keyword = params[:users][:search]
       @users = @user.followers.paginate(page: params[:page], per_page: 7).where("concat(name, introduction) LIKE :keyword", keyword: "%#{keyword}%").paginate(page: params[:page], per_page: 7)
     end
-    if current_user?(@user)
-      render 'follow'
-    else
-      render 'shared/user_index'
-    end
+    render 'shared/user_index'
+  end
+
+  def like_feeds
+    @user = User.find(params[:id])
+    @feed_items = @user.like_feeds.paginate(page: params[:page], per_page: 7).order("created_at DESC")
   end
 
   private

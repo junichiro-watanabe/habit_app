@@ -23,7 +23,7 @@
                                               token: create_authenticity_token,
                                               message_path: message_path(@user) }) %>
   <% end %>
-  <h2>タイムライン</h2>
+  <h3>タイムライン</h3>
   <%= render 'shared/feed_items' %>
   <%= will_paginate @feed_items %>
 </div>

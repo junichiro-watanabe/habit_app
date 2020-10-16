@@ -17,7 +17,7 @@ class Follow extends React.Component {
     ).then(
       (json) => {
         this.setState({
-          follow: true
+          follow: json.follow
         })
         this.props.setFollow(this.state.follow)
         this.props.setFollowCount(
@@ -38,7 +38,7 @@ class Follow extends React.Component {
     ).then(
       (json) => {
         this.setState({
-          follow: false
+          follow: json.follow
         })
         this.props.setFollow(this.state.follow)
         this.props.setFollowCount(

@@ -95,6 +95,19 @@ RSpec.describe "Users", type: :request do
       get user_path(@user)
       expect(response).to have_http_status(200)
       expect(response).to render_template 'users/show'
+      expect(response).to render_template 'users/_achievement_information'
+      expect(response).to render_template 'users/_encouragement_information'
+    end
+
+    it "getリクエスト：ログイン状態(他のユーザ)" do
+      log_in_as(@user)
+      expect(logged_in?).to eq true
+      expect(current_user?(@user)).to eq true
+      get user_path(@other_user)
+      expect(response).to have_http_status(200)
+      expect(response).to render_template 'users/show'
+      expect(response).not_to render_template 'users/_achievement_information'
+      expect(response).not_to render_template 'users/_encouragement_information'
     end
 
     it "getリクエスト：ログインしていない" do
@@ -449,7 +462,7 @@ RSpec.describe "Users", type: :request do
       expect(logged_in?).to eq true
       get following_user_path(@user)
       expect(response).to have_http_status(200)
-      expect(response).to render_template 'follow'
+      expect(response).to render_template 'shared/user_index'
     end
 
     it "getリクエスト：ログインしていない" do
@@ -465,11 +478,27 @@ RSpec.describe "Users", type: :request do
       expect(logged_in?).to eq true
       get followers_user_path(@user)
       expect(response).to have_http_status(200)
-      expect(response).to render_template 'follow'
+      expect(response).to render_template 'shared/user_index'
     end
 
     it "getリクエスト：ログインしていない" do
       get followers_user_path(@user)
+      expect(response).to redirect_to login_path
+      expect(flash.any?).to eq true
+    end
+  end
+
+  describe "いいねした投稿一覧のテスト" do
+    it "getリクエスト：ログイン状態" do
+      log_in_as(@user)
+      expect(logged_in?).to eq true
+      get like_feeds_user_path(@user)
+      expect(response).to have_http_status(200)
+      expect(response).to render_template 'users/like_feeds'
+    end
+
+    it "getリクエスト：ログインしていない" do
+      get like_feeds_user_path(@user)
       expect(response).to redirect_to login_path
       expect(flash.any?).to eq true
     end

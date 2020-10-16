@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import Like from "./Like"
 class Micropost extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +32,14 @@ class Micropost extends React.Component {
                   </h4>
                 </React.Fragment> :
                 <a href={this.props.user_path}><li><h4>{this.props.user_name}</h4></li></a>}
-              <p>{this.props.time}</p>
+              <div className="micropost-time">
+                <p>{this.props.time}</p>
+                <Like
+                  path={this.props.like_path}
+                  like={this.props.like}
+                  like_count={this.props.like_count}
+                  token={this.props.token} />
+              </div>
             </div>
           </div>
           <div className="micropost-content">
@@ -52,7 +60,11 @@ Micropost.proptypes = {
   group_path: PropTypes.string,
   group_name: PropTypes.string,
   content: PropTypes.string,
-  time: PropTypes.string
+  time: PropTypes.string,
+  like_path: PropTypes.string,
+  like: PropTypes.bool,
+  like_count: PropTypes.number,
+  token: PropTypes.string
 };
 
 export default Micropost
