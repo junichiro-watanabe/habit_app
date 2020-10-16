@@ -47,7 +47,6 @@ class GroupIntroduction extends React.Component {
                   </div>
                   <div className="belong">
                     <Belong
-                      id={this.props.group_id}
                       path={this.props.belong_path}
                       belong={this.state.belong}
                       memberCount={this.state.memberCount}

@@ -60,9 +60,10 @@ RSpec.describe "Followings", type: :system do
       expect(current_path).to eq following_user_path(@user)
       users = @user.following.paginate(page: 1, per_page: 7)
       users.each do |user|
-        expect(page).to have_link user.name, href: user_path(user)
-        expect(page).to have_content user.introduction
-        expect(page).to have_selector "#user-#{user.id}"
+        within "#user-#{user.id}" do
+          expect(page).to have_link user.name, href: user_path(user)
+          expect(page).to have_content user.introduction
+        end
       end
     end
 
@@ -75,9 +76,10 @@ RSpec.describe "Followings", type: :system do
       expect(current_path).to eq following_user_path(@user)
       users = @user.following.paginate(page: 1, per_page: 7)
       users.each do |user|
-        expect(page).to have_link user.name, href: user_path(user)
-        expect(page).to have_content user.introduction
-        expect(page).to have_selector "#user-#{user.id}"
+        within "#user-#{user.id}" do
+          expect(page).to have_link user.name, href: user_path(user)
+          expect(page).to have_content user.introduction
+        end
       end
     end
   end
@@ -89,9 +91,10 @@ RSpec.describe "Followings", type: :system do
       expect(current_path).to eq followers_user_path(@user)
       users = @user.followers.paginate(page: 1, per_page: 7)
       users.each do |user|
-        expect(page).to have_link user.name, href: user_path(user)
-        expect(page).to have_content user.introduction
-        expect(page).to have_selector "#user-#{user.id}"
+        within "#user-#{user.id}" do
+          expect(page).to have_link user.name, href: user_path(user)
+          expect(page).to have_content user.introduction
+        end
       end
     end
 
@@ -104,9 +107,10 @@ RSpec.describe "Followings", type: :system do
       expect(current_path).to eq followers_user_path(@user)
       users = @user.followers.paginate(page: 1, per_page: 7)
       users.each do |user|
-        expect(page).to have_link user.name, href: user_path(user)
-        expect(page).to have_content user.introduction
-        expect(page).to have_selector "#user-#{user.id}"
+        within "#user-#{user.id}" do
+          expect(page).to have_link user.name, href: user_path(user)
+          expect(page).to have_content user.introduction
+        end
       end
     end
   end

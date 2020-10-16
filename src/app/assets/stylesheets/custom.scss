@@ -279,6 +279,20 @@ input, textarea{
       width: 40px;
       height: 40px;
     }
+    .micropost-time{
+      display: flex;
+      a:hover{
+        cursor: pointer;
+      }
+      .like{
+        margin-left: 10px;
+        color: red;
+      }
+      .unlike{
+        margin-left: 10px;
+        color: rgb(192, 192, 192);
+      }
+    }
   }
   .micropost-content{
     font-size: 15px;
@@ -478,6 +492,14 @@ input, textarea{
 .encouragement{
   margin-top: 20px;
   margin-bottom: 10px;
+  textarea{
+    margin-bottom: 5px;
+  }
+  p{
+    margin: 0px;
+    color: red;
+    font-size: 12px;
+  }
   button{
     float: right;
   }

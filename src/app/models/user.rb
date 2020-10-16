@@ -20,6 +20,8 @@ class User < ApplicationRecord
                               foreign_key: "receiver_id",
                               dependent: :destroy
   has_many :senders, through: :passive_messages, source: :sender
+  has_many :likes, dependent: :destroy
+  has_many :like_feeds, through: :likes, source: :micropost
   has_one_attached :image
   validates :name, presence: true, length: {maximum: 50}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -151,4 +153,15 @@ class User < ApplicationRecord
                                current_user_id: id, user_id: user.id).order("created_at DESC").limit(1)
     end
 
+    def like(feed)
+      like_feeds << feed
+    end
+
+    def unlike(feed)
+      likes.find_by(micropost: feed).destroy
+    end
+
+    def like?(feed)
+      like_feeds.include?(feed)
+    end
 end
