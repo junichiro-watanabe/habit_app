@@ -1,0 +1,10 @@
+<% if current_user?(@user) %>
+  <% provide(:page, "user_show") %>
+<% else %>
+  <% provide(:page, "group") %>
+<% end %>
+
+
+<h3><%= "#{@user.name} さんの いいねした投稿" %></h3>
+<%= render 'shared/feed_items' %>
+<%= will_paginate @feed_items %>

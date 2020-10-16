@@ -24,11 +24,12 @@ RSpec.describe "Belongings", type: :system do
       expect(current_path).to eq owning_user_path(@user)
       groups = @user.groups.paginate(page: 1, per_page: 7)
       groups.each do |group|
-        expect(page).to have_link group.name, href: group_path(group)
-        expect(page).to have_link group.user.name, href: user_path(group.user)
-        expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
-        expect(page).to have_content group.habit
-        expect(page).to have_selector "#group-#{group.id}"
+        within "#group-#{group.id}" do
+          expect(page).to have_link group.name, href: group_path(group)
+          expect(page).to have_link group.user.name, href: user_path(group.user)
+          expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
+          expect(page).to have_content group.habit
+        end
       end
     end
 
@@ -41,11 +42,12 @@ RSpec.describe "Belongings", type: :system do
       expect(current_path).to eq owning_user_path(@user)
       groups = @user.groups.paginate(page: 1, per_page: 7)
       groups.each do |group|
-        expect(page).to have_link group.name, href: group_path(group)
-        expect(page).to have_link group.user.name, href: user_path(group.user)
-        expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
-        expect(page).to have_content group.habit
-        expect(page).to have_selector "#group-#{group.id}"
+        within "#group-#{group.id}" do
+          expect(page).to have_link group.name, href: group_path(group)
+          expect(page).to have_link group.user.name, href: user_path(group.user)
+          expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
+          expect(page).to have_content group.habit
+        end
       end
     end
   end
@@ -57,11 +59,12 @@ RSpec.describe "Belongings", type: :system do
       expect(current_path).to eq belonging_user_path(@user_1)
       groups = @user_1.belonging.paginate(page: 1, per_page: 7)
       groups.each do |group|
-        expect(page).to have_link group.name, href: group_path(group)
-        expect(page).to have_link group.user.name, href: user_path(group.user)
-        expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
-        expect(page).to have_content group.habit
-        expect(page).to have_selector "#group-#{group.id}"
+        within "#group-#{group.id}" do
+          expect(page).to have_link group.name, href: group_path(group)
+          expect(page).to have_link group.user.name, href: user_path(group.user)
+          expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
+          expect(page).to have_content group.habit
+        end
       end
     end
 
@@ -74,11 +77,12 @@ RSpec.describe "Belongings", type: :system do
       expect(current_path).to eq belonging_user_path(@user_1)
       groups = @user_1.belonging.paginate(page: 1, per_page: 7)
       groups.each do |group|
-        expect(page).to have_link group.name, href: group_path(group)
-        expect(page).to have_link group.user.name, href: user_path(group.user)
-        expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
-        expect(page).to have_content group.habit
-        expect(page).to have_selector "#group-#{group.id}"
+        within "#group-#{group.id}" do
+          expect(page).to have_link group.name, href: group_path(group)
+          expect(page).to have_link group.user.name, href: user_path(group.user)
+          expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
+          expect(page).to have_content group.habit
+        end
       end
     end
   end
@@ -90,9 +94,10 @@ RSpec.describe "Belongings", type: :system do
       expect(current_path).to eq member_group_path(@group_1)
       users = @group_1.members.paginate(page: 1, per_page: 7)
       users.each do |user|
-        expect(page).to have_link user.name, href: user_path(user)
-        expect(page).to have_content @user_1.introduction
-        expect(page).to have_selector "#user-#{user.id}"
+        within "#user-#{user.id}" do
+          expect(page).to have_link user.name, href: user_path(user)
+          expect(page).to have_content user.introduction
+        end
       end
     end
 
@@ -105,9 +110,10 @@ RSpec.describe "Belongings", type: :system do
       expect(current_path).to eq member_group_path(@group_1)
       users = @group_1.members.paginate(page: 1, per_page: 7)
       users.each do |user|
-        expect(page).to have_link user.name, href: user_path(user)
-        expect(page).to have_content @user_1.introduction
-        expect(page).to have_selector "#user-#{user.id}"
+        within "#user-#{user.id}" do
+          expect(page).to have_link user.name, href: user_path(user)
+          expect(page).to have_content user.introduction
+        end
       end
     end
   end
@@ -187,11 +193,12 @@ RSpec.describe "Belongings", type: :system do
       expect(current_path).to eq not_achieved_user_path(@user_1)
       groups = @user_1.not_achieved.paginate(page: 1, per_page: 7)
       groups.each do |group|
-        expect(page).to have_link group.name, href: group_path(group)
-        expect(page).to have_link group.user.name, href: user_path(group.user)
-        expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
-        expect(page).to have_content group.habit
-        expect(page).to have_selector "#group-#{group.id}"
+        within "#group-#{group.id}" do
+          expect(page).to have_link group.name, href: group_path(group)
+          expect(page).to have_link group.user.name, href: user_path(group.user)
+          expect(page).to have_link "#{group.members.count}人が参加", href: member_group_path(group)
+          expect(page).to have_content group.habit
+        end
       end
     end
 

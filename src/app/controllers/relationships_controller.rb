@@ -4,7 +4,8 @@ class RelationshipsController < ApplicationController
   def update
     user = User.find(params[:id])
     current_user.follow(user)
-    response = {active_following_count: current_user.following.count,
+    response = {follow: current_user.following?(user),
+                active_following_count: current_user.following.count,
                 active_followers_count: current_user.followers.count,
                 passive_following_count: user.following.count,
                 passive_followers_count: user.followers.count}
@@ -14,7 +15,8 @@ class RelationshipsController < ApplicationController
   def destroy
     user = User.find(params[:id])
     current_user.unfollow(user)
-    response = {active_following_count: current_user.following.count,
+    response = {follow: current_user.following?(user),
+                active_following_count: current_user.following.count,
                 active_followers_count: current_user.followers.count,
                 passive_following_count: user.following.count,
                 passive_followers_count: user.followers.count}

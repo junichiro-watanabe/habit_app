@@ -32,8 +32,7 @@ class User extends React.Component {
               </div>
             </div>
             <div className="col-md-3 follow">
-              {this.props.current_user ?
-                "" :
+              {this.props.current_user ? "" :
                 <Follow
                   path={this.props.relationship_path}
                   follow={this.state.follow}
