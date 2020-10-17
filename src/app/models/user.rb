@@ -150,7 +150,7 @@ class User < ApplicationRecord
                      where sender_id = :current_user_id AND receiver_id = :user_id
                      OR sender_id = :user_id AND receiver_id = :current_user_id"
       Message.where("id IN (#{message_ids})",
-                               current_user_id: id, user_id: user.id).order("created_at DESC").limit(1)
+                     current_user_id: id, user_id: user.id).order("created_at DESC").limit(1)
     end
 
     def like(feed)
@@ -163,5 +163,23 @@ class User < ApplicationRecord
 
     def like?(feed)
       like_feeds.include?(feed)
+    end
+
+    def achievement_history
+      belong_ids = "SELECT id FROM belongs
+                    WHERE user_id = :user_id"
+      achievement_ids = "SELECT id FROM achievements
+                         WHERE belong_id IN (#{belong_ids})"
+      history = History.where("achievement_id IN (#{achievement_ids})", user_id: id)
+      hash = {}
+      history.each do |h|
+        micropost = h.microposts.find_by(encouragement: false)
+        if hash.key?(h.date)
+          hash[h.date].push(micropost.attributes) unless micropost.nil?
+        else
+          hash[h.date] = [micropost.attributes] unless micropost.nil?
+        end
+      end
+      return hash
     end
 end

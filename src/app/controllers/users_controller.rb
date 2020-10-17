@@ -34,6 +34,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @history = @user.achievement_history
     if current_user?(@user)
       @feed_items = @user.feed.paginate(page: params[:page], per_page: 7)
     else
@@ -138,6 +139,7 @@ class UsersController < ApplicationController
 
   def encouraged
     @user = User.find(params[:id])
+    @history = @user.achievement_history
     @feed_items = @user.encouraged_feed.paginate(page: params[:page], per_page: 7)
     render 'show'
   end

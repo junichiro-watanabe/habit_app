@@ -24,10 +24,10 @@ class Group extends React.Component {
               このコミュニティに参加しています
             </span> : null}
           <div className="item-info row">
-            <div className="user-image col-md-2">
+            <div className="user-image col-sm-2">
               <img src={this.props.group_image} />
             </div>
-            <div className="col-md-7">
+            <div className="col-sm-7">
               <div className="list">
                 <a href={this.props.group_path}><li><h3>{this.props.group_name}</h3></li></a>
                 <li>オーナー：<a href={this.props.owner_path}>{this.props.owner_name}</a></li>
@@ -35,7 +35,7 @@ class Group extends React.Component {
                 <li>習慣：{this.props.group_habit}</li>
               </div>
             </div>
-            <div className="achievement col-md-3">
+            <div className="achievement col-sm-3">
               {this.state.belong ?
                 <React.Fragment>
                   <h4>
