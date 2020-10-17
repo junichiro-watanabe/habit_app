@@ -57,6 +57,7 @@ header{
 
 /* footer */
 footer{
+  clear: both;
   border-top: 1px solid #bbbbbb;
   margin-top: 100px;
   padding-top: 5px;
@@ -214,6 +215,9 @@ input, textarea{
 
 .user-profile, .group{
   margin-top: 20px;
+  .title{
+    clear: both;
+  }
 }
 
 /* 一覧情報 */
@@ -265,12 +269,12 @@ input, textarea{
 
 /* マイクロポスト */
 .micropost{
-  margin-bottom: 20px;
+  margin: 0 10px 20px 10px;
+  padding: 10px;
   border: 1px solid #bbb;
   border-radius: 10px;
   box-shadow: 3px 3px 3px rgb(235, 235, 235);
   background-color: #faffff;
-  padding: 10px;
   .micropost-user{
     display: flex;
     img{
@@ -515,7 +519,14 @@ input, textarea{
 
 /* タイムライン表示 */
 .timeline-information{
+  margin-top: 20px;
   text-align: center;
+  .alert{
+    padding: 3px;
+  }
+  h3{
+    margin-top: 10px;
+  }
 }
 
 /* 検索 */
@@ -526,4 +537,27 @@ input, textarea{
 /* いいね一覧 */
 .likers{
   margin-top: 20px;
+}
+
+/* カレンダー */
+.calendar{
+  h5{
+    margin-bottom: 2px;
+  }
+  .react-calendar{
+    margin: auto;
+    .zero{
+      color: black;
+      background-color: white;
+    }
+    .row{
+      background-color: aqua;
+    }
+    .middle{
+      background-color: palegoldenrod;
+    }
+    .high{
+      background-color: orange;
+    }
+  }
 }

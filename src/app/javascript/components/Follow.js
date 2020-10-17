@@ -52,9 +52,9 @@ class Follow extends React.Component {
 
   getClass() {
     if (this.state.follow) {
-      return "btn btn-warning"
+      return "btn btn-warning";
     } else {
-      return "btn btn-default"
+      return "btn btn-default";
     }
   }
 

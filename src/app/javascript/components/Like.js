@@ -43,9 +43,9 @@ class Like extends React.Component {
 
   getClass(like) {
     if (this.state.like) {
-      return "like"
+      return "like";
     } else {
-      return "unlike"
+      return "unlike";
     }
   }
 

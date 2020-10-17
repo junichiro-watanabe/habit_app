@@ -50,14 +50,6 @@ RSpec.describe "Sessions", type: :request do
     end
   end
 
-  describe "create_guestのテスト" do
-    it "ゲストユーザログイン" do
-      get "/login_guest"
-      expect(logged_in?).to eq true
-      expect(response).to redirect_to user_path(@guest)
-    end
-  end
-
   describe "destroyのテスト" do
     it "ログアウト" do
       log_in_as @user

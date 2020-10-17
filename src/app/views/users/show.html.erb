@@ -3,8 +3,14 @@
 <div class="user-profile">
   <% if current_user?(@user) %>
     <% provide(:page, "user_show") %>
-    <%= render 'achievement_information' %>
-    <%= render 'encouragement_information' %>
+    <div class="row">
+      <div class="col-sm-5">
+        <%= react_component("AchieveCalendar", { history: @history }) %><br />
+      </div>
+      <div class="col-sm-7">
+        <%= render 'achievement_information' %>
+        <%= render 'encouragement_information' %>
+    </div>
   <% else %>
     <% provide(:page, "group") %>
     <%= react_component("UserIntroduction", { relationship_path: relationship_path(@user),
@@ -21,9 +27,10 @@
                                               belonging_path: belonging_user_path(@user),
                                               user_introduction: @user.introduction,
                                               token: create_authenticity_token,
-                                              message_path: message_path(@user) }) %>
+                                              message_path: message_path(@user),
+                                              history: @history }) %>
   <% end %>
-  <h3>タイムライン</h3>
+  <div class="title"><h3>タイムライン</h3></div>
   <%= render 'shared/feed_items' %>
   <%= will_paginate @feed_items %>
 </div>

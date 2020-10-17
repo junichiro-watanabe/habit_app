@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Follow from "./Follow"
+import AchieveCalendar from "./AchieveCalendar"
 class UserIntroduction extends React.Component {
   constructor(props) {
     super(props);
@@ -36,10 +37,10 @@ class UserIntroduction extends React.Component {
                 このユーザをフォローしています
               </span> : null}
             <div className="menu row">
-              <div className="user-image col-md-3">
+              <div className="user-image col-sm-3">
                 <img src={this.props.user_image} />
               </div>
-              <div className="col-md-5">
+              <div className="col-sm-4">
                 <div className="list">
                   <li><h3>{this.props.user_name}</h3></li>
                   <li>フォロー：<a href={this.props.following_path}>{this.state.passiveFollowingCount}人</a></li>
@@ -47,15 +48,19 @@ class UserIntroduction extends React.Component {
                   <li><a href={this.props.owning_path}>主催コミュニティ</a></li>
                   <li><a href={this.props.belonging_path}>参加コミュニティ</a></li><br />
                 </div>
+                <div className="follow">
+                  <Follow
+                    path={this.props.relationship_path}
+                    follow={this.state.follow}
+                    token={this.props.token}
+                    setFollow={this.setFollow}
+                    setFollowCount={this.setFollowCount} /><br />
+                  <a href={this.props.message_path}><button className="send-message btn btn-default">メッセージを送る</button></a>
+                </div>
               </div>
-              <div className="follow col-md-4">
-                <Follow
-                  path={this.props.relationship_path}
-                  follow={this.state.follow}
-                  token={this.props.token}
-                  setFollow={this.setFollow}
-                  setFollowCount={this.setFollowCount} /><br />
-                <a href={this.props.message_path}><button className="send-message btn btn-default">メッセージを送る</button></a>
+              <div className="col-sm-5">
+                <AchieveCalendar
+                  history={this.props.history} />
               </div>
             </div>
           </div>
