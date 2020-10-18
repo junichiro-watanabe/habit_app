@@ -60,7 +60,8 @@ class UserIntroduction extends React.Component {
               </div>
               <div className="col-sm-5">
                 <AchieveCalendar
-                  history={this.props.history} />
+                  history={this.props.history}
+                  token={this.props.token} />
               </div>
             </div>
           </div>

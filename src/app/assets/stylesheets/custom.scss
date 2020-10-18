@@ -561,3 +561,8 @@ input, textarea{
     }
   }
 }
+
+/* モーダル */
+.ReactModal__Body--open {
+  position: fixed;
+}
