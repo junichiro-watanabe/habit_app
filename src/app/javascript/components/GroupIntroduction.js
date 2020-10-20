@@ -35,11 +35,11 @@ class GroupIntroduction extends React.Component {
                 このコミュニティに参加しています
               </span> : null}
             <div className="menu row">
-              <div className="user-image col-md-3">
+              <div className="user-image col-sm-3">
                 <img src={this.props.group_image} />
               </div>
-              <div className="col-md-9 row">
-                <div className="col-md-8">
+              <div className="col-sm-9 row">
+                <div className="col-sm-8">
                   <div className="list">
                     <li><h3>{this.props.group_name}</h3></li>
                     <li>オーナー：<a href={this.props.owner_path}>{this.props.owner_name}</a></li>
@@ -56,7 +56,7 @@ class GroupIntroduction extends React.Component {
                       setAchieved={this.setAchieved} />
                   </div>
                 </div>
-                <div className="edit list col-md-4">
+                <div className="edit list col-sm-4">
                   {this.props.owner ?
                     <React.Fragment>
                       <li><a href={this.props.edit_group_path}>編集する</a></li>

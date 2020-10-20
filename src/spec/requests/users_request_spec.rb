@@ -23,7 +23,7 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get users_path
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -112,7 +112,7 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get edit_user_path(@user)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -129,7 +129,7 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get edit_user_path(@user)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
 
@@ -153,7 +153,7 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get edit_image_user_path(@user)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
 
@@ -239,7 +239,7 @@ RSpec.describe "Users", type: :request do
                             introduction: "valid_introduction",
                             password: "valid_password",
                             password_confirmation: "valid_password"}}
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
       expect(@user.reload.name).not_to eq name
       expect(@user.reload.email).not_to eq email
@@ -294,7 +294,7 @@ RSpec.describe "Users", type: :request do
       patch user_path(@user),
             params: {edit_element: "image",
                      user: {image: image}}
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
       expect(@user.reload.image.attached?).to eq false
     end
@@ -329,7 +329,7 @@ RSpec.describe "Users", type: :request do
       patch user_path(@user),
             params: {edit_element: "image",
                      user: {image: nil}}
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
       expect(@user.reload.image.attached?).to eq false
     end
@@ -358,7 +358,7 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get delete_user_path(@user)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
 
@@ -380,7 +380,7 @@ RSpec.describe "Users", type: :request do
 
     it "ユーザ削除：ログインしていない" do
       expect{ delete user_path(@user) }.not_to change{ User.count }
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
 
@@ -403,7 +403,7 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get owning_user_path(@user)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -419,7 +419,7 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get belonging_user_path(@user)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -435,7 +435,7 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get not_achieved_user_path(@user)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -451,7 +451,7 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get encouraged_user_path(@user)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -467,7 +467,7 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get following_user_path(@user)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -483,7 +483,7 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get followers_user_path(@user)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -499,7 +499,7 @@ RSpec.describe "Users", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get like_feeds_user_path(@user)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end

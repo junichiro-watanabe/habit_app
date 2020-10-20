@@ -25,7 +25,7 @@ RSpec.describe "Achievements", type: :request do
     it "達成状況の切り替え：ログインしていない" do
       expect(@user_1.achieved?(@group)).to eq false
       expect{ patch achievement_path(@group) }.not_to change{ @user_1.achieved?(@group) }
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
 
@@ -49,7 +49,7 @@ RSpec.describe "Achievements", type: :request do
       expect(@user_1.achieved?(@group)).to eq false
       patch achievement_path(@group)
       expect{ post encourage_achievement_path(@group), params: {content: "content"} }.not_to change{ @user_1.microposts.count }
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
 

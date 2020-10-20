@@ -40,7 +40,8 @@ RSpec.describe "GroupsEdit", type: :system do
 
     it "フレンドリーフォロワーディング" do
       visit edit_group_path(@group)
-      expect(current_path).to eq login_path
+      expect(current_path).to eq root_path
+			find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"
@@ -96,7 +97,8 @@ RSpec.describe "GroupsEdit", type: :system do
 
     it "フレンドリーフォロワーディング" do
       visit edit_image_group_path(@group)
-      expect(current_path).to eq login_path
+      expect(current_path).to eq root_path
+			find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"

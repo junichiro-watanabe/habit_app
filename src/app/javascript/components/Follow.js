@@ -3,9 +3,6 @@ import PropTypes from "prop-types"
 class Follow extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      follow: this.props.follow
-    }
   }
 
   follow = () => {
@@ -16,10 +13,7 @@ class Follow extends React.Component {
     }).then((response) => response.json()
     ).then(
       (json) => {
-        this.setState({
-          follow: json.follow
-        })
-        this.props.setFollow(this.state.follow)
+        this.props.setFollow(json.follow)
         this.props.setFollowCount(
           json.active_following_count,
           json.active_followers_count,
@@ -37,10 +31,7 @@ class Follow extends React.Component {
     }).then((response) => response.json()
     ).then(
       (json) => {
-        this.setState({
-          follow: json.follow
-        })
-        this.props.setFollow(this.state.follow)
+        this.props.setFollow(json.follow)
         this.props.setFollowCount(
           json.active_following_count,
           json.active_followers_count,
@@ -51,18 +42,18 @@ class Follow extends React.Component {
   }
 
   getClass() {
-    if (this.state.follow) {
-      return "btn btn-warning"
+    if (this.props.follow) {
+      return "btn btn-warning";
     } else {
-      return "btn btn-default"
+      return "btn btn-default";
     }
   }
 
   render() {
     return (
       <React.Fragment>
-        <button className={this.getClass()} onClick={this.state.follow ? this.unfollow : this.follow}>
-          {this.state.follow ? "フォローを外す" : "フォローする"}
+        <button className={this.getClass()} onClick={this.props.follow ? this.unfollow : this.follow}>
+          {this.props.follow ? "フォローを外す" : "フォローする"}
         </button>
       </React.Fragment>
     );

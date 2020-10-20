@@ -8,9 +8,9 @@ class Micropost extends React.Component {
 
   getClass() {
     if (this.props.encouragement) {
-      return "micropost encouragement-micropost"
+      return "micropost encouragement-micropost";
     } else {
-      return "micropost"
+      return "micropost";
     }
   }
 

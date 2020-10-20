@@ -33,7 +33,8 @@ RSpec.describe "GroupsCreate", type: :system do
 
     it "フレンドリーフォロワーディング" do
       visit '/create_group'
-      expect(current_path).to eq login_path
+      expect(current_path).to eq root_path
+			find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"

@@ -25,7 +25,8 @@
       <%= react_component("Header", { logged_in: logged_in?,
                                       root_path: root_path,
                                       user_path: nil,
-                                      edit_user_path: nil }) %>
+                                      edit_user_path: nil,
+                                      token: create_authenticity_token }) %>
     <% end %>
     <div id="main">
       <% flash.each do |message_type, message| %>
