@@ -57,11 +57,13 @@ class AchieveCalendar extends React.Component {
     const day = this.getFormatDate(date);
     if (this.state.history[day]) {
       if (this.state.history[day].length >= 5) {
-        return "high";
+        return `day-${day} high`;
       } else if (this.state.history[day].length >= 3) {
-        return "middle";
+        return `day-${day} middle`;
       } else if (this.state.history[day].length >= 1) {
-        return "row";
+        return `day-${day} row`;
+      } else {
+        return `day-${day}`;
       }
     }
   }
