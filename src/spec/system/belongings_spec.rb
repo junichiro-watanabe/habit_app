@@ -35,7 +35,8 @@ RSpec.describe "Belongings", type: :system do
 
     it "フレンドリーフォロワーディング" do
       visit owning_user_path(@user)
-      expect(current_path).to eq login_path
+      expect(current_path).to eq root_path
+			find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"
@@ -70,7 +71,8 @@ RSpec.describe "Belongings", type: :system do
 
     it "フレンドリーフォロワーディング" do
       visit belonging_user_path(@user_1)
-      expect(current_path).to eq login_path
+      expect(current_path).to eq root_path
+			find('.glyphicon-log-in').click
       fill_in "session_email", with: @user_1.email
       fill_in "session_password", with: "password"
       click_button "ログイン"
@@ -103,7 +105,8 @@ RSpec.describe "Belongings", type: :system do
 
     it "フレンドリーフォロワーディング" do
       visit member_group_path(@group_1)
-      expect(current_path).to eq login_path
+      expect(current_path).to eq root_path
+			find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"
@@ -186,7 +189,8 @@ RSpec.describe "Belongings", type: :system do
 
     it "フレンドリーフォロワーディング" do
       visit not_achieved_user_path(@user_1)
-      expect(current_path).to eq login_path
+      expect(current_path).to eq root_path
+			find('.glyphicon-log-in').click
       fill_in "session_email", with: @user_1.email
       fill_in "session_password", with: "password"
       click_button "ログイン"

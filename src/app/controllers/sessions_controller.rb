@@ -1,6 +1,4 @@
 class SessionsController < ApplicationController
-  def new
-  end
 
   def create
     @user = User.find_by(email: params[:session][:email])
@@ -9,7 +7,7 @@ class SessionsController < ApplicationController
       redirect_back_or @user
     else
       flash.now[:danger] = "ログイン情報が正しくありません"
-      render 'new'
+      render 'static_pages/home'
     end
   end
 

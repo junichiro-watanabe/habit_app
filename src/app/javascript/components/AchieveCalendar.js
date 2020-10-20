@@ -32,7 +32,6 @@ class AchieveCalendar extends React.Component {
     this.close.style.float = 'right';
     this.close.style.fontSize = '30px';
     this.close.style.cursor = 'pointer';
-    this.close.style.marginTop = '5px';
   }
 
   closeModal = () => {
@@ -86,7 +85,7 @@ class AchieveCalendar extends React.Component {
             style={customStyles}
             contentLabel="Micropost Modal" >
             <span ref={close => this.close = close} onClick={this.closeModal} class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
-            <h2>{this.getFormatDate(this.state.date)} の達成目標</h2>
+            <h2>{this.getFormatDate(this.state.date)} 達成目標</h2>
             {this.state.history[this.getFormatDate(this.state.date)].map((item) =>
               <React.Fragment>
                 <Micropost

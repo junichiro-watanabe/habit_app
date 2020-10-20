@@ -67,7 +67,8 @@ RSpec.describe "MicropostsTimelines", type: :system do
 
     it "フレンドリーフォロワーディング" do
       visit user_path(@user)
-      expect(current_path).to eq login_path
+      expect(current_path).to eq root_path
+			find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"
@@ -110,7 +111,8 @@ RSpec.describe "MicropostsTimelines", type: :system do
 
     it "フレンドリーフォロワーディング" do
       visit user_path(@other_user)
-      expect(current_path).to eq login_path
+      expect(current_path).to eq root_path
+			find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"
@@ -153,7 +155,8 @@ RSpec.describe "MicropostsTimelines", type: :system do
 
     it "フレンドリーフォロワーディング" do
       visit group_path(@group_1)
-      expect(current_path).to eq login_path
+      expect(current_path).to eq root_path
+			find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"
