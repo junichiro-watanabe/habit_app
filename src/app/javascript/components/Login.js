@@ -1,42 +1,79 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import { useTransition, animated, config } from "react-spring"
-import { StrongEachWord } from "./Effects"
-import Card from "./Card"
+import Modal from 'react-modal';
 
-const cards = [
-  { id: 0, value: <Card src="/assets/notebook.png" alt="plan" text="習慣を決める" /> },
-  { id: 1, value: <Card src="/assets/team.png" alt="team" text="仲間を集める" /> },
-  { id: 2, value: <Card src="/assets/continue.png" alt="continue" text="共に継続する" /> }
-]
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: '-30%',
+    bottom: '-40%',
+    transform: 'translate(-50%, -50%)',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    background: 'white',
+    border: "1px solid #bbb"
+  }
+};
 
-function Slide(props) {
-  const [index, set] = useState(0)
-  const transitions = useTransition(cards[index], item => item.id, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-    config: config.molasses,
-  })
-  useEffect(() => void setInterval(() => set(state => (state + 1) % 3), 2000), [])
-  return transitions.map(({ item, props, key }) => (
-    <animated.div key={key} style={{ ...props, position: "absolute" }}>
-      {item.value}
-    </animated.div >
-  ))
-}
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-class Signup extends React.Component {
+  afterOpenModal = () => {
+    this.close.style.float = 'right';
+    this.close.style.fontSize = '30px';
+    this.close.style.cursor = 'pointer';
+    this.close.style.marginTop = '5px';
+    this.submit.style.marginTop = '10px';
+    this.guest.style.margin = '10px 0px 20px 0px';
+  }
+
   render() {
     return (
       <React.Fragment>
-        <div className="word">
-          <StrongEachWord word="ログインして今日もがんばろう！" />
-        </div>
-        <Slide />
+        <Modal
+          isOpen={this.props.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.props.closeModal}
+          style={customStyles}
+          className="col-sm-4"
+          contentLabel="Login Modal"
+        >
+          <form action="/login" accept-charset="UTF-8" method="post">
+            <input type="hidden" name="authenticity_token" value={this.props.token} />
+            <span ref={close => this.close = close} onClick={this.props.closeModal} class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+            <div class="col-md-8 col-md-offset-2">
+              <h2>ログイン</h2>
+
+              <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+              <label for="session_メールアドレス">メールアドレス</label>
+              <input class="form-controll" type="email" name="session[email]" id="session_email" />
+
+              <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              <label for="session_パスワード">パスワード</label>
+              <input class="form-controll" type="password" name="session[password]" id="session_password" />
+            </div>
+
+            <div class="col-md-6 col-md-offset-3 submit">
+              <input ref={submit => this.submit = submit} type="submit" name="commit" value="ログイン" class="btn btn-primary" data-disable-with="ログイン" />
+              <a href="/login_guest">
+                <button ref={guest => this.guest = guest} class="btn btn-secondaly">ゲストユーザとしてログイン</button>
+              </a>
+            </div>
+          </form>
+        </Modal>
       </React.Fragment>
     );
   }
 }
 
-export default Signup
+Login.propTypes = {
+  path: PropTypes.string,
+  token: PropTypes.string,
+  modalIsOpen: PropTypes.bool,
+  closeModal: PropTypes.func
+};
+
+export default Login

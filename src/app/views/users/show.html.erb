@@ -4,7 +4,7 @@
   <% if current_user?(@user) %>
     <% provide(:page, "user_show") %>
     <div class="row">
-      <div class="col-sm-5">
+      <div class="col-sm-5 calendar">
         <%= react_component("AchieveCalendar", { history: @history, token: create_authenticity_token }) %><br />
       </div>
       <div class="col-sm-7">
