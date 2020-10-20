@@ -22,16 +22,16 @@ class User extends React.Component {
               このユーザをフォローしています
             </span> : null}
           <div className="item-info row">
-            <div className="user-image col-md-2">
+            <div className="user-image col-sm-2">
               <img src={this.props.user_image} />
             </div>
-            <div className="col-md-offset-1 col-md-6">
+            <div className="col-sm-offset-1 col-sm-6">
               <a href={this.props.user_path}><li><h3>{this.props.user_name}</h3></li></a>
               <div className="list">
                 <li>{this.props.user_introduction}</li>
               </div>
             </div>
-            <div className="col-md-3 follow">
+            <div className="col-sm-3 follow">
               {this.props.current_user ? "" :
                 <Follow
                   path={this.props.relationship_path}

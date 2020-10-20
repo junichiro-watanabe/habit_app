@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     unless logged_in?
       store_location
       flash[:danger] = "ログインしてください"
-      redirect_to login_path
+      redirect_to root_path
     end
   end
 

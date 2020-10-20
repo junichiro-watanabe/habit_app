@@ -20,7 +20,7 @@ RSpec.describe "Messages", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get message_path(@other_user)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -33,7 +33,7 @@ RSpec.describe "Messages", type: :request do
 
     it "メッセージ送信：ログインしていない" do
       expect{ patch message_path(@other_user), params: {content: "content"} }.not_to change{ Message.count }
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
 

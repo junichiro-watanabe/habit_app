@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   has_many :belongs, dependent: :destroy
   has_many :belonging, through: :belongs, source: :group
   has_many :achieving, through: :belongs, source: :achievement
@@ -150,7 +152,7 @@ class User < ApplicationRecord
                      where sender_id = :current_user_id AND receiver_id = :user_id
                      OR sender_id = :user_id AND receiver_id = :current_user_id"
       Message.where("id IN (#{message_ids})",
-                               current_user_id: id, user_id: user.id).order("created_at DESC").limit(1)
+                     current_user_id: id, user_id: user.id).order("created_at DESC").limit(1)
     end
 
     def like(feed)
@@ -163,5 +165,38 @@ class User < ApplicationRecord
 
     def like?(feed)
       like_feeds.include?(feed)
+    end
+
+    def achievement_history
+      belong_ids = "SELECT id FROM belongs
+                    WHERE user_id = :user_id"
+      achievement_ids = "SELECT id FROM achievements
+                         WHERE belong_id IN (#{belong_ids})"
+      history = History.where("achievement_id IN (#{achievement_ids})", user_id: id)
+      hash = {}
+      history.each do |h|
+        micropost = h.microposts.find_by(encouragement: false)
+        group = h.achievement.belong.group
+        props = {
+          user_image: (self.image.attached? ? rails_blob_path(self.image, only_path: true) : "/assets/default-#{self.class.name}.png"),
+          user_name: self.name,
+          user_path: user_path(self),
+          group_name: group.name,
+          group_path: group_path(group),
+          content: micropost.content,
+          time: micropost.created_at.strftime("%Y-%m-%d %H:%M"),
+          history: h,
+          encouragement: micropost.encouragement,
+          like_path: like_path(micropost),
+          like: self.like?(micropost),
+          like_count: micropost.likers.count
+        }
+        if hash.key?(h.date)
+          hash[h.date].push(props)
+        else
+          hash[h.date] = [props]
+        end
+      end
+      return hash
     end
 end

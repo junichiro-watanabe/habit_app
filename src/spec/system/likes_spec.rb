@@ -28,19 +28,22 @@ RSpec.describe "Likes", type: :system do
       feeds.each do |feed|
         within "#micropost-#{feed.id}" do
           expect(page).to have_selector ".glyphicon-heart"
-          expect(page).to have_link nil, href: like_path(feed)
+          expect(page).to have_link feed.likers.count.to_s, href: like_path(feed)
         end
       end
       within "#micropost-#{@micropost_5.id}" do
         expect(@user.like?(@micropost_5)).to eq false
         expect(page).not_to have_selector ".like"
         expect(page).to have_selector ".unlike"
+        expect(page).to have_link @micropost_5.likers.count.to_s, href: like_path(@micropost_5)
         find('.glyphicon-heart').click
         expect(page).to have_selector ".like"
         expect(page).not_to have_selector ".unlike"
+        expect(page).to have_link @micropost_5.likers.count.to_s, href: like_path(@micropost_5)
         find('.glyphicon-heart').click
         expect(page).not_to have_selector ".like"
         expect(page).to have_selector ".unlike"
+        expect(page).to have_link @micropost_5.likers.count.to_s, href: like_path(@micropost_5)
       end
     end
   end
@@ -61,7 +64,8 @@ RSpec.describe "Likes", type: :system do
 
     it "フレンドリーフォロワーディング" do
       visit like_path(@micropost)
-      expect(current_path).to eq login_path
+      expect(current_path).to eq root_path
+			find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"
@@ -89,7 +93,8 @@ RSpec.describe "Likes", type: :system do
 
     it "フレンドリーフォロワーディング" do
       visit like_feeds_user_path(@user)
-      expect(current_path).to eq login_path
+      expect(current_path).to eq root_path
+			find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"

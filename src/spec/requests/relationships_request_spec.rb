@@ -22,7 +22,7 @@ RSpec.describe "Relationships", type: :request do
       expect(@user.following?(@other_user)).to eq false
       expect{ patch relationship_path(@other_user) }.not_to change{ Relationship.count }
       expect(@user.following?(@other_user)).to eq false
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -43,7 +43,7 @@ RSpec.describe "Relationships", type: :request do
       expect(@user.following?(@other_user)).to eq true
       expect{ delete relationship_path(@other_user) }.not_to change{ Relationship.count }
       expect(@user.following?(@other_user)).to eq true
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end

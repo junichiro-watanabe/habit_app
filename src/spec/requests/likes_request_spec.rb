@@ -28,7 +28,7 @@ RSpec.describe "Likes", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get like_path(@other_user_micropost)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -47,7 +47,7 @@ RSpec.describe "Likes", type: :request do
       expect(@user.like?(@other_user_micropost)).to eq false
       expect{ patch like_path(@other_user_micropost) }.not_to change{ Like.count }
       expect(@user.like?(@other_user_micropost)).to eq false
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
 
@@ -73,7 +73,7 @@ RSpec.describe "Likes", type: :request do
       expect(@other_user.like?(@user_micropost)).to eq true
       expect{ delete like_path(@user_micropost) }.not_to change{ Like.count }
       expect(@other_user.like?(@user_micropost)).to eq true
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
