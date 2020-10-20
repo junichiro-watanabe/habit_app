@@ -1,9 +1,21 @@
 import React from "react"
 import PropTypes from "prop-types"
+import Modal from 'react-modal';
+import Login from './Login'
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { logged_in: false }
+    this.state = {
+      modalIsOpen: false
+    }
+  }
+
+  openModal = () => {
+    this.setState({ modalIsOpen: open });
+  }
+
+  closeModal = () => {
+    this.setState({ modalIsOpen: false });
   }
 
   render() {
@@ -36,7 +48,7 @@ class Header extends React.Component {
                       </React.Fragment> :
                       <React.Fragment>
                         <li><a href="/"><span className="glyphicon glyphicon-home" aria-hidden="true"></span> ホーム</a></li>
-                        <li><a href="/login"><span className="glyphicon glyphicon-log-in" aria-hidden="true"></span> ログイン</a></li>
+                        <li><a onClick={this.openModal}><span className="glyphicon glyphicon-log-in" aria-hidden="true"></span> ログイン</a></li>
                         <li className="active"><a href="/signup"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span> 新規登録</a></li>
                       </React.Fragment>}
                   </ul>
@@ -44,6 +56,10 @@ class Header extends React.Component {
               </div>
             </nav>
           </div>
+          <Login
+            modalIsOpen={this.state.modalIsOpen}
+            closeModal={this.closeModal}
+            token={this.props.token} />
         </header>
       </React.Fragment>
     );
@@ -54,7 +70,8 @@ Header.propTypes = {
   logged_in: PropTypes.bool,
   root_path: PropTypes.string,
   user_path: PropTypes.string,
-  edit_user_path: PropTypes.string
+  edit_user_path: PropTypes.string,
+  token: PropTypes.string
 };
 
 export default Header

@@ -14,16 +14,20 @@ body{
 ul,li{
   list-style: none;
 }
+.ReactModal__Body--open {
+  position: fixed;
+  width: 100%;
+}
 
 .card{
   text-align: center;
   padding-bottom: 20px;
-  background-color: #e9f1ff;
+  background-color: #a1ffe0;
   border: 1px solid #6bc1e6;
-  border-radius: 40px;
+  border-radius: 30%;
   box-shadow: 0 0 8px rgb(155, 154, 154);
   img{
-    padding: 30px;
+    padding: 10px;
     margin: 20px;
   }
 }
@@ -53,6 +57,9 @@ header{
     color: #eaeaea;
     margin: 5px;
   }
+  a:hover{
+    cursor: pointer;
+  }
 }
 
 /* footer */
@@ -78,10 +85,11 @@ footer{
 /* ホーム */
 .introduction{
   height: 450px;
+  width: 100%;
+  margin-left: auto;
   margin-bottom: 50px;
-  background-color: #50b9ff;
   background-image: url("background.jpg");
-  background-size: contain;
+  background-size: 100% 100%;
   text-align: center;
   h1{
     margin-top: 80px;
@@ -103,11 +111,17 @@ footer{
   }
   .about{
     background-color: #eaf7ff;
+    background-image: url("about.jpg");
+    background-color:rgba(255, 253, 253, 0.950);
+    background-blend-mode:lighten;
     border: 1px solid #dadada;
     text-align: center;
     margin-top: 80px;
     h2{
       margin-bottom: 40px;
+    }
+    p{
+      font-size: medium;
     }
   }
   .step-content{
@@ -562,7 +576,4 @@ input, textarea{
   }
 }
 
-/* モーダル */
-.ReactModal__Body--open {
-  position: fixed;
-}
+

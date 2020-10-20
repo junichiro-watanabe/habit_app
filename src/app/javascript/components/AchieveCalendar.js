@@ -2,7 +2,6 @@ import React from "react"
 import PropTypes from "prop-types"
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
-import MicropostHistory from './MicropostHistory'
 import Modal from 'react-modal';
 import Micropost from './Micropost'
 
@@ -10,11 +9,12 @@ const customStyles = {
   content: {
     top: '50%',
     left: '50%',
-    right: '-50%',
+    right: '-45%',
     bottom: '-30%',
     transform: 'translate(-50%, -50%)',
     overflow: 'auto',
-    WebkitOverflowScrolling: 'touch'
+    WebkitOverflowScrolling: 'touch',
+    background: 'rgb(255, 243, 228)'
   }
 };
 
@@ -29,18 +29,22 @@ class AchieveCalendar extends React.Component {
   }
 
   afterOpenModal = () => {
-    this.subtitle.style.color = '#black';
+    this.close.style.float = 'right';
+    this.close.style.fontSize = '30px';
+    this.close.style.cursor = 'pointer';
+    this.close.style.marginTop = '5px';
   }
+
   closeModal = () => {
     this.setState({ modalIsOpen: false });
   }
 
   onChange = (date) => {
-    this.setState({ date: date })
+    this.setState({ date: date });
   }
 
   onClickDay = (value, view) => {
-    this.setState({ modalIsOpen: true })
+    this.state.history[this.getFormatDate(value)] ? this.setState({ modalIsOpen: true }) : null;
   }
 
   getFormatDate(date) {
@@ -66,26 +70,23 @@ class AchieveCalendar extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="calendar">
-          <h5>達成状況確認カレンダー</h5>
-          <Calendar
-            locale="ja-JP"
-            calendarType="US"
-            onChange={this.onChange}
-            value={this.state.date}
-            onClickDay={this.onClickDay}
-            tileClassName={this.getTileClass} />
-        </div>
-
+        <h5>達成状況確認カレンダー</h5>
+        <Calendar
+          locale="ja-JP"
+          calendarType="US"
+          onChange={this.onChange}
+          value={this.state.date}
+          onClickDay={this.onClickDay}
+          tileClassName={this.getTileClass} />
         {this.state.history[this.getFormatDate(this.state.date)] ?
           <Modal
             isOpen={this.state.modalIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
             style={customStyles}
-            contentLabel="Example Modal"
-          >
-            <h2 ref={subtitle => this.subtitle = subtitle}>{this.getFormatDate(this.state.date)} の達成目標</h2>
+            contentLabel="Micropost Modal" >
+            <span ref={close => this.close = close} onClick={this.closeModal} class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+            <h2>{this.getFormatDate(this.state.date)} の達成目標</h2>
             {this.state.history[this.getFormatDate(this.state.date)].map((item) =>
               <React.Fragment>
                 <Micropost
@@ -104,7 +105,6 @@ class AchieveCalendar extends React.Component {
                   token={this.props.token} />
               </React.Fragment>
             )}
-            <button className="btn btn-default" onClick={this.closeModal}>close</button>
           </Modal> : null
         }
       </React.Fragment>

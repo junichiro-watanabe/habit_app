@@ -58,7 +58,7 @@ class UserIntroduction extends React.Component {
                   <a href={this.props.message_path}><button className="send-message btn btn-default">メッセージを送る</button></a>
                 </div>
               </div>
-              <div className="col-sm-5">
+              <div className="col-sm-5 calendar">
                 <AchieveCalendar
                   history={this.props.history}
                   token={this.props.token} />
