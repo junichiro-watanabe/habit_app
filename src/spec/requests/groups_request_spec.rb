@@ -24,7 +24,7 @@ RSpec.describe "Groups", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get groups_path
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -40,7 +40,7 @@ RSpec.describe "Groups", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get '/create_group'
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -77,7 +77,7 @@ RSpec.describe "Groups", type: :request do
                                habit: "valid_habit",
                                overview: "valid_overview"}}
       }.to change{ Group.count }.by(+0)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -93,7 +93,7 @@ RSpec.describe "Groups", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get group_path(@group)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
@@ -109,7 +109,7 @@ RSpec.describe "Groups", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get edit_group_path(@group)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
 
@@ -132,7 +132,7 @@ RSpec.describe "Groups", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get edit_image_group_path(@group)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
 
@@ -190,7 +190,7 @@ RSpec.describe "Groups", type: :request do
                       group: {name: name,
                               habit: habit,
                               overview: overview}}
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
       expect(@group.name).not_to eq name
       expect(@group.habit).not_to eq habit
@@ -249,7 +249,7 @@ RSpec.describe "Groups", type: :request do
       patch group_path(@group),
             params: {edit_element: "image",
                      group: {image: image}}
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
       expect(@group.reload.image.attached?).to eq false
     end
@@ -285,7 +285,7 @@ RSpec.describe "Groups", type: :request do
       patch group_path(@group),
             params: {edit_element: "image",
                      group: {image: nil}}
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
       expect(@group.image.attached?).to eq false
     end
@@ -314,7 +314,7 @@ RSpec.describe "Groups", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get delete_group_path(@group)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
 
@@ -336,7 +336,7 @@ RSpec.describe "Groups", type: :request do
 
     it "コミュニティ削除：ログインしていない" do
       expect{ delete group_path(@group_1) }.not_to change{ Group.count }
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
 
@@ -359,7 +359,7 @@ RSpec.describe "Groups", type: :request do
 
     it "getリクエスト：ログインしていない" do
       get member_group_path(@group)
-      expect(response).to redirect_to login_path
+      expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
