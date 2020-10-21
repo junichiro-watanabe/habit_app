@@ -18,7 +18,7 @@ class Card extends React.Component {
   }
 }
 
-Card.propTypes = {
+Card.PropTypes = {
   src: PropTypes.string,
   text: PropTypes.string
 };

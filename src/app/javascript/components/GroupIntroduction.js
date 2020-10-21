@@ -108,7 +108,7 @@ class GroupIntroduction extends React.Component {
   }
 }
 
-GroupIntroduction.propTypes = {
+GroupIntroduction.PropTypes = {
   group_image: PropTypes.string,
   group_name: PropTypes.string,
   group_path: PropTypes.string,

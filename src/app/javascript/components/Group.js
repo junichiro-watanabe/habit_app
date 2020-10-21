@@ -56,7 +56,7 @@ class Group extends React.Component {
   }
 }
 
-Group.propTypes = {
+Group.PropTypes = {
   group_image: PropTypes.string,
   group_name: PropTypes.string,
   group_path: PropTypes.string,

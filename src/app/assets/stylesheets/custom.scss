@@ -541,6 +541,9 @@ input, textarea{
   h3{
     margin-top: 10px;
   }
+  a:hover{
+    cursor: pointer;
+  }
 }
 
 /* 検索 */
@@ -555,6 +558,7 @@ input, textarea{
 
 /* カレンダー */
 .calendar{
+  text-align: center;
   h5{
     margin-bottom: 2px;
   }

@@ -68,13 +68,32 @@ class User < ApplicationRecord
     end
 
     def not_achieved
-      not_achieved_list = []
+      group_ids = []
       belonging.each do |group|
         unless achieved?(group)
-          not_achieved_list.push(group.id)
+          group_ids.push(group.id)
         end
       end
-      not_achieved_record = Group.where("id IN (?)", not_achieved_list )
+      groups = Group.where("id IN (?)", group_ids)
+      array = []
+      groups.each do |group|
+        props = {
+          group_id: group.id,
+          group_image: (group.image.attached? ? rails_blob_path(group.image, only_path: true) : "/assets/default-#{group.class.name}.png"),
+          group_name: group.name,
+          group_path: group_path(group),
+          group_habit: group.habit,
+          achievement_path: achievement_path(group),
+          owner_name: group.user.name,
+          owner_path: user_path(group.user),
+          member_path: member_group_path(group),
+          member_count: group.members.count,
+          belong: self.belonging?(group),
+          achieved: self.achieved?(group)
+        }
+        array.push(props)
+      end
+      return array
     end
 
     def toggle_achieved(group)
@@ -109,7 +128,7 @@ class User < ApplicationRecord
                        user_id: id, today: Date.today).order("created_at DESC")
     end
 
-    def encouraged_feed
+    def encouraged
       following_ids = "SELECT followed_id FROM relationships
                        WHERE follower_id = :user_id"
       group_ids = "SELECT group_id FROM belongs
@@ -126,9 +145,31 @@ class User < ApplicationRecord
       history_ids = "SELECT id FROM histories
                      WHERE achievement_id IN (#{achievement_ids})
                      AND date = :today"
-      Micropost.where("history_id IN (#{history_ids})
-                       AND encouragement = true",
-                       user_id: id, today: Date.today).order("created_at DESC")
+      microposts = Micropost.where("history_id IN (#{history_ids})
+                                    AND encouragement = true",
+                                    user_id: id, today: Date.today).order("created_at DESC")
+      array = []
+      microposts.each do |micropost|
+        user = micropost.user
+        group = micropost.history.achievement.belong.group
+        history = micropost.history
+        props = {
+          user_image: (user.image.attached? ? rails_blob_path(user.image, only_path: true) : "/assets/default-#{user.class.name}.png"),
+          user_name: user.name,
+          user_path: user_path(user),
+          group_name: group.name,
+          group_path: group_path(group),
+          content: micropost.content,
+          time: micropost.created_at.strftime("%Y-%m-%d %H:%M"),
+          history: history,
+          encouragement: micropost.encouragement,
+          like_path: like_path(micropost),
+          like: self.like?(micropost),
+          like_count: micropost.likers.count
+        }
+        array.push(props)
+      end
+      return array
     end
 
     def follow(other_user)
@@ -172,11 +213,11 @@ class User < ApplicationRecord
                     WHERE user_id = :user_id"
       achievement_ids = "SELECT id FROM achievements
                          WHERE belong_id IN (#{belong_ids})"
-      history = History.where("achievement_id IN (#{achievement_ids})", user_id: id)
+      histories = History.where("achievement_id IN (#{achievement_ids})", user_id: id)
       hash = {}
-      history.each do |h|
-        micropost = h.microposts.find_by(encouragement: false)
-        group = h.achievement.belong.group
+      histories.each do |history|
+        micropost = history.microposts.find_by(encouragement: false)
+        group = history.achievement.belong.group
         props = {
           user_image: (self.image.attached? ? rails_blob_path(self.image, only_path: true) : "/assets/default-#{self.class.name}.png"),
           user_name: self.name,
@@ -185,16 +226,16 @@ class User < ApplicationRecord
           group_path: group_path(group),
           content: micropost.content,
           time: micropost.created_at.strftime("%Y-%m-%d %H:%M"),
-          history: h,
+          history: history,
           encouragement: micropost.encouragement,
           like_path: like_path(micropost),
           like: self.like?(micropost),
           like_count: micropost.likers.count
         }
-        if hash.key?(h.date)
-          hash[h.date].push(props)
+        if hash.key?(history.date)
+          hash[history.date].push(props)
         else
-          hash[h.date] = [props]
+          hash[history.date] = [props]
         end
       end
       return hash

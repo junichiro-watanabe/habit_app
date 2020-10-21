@@ -3,13 +3,15 @@ Rails.application.routes.draw do
   get 'group/edit'
   root 'static_pages#home'
   get '/signup', to: 'users#new'
+  get '/login', to: 'static_pages#home'
   post '/login', to: 'sessions#create'
   delete '/login', to: 'sessions#destroy'
   get '/login_guest', to: 'sessions#create_guest'
   resources :users
   resources :users do
     member do
-      get :edit_image, :delete, :owning, :belonging, :not_achieved, :encouraged, :following, :followers, :like_feeds
+      get :edit_image, :delete, :owning, :belonging, :following, :followers, :like_feeds
+      patch :not_achieved, :encouraged
     end
   end
   get '/create_group', to: 'groups#new'
