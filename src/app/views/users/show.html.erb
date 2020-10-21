@@ -4,12 +4,14 @@
   <% if current_user?(@user) %>
     <% provide(:page, "user_show") %>
     <div class="row">
-      <div class="col-sm-5 calendar">
+      <div class="col-sm-5">
         <%= react_component("AchieveCalendar", { history: @history, token: create_authenticity_token }) %><br />
+        <%= render 'encouragement_information' %>
       </div>
       <div class="col-sm-7">
-        <%= render 'achievement_information' %>
-        <%= render 'encouragement_information' %>
+        <%= react_component("AchievedInformation", { notAchieved: current_user.not_achieved,
+                                                     path: not_achieved_user_path(current_user),
+                                                     token: create_authenticity_token }) %>
     </div>
   <% else %>
     <% provide(:page, "group") %>

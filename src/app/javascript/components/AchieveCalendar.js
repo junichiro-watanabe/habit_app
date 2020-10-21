@@ -71,43 +71,45 @@ class AchieveCalendar extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <h5>達成状況確認カレンダー</h5>
-        <Calendar
-          locale="ja-JP"
-          calendarType="US"
-          onChange={this.onChange}
-          value={this.state.date}
-          onClickDay={this.onClickDay}
-          tileClassName={this.getTileClass} />
-        {this.state.history[this.getFormatDate(this.state.date)] ?
-          <Modal
-            isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal}
-            onRequestClose={this.closeModal}
-            style={customStyles}
-            contentLabel="Micropost Modal" >
-            <span ref={close => this.close = close} onClick={this.closeModal} class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
-            <h2>{this.getFormatDate(this.state.date)} 達成目標</h2>
-            {this.state.history[this.getFormatDate(this.state.date)].map((item) =>
-              <React.Fragment>
-                <Micropost
-                  user_image={item.user_image}
-                  user_name={item.user_name}
-                  user_path={item.user_path}
-                  group_name={item.group_name}
-                  group_path={item.group_path}
-                  content={item.content}
-                  time={item.time}
-                  history={item.history}
-                  encouragement={item.encouragement}
-                  like_path={item.like_path}
-                  like={item.like}
-                  like_count={item.like_count}
-                  token={this.props.token} />
-              </React.Fragment>
-            )}
-          </Modal> : null
-        }
+        <div className="calendar">
+          <h5>達成状況確認カレンダー</h5>
+          <Calendar
+            locale="ja-JP"
+            calendarType="US"
+            onChange={this.onChange}
+            value={this.state.date}
+            onClickDay={this.onClickDay}
+            tileClassName={this.getTileClass} />
+          {this.state.history[this.getFormatDate(this.state.date)] ?
+            <Modal
+              isOpen={this.state.modalIsOpen}
+              onAfterOpen={this.afterOpenModal}
+              onRequestClose={this.closeModal}
+              style={customStyles}
+              contentLabel="Micropost Modal" >
+              <span ref={close => this.close = close} onClick={this.closeModal} class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+              <h2>{this.getFormatDate(this.state.date)} 達成目標</h2>
+              {this.state.history[this.getFormatDate(this.state.date)].map((item) =>
+                <React.Fragment>
+                  <Micropost
+                    user_image={item.user_image}
+                    user_name={item.user_name}
+                    user_path={item.user_path}
+                    group_name={item.group_name}
+                    group_path={item.group_path}
+                    content={item.content}
+                    time={item.time}
+                    history={item.history}
+                    encouragement={item.encouragement}
+                    like_path={item.like_path}
+                    like={item.like}
+                    like_count={item.like_count}
+                    token={this.props.token} />
+                </React.Fragment>
+              )}
+            </Modal> : null
+          }
+        </div>
       </React.Fragment>
     );
   }

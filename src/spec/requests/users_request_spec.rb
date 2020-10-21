@@ -95,8 +95,6 @@ RSpec.describe "Users", type: :request do
       get user_path(@user)
       expect(response).to have_http_status(200)
       expect(response).to render_template 'users/show'
-      expect(response).to render_template 'users/_achievement_information'
-      expect(response).to render_template 'users/_encouragement_information'
     end
 
     it "getリクエスト：ログイン状態(他のユーザ)" do
@@ -425,16 +423,15 @@ RSpec.describe "Users", type: :request do
   end
 
   describe "not_achievedのテスト" do
-    it "getリクエスト：ログイン状態" do
+    it "patchリクエスト：ログイン状態" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      get not_achieved_user_path(@user)
+      patch not_achieved_user_path(@user)
       expect(response).to have_http_status(200)
-      expect(response).to render_template 'shared/group_index'
     end
 
-    it "getリクエスト：ログインしていない" do
-      get not_achieved_user_path(@user)
+    it "patchリクエスト：ログインしていない" do
+      patch not_achieved_user_path(@user)
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
