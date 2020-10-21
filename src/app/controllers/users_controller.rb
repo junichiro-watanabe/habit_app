@@ -124,24 +124,12 @@ class UsersController < ApplicationController
 
   def not_achieved
     @user = User.find(params[:id])
-    @title = "目標未達コミュニティ"
-    @heading = "#{@user.name}  さんの #{@title}"
-    @controller = :users
-    @action = :not_achieved
-    if params[:users] == nil
-      @groups = @user.not_achieved.paginate(page: params[:page], per_page: 7)
-    else
-      keyword = params[:users][:search]
-      @groups = @user.not_achieved.where("concat(name, habit, overview) LIKE :keyword", keyword: "%#{keyword}%").paginate(page: params[:page], per_page: 7)
-    end
-    render 'shared/group_index'
+    render json: @user.not_achieved
   end
 
   def encouraged
     @user = User.find(params[:id])
-    @history = @user.achievement_history
-    @feed_items = @user.encouraged_feed.paginate(page: params[:page], per_page: 7)
-    render 'show'
+    render json: @user.encouraged
   end
 
   def following

@@ -52,16 +52,16 @@ RSpec.describe "MicropostsTimelines", type: :system do
       log_in_as_system(@user)
       visit user_path(@user)
       expect(current_path).to eq user_path(@user)
-      expect(page).to have_link @user.encouraged_feed.count.to_s, href: encouraged_user_path(@user)
-      click_link @user.encouraged_feed.count.to_s
-      feeds = @user.encouraged_feed
+      expect(page).to have_content "#{@user.encouraged.count} 回煽られています"
+      find("#encouraged").click
+      feeds = @user.encouraged
       feeds.each do |feed|
-        expect(page).to have_content feed.content
+        expect(page).to have_content feed[:content]
       end
       travel_to(Date.tomorrow) do
         visit user_path(@user)
         expect(current_path).to eq user_path(@user)
-        expect(page).not_to have_link @user.encouraged_feed.count.to_s, href: encouraged_user_path(@user)
+        expect(page).not_to have_content "#{@user.encouraged.count} 回煽られています"
       end
     end
 
