@@ -89,7 +89,7 @@ class User < ApplicationRecord
           member_path: member_group_path(group),
           member_count: group.members.count,
           belong: self.belonging?(group),
-          achieved: self.achieved?(group),
+          achieved: self.achieved?(group)
         }
         array.push(props)
       end
@@ -128,7 +128,7 @@ class User < ApplicationRecord
                        user_id: id, today: Date.today).order("created_at DESC")
     end
 
-    def encouraged_feed
+    def encouraged
       following_ids = "SELECT followed_id FROM relationships
                        WHERE follower_id = :user_id"
       group_ids = "SELECT group_id FROM belongs
@@ -145,9 +145,31 @@ class User < ApplicationRecord
       history_ids = "SELECT id FROM histories
                      WHERE achievement_id IN (#{achievement_ids})
                      AND date = :today"
-      Micropost.where("history_id IN (#{history_ids})
-                       AND encouragement = true",
-                       user_id: id, today: Date.today).order("created_at DESC")
+      microposts = Micropost.where("history_id IN (#{history_ids})
+                                    AND encouragement = true",
+                                    user_id: id, today: Date.today).order("created_at DESC")
+      array = []
+      microposts.each do |micropost|
+        user = micropost.user
+        group = micropost.history.achievement.belong.group
+        history = micropost.history
+        props = {
+          user_image: (user.image.attached? ? rails_blob_path(user.image, only_path: true) : "/assets/default-#{user.class.name}.png"),
+          user_name: user.name,
+          user_path: user_path(user),
+          group_name: group.name,
+          group_path: group_path(group),
+          content: micropost.content,
+          time: micropost.created_at.strftime("%Y-%m-%d %H:%M"),
+          history: history,
+          encouragement: micropost.encouragement,
+          like_path: like_path(micropost),
+          like: self.like?(micropost),
+          like_count: micropost.likers.count
+        }
+        array.push(props)
+      end
+      return array
     end
 
     def follow(other_user)

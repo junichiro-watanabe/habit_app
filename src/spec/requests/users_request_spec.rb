@@ -438,16 +438,15 @@ RSpec.describe "Users", type: :request do
   end
 
   describe "encouragedのテスト" do
-    it "getリクエスト：ログイン状態" do
+    it "patchリクエスト：ログイン状態" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      get encouraged_user_path(@user)
+      patch encouraged_user_path(@user)
       expect(response).to have_http_status(200)
-      expect(response).to render_template 'show'
     end
 
     it "getリクエスト：ログインしていない" do
-      get encouraged_user_path(@user)
+      patch encouraged_user_path(@user)
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end

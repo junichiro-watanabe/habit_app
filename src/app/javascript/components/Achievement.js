@@ -29,7 +29,7 @@ class Achievement extends React.Component {
   }
 }
 
-Achievement.propTypes = {
+Achievement.PropTypes = {
   path: PropTypes.string,
   token: PropTypes.string,
   setAchieved: PropTypes.func

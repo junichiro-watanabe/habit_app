@@ -75,7 +75,7 @@ class UserIntroduction extends React.Component {
   }
 }
 
-UserIntroduction.propTypes = {
+UserIntroduction.PropTypes = {
   relationship_path: PropTypes.string,
   follow: PropTypes.bool,
   active_following_count: PropTypes.number,

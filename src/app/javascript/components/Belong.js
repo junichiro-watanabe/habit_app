@@ -54,7 +54,7 @@ class Belong extends React.Component {
   }
 }
 
-Belong.propTypes = {
+Belong.PropTypes = {
   path: PropTypes.string,
   belong: PropTypes.bool,
   token: PropTypes.string,

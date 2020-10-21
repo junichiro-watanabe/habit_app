@@ -1,7 +1,7 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from "react";
+import PropTypes from "prop-types";
 import Modal from 'react-modal'
-import Group from "./Group"
+import Micropost from './Micropost'
 
 const customStyles = {
   content: {
@@ -12,15 +12,15 @@ const customStyles = {
     transform: 'translate(-50%, -50%)',
     overflow: 'auto',
     WebkitOverflowScrolling: 'touch',
-    background: 'rgb(255, 243, 228)'
+    background: 'white'
   }
 };
 
-class AchievedInformation extends React.Component {
+class EncouragedInformation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notAchieved: this.props.notAchieved,
+      encouraged: this.props.encouraged,
       modalIsOpen: false
     }
   }
@@ -44,7 +44,7 @@ class AchievedInformation extends React.Component {
     ).then(
       (json) => {
         this.setState({
-          notAchieved: json
+          encouraged: json
         })
       }
     )
@@ -55,18 +55,21 @@ class AchievedInformation extends React.Component {
     return (
       <React.Fragment>
         <div class="timeline-information">
-          {this.state.notAchieved.length == 0 ?
+          {this.state.encouraged.length == 0 ?
             <React.Fragment>
               <div class="alert alert-success">
-                <h3>今日の目標は全て達成しました</h3>
-                <h4>お疲れさまでした！</h4>
+                <h3>煽っているユーザはいません</h3>
+                <h4>先に目標を達成しましょう！</h4>
               </div>
             </React.Fragment> :
             <React.Fragment>
-              <div class="alert alert-danger">
-                <h3>未達成の目標が <b><a id="not-achieved" onClick={this.openModal}>{this.state.notAchieved.length}</a></b> 個あります</h3>
-                <h4>今日も目標達成できるように</h4>
-                <h4>頑張りましょう！</h4>
+              <div class="alert alert-warning">
+                <h3>
+                  <span className="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                  &nbsp;&nbsp;<b><a id="encouraged" onClick={this.openModal}>{this.state.encouraged.length}</a></b> 回煽られています
+                  &nbsp;&nbsp;<span className="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                </h3>
+                <h4>仲間に負けずに頑張りましょう！</h4>
               </div>
             </React.Fragment>}
           <Modal
@@ -74,26 +77,25 @@ class AchievedInformation extends React.Component {
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
             style={customStyles}
-            contentLabel="Not Achieved Modal" >
+            contentLabel="Encouraged Modal" >
             <span ref={close => this.close = close} onClick={this.closeModal} class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
-            <h3>目標未達一覧</h3>
-            {this.state.notAchieved.map((item) =>
+            <h3>仲間の投稿を見て頑張りましょう！</h3>
+            {this.state.encouraged.map((item) =>
               <React.Fragment>
-                <div class="index" id={`group-${item.group_id}`}>
-                  <Group
-                    group_image={item.group_image}
-                    group_name={item.group_name}
-                    group_path={item.group_path}
-                    group_habit={item.group_habit}
-                    achievement_path={item.achievement_path}
-                    owner_name={item.owner_name}
-                    owner_path={item.owner_path}
-                    member_path={item.member_path}
-                    member_count={item.member_count}
-                    belong={item.belong}
-                    achieved={item.achieved}
-                    token={this.props.token} />
-                </div>
+                <Micropost
+                  user_image={item.user_image}
+                  user_name={item.user_name}
+                  user_path={item.user_path}
+                  group_name={item.group_name}
+                  group_path={item.group_path}
+                  content={item.content}
+                  time={item.time}
+                  history={item.history}
+                  encouragement={item.encouragement}
+                  like_path={item.like_path}
+                  like={item.like}
+                  like_count={item.like_count}
+                  token={this.props.token} />
               </React.Fragment>
             )}
           </Modal>
@@ -103,9 +105,9 @@ class AchievedInformation extends React.Component {
   }
 }
 
-AchievedInformation.PropTypes = {
+EncouragedInformation.PropTypes = {
   path: PropTypes.string,
   token: PropTypes.string
 };
 
-export default AchievedInformation
+export default EncouragedInformation

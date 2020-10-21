@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import Modal from 'react-modal';
+import Modal from 'react-modal'
 import Login from './Login'
 class Header extends React.Component {
   constructor(props) {
@@ -66,7 +66,7 @@ class Header extends React.Component {
   }
 }
 
-Header.propTypes = {
+Header.PropTypes = {
   logged_in: PropTypes.bool,
   root_path: PropTypes.string,
   user_path: PropTypes.string,

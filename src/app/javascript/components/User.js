@@ -46,7 +46,7 @@ class User extends React.Component {
   }
 }
 
-User.propTypes = {
+User.PropTypes = {
   user_image: PropTypes.string,
   user_path: PropTypes.string,
   user_name: PropTypes.string,

@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
-import Modal from 'react-modal';
+import Modal from 'react-modal'
 import Micropost from './Micropost'
 
 const customStyles = {
@@ -88,7 +88,7 @@ class AchieveCalendar extends React.Component {
               style={customStyles}
               contentLabel="Micropost Modal" >
               <span ref={close => this.close = close} onClick={this.closeModal} class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
-              <h2>{this.getFormatDate(this.state.date)} 達成目標</h2>
+              <h3>{this.getFormatDate(this.state.date)} 達成目標</h3>
               {this.state.history[this.getFormatDate(this.state.date)].map((item) =>
                 <React.Fragment>
                   <Micropost
@@ -114,5 +114,9 @@ class AchieveCalendar extends React.Component {
     );
   }
 }
+
+AchieveCalendar.PropTypes = {
+  token: PropTypes.string
+};
 
 export default AchieveCalendar

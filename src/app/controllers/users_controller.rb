@@ -129,9 +129,7 @@ class UsersController < ApplicationController
 
   def encouraged
     @user = User.find(params[:id])
-    @history = @user.achievement_history
-    @feed_items = @user.encouraged_feed.paginate(page: params[:page], per_page: 7)
-    render 'show'
+    render json: @user.encouraged
   end
 
   def following

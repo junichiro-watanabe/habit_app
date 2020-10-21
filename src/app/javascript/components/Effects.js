@@ -30,10 +30,10 @@ function StrongEachWord(props) {
   )
 }
 
-FadeIn.propTypes = {
+FadeIn.PropTypes = {
   word: PropTypes.string
 };
-StrongEachWord.propTypes = {
+StrongEachWord.PropTypes = {
   word: PropTypes.string
 };
 
