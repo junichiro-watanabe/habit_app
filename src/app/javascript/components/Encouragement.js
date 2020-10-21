@@ -25,7 +25,7 @@ class Encouragement extends React.Component {
   }
 }
 
-Encouragement.propTypes = {
+Encouragement.PropTypes = {
   path: PropTypes.string,
   token: PropTypes.string
 }

@@ -14,7 +14,7 @@ Hello.defaultProps = {
   name: 'David'
 }
 
-Hello.propTypes = {
+Hello.PropTypes = {
   name: PropTypes.string
 }
 

@@ -92,7 +92,7 @@ class Message extends React.Component {
   }
 }
 
-Message.propTypes = {
+Message.PropTypes = {
   path: PropTypes.string,
   token: PropTypes.string,
   my_name: PropTypes.string,
