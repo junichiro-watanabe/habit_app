@@ -108,6 +108,6 @@ class GroupsController < ApplicationController
 
     def owner_user
       @group = Group.find(params[:id])
-      redirect_to groups_path unless @group.owner?(current_user)
+      redirect_to groups_path unless @group.owner?(current_user) || current_user.admin?
     end
 end

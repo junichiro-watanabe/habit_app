@@ -3,7 +3,7 @@ class RelationshipsController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    current_user.follow(user)
+    current_user.follow(user) unless current_user == user
     response = {follow: current_user.following?(user),
                 active_following_count: current_user.following.count,
                 active_followers_count: current_user.followers.count,

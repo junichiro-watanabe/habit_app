@@ -57,6 +57,12 @@ class UserIntroduction extends React.Component {
                     setFollowCount={this.setFollowCount} /><br />
                   <a href={this.props.message_path}><button className="send-message btn btn-default">メッセージを送る</button></a>
                 </div>
+                {this.props.admin ?
+                  <React.Fragment>
+                    <li><a href={this.props.edit_user_path}>編集する</a></li>
+                    <li><a href={this.props.edit_image_user_path}>画像変更する</a></li>
+                    <li><a href={this.props.delete_user_path}>削除する</a></li>
+                  </React.Fragment> : null}
               </div>
               <div className="col-sm-5 calendar">
                 <AchieveCalendar
@@ -90,7 +96,11 @@ UserIntroduction.PropTypes = {
   belonging_path: PropTypes.string,
   user_introduction: PropTypes.string,
   token: PropTypes.string,
-  message_path: PropTypes.string
+  message_path: PropTypes.string,
+  admin: PropTypes.bool,
+  edit_image_user_path: PropTypes.string,
+  edit_user_path: PropTypes.string,
+  delete_user_path: PropTypes.string
 };
 
 export default UserIntroduction

@@ -43,25 +43,25 @@ class Login extends React.Component {
         >
           <form action="/login" accept-charset="UTF-8" method="post">
             <input type="hidden" name="authenticity_token" value={this.props.token} />
-            <span ref={close => this.close = close} onClick={this.props.closeModal} class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+            <span ref={close => this.close = close} onClick={this.props.closeModal} className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
             <div>
               <h2>ログイン</h2>
 
-              <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+              <span className="glyphicon glyphicon-envelope" aria-hidden="true"></span>
               <label for="session_メールアドレス">メールアドレス</label>
-              <input class="form-controll" type="email" name="session[email]" id="session_email" />
+              <input className="form-controll" type="email" name="session[email]" id="session_email" />
 
-              <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              <span className="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               <label for="session_パスワード">パスワード</label>
-              <input class="form-controll" type="password" name="session[password]" id="session_password" />
+              <input className="form-controll" type="password" name="session[password]" id="session_password" />
             </div>
 
-            <div class="col-xs-6 col-xs-offset-3 submit">
-              <input ref={submit => this.submit = submit} type="submit" name="commit" value="ログイン" class="btn btn-primary" data-disable-with="ログイン" />
+            <div className="col-xs-6 col-xs-offset-3 submit">
+              <input ref={submit => this.submit = submit} type="submit" name="commit" value="ログイン" className="btn btn-primary" data-disable-with="ログイン" />
             </div>
-            <div class="col-xs-9 col-xs-offset-2 col-sm-6 col-sm-offset-3 submit">
+            <div className="col-xs-9 col-xs-offset-2 col-sm-6 col-sm-offset-3 submit">
               <a href="/login_guest">
-                <button ref={guest => this.guest = guest} class="btn btn-secondaly">ゲストユーザとしてログイン</button>
+                <button ref={guest => this.guest = guest} className="btn btn-secondaly">ゲストユーザとしてログイン</button>
               </a>
             </div>
           </form>
