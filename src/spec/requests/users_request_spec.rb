@@ -7,6 +7,7 @@ RSpec.describe "Users", type: :request do
   before do
     @user = create(:user)
     @other_user = create(:other_user)
+    @admin = create(:admin)
     30.times do |n|
       eval("@user_#{n} = create(:users)")
     end
@@ -137,6 +138,14 @@ RSpec.describe "Users", type: :request do
       get edit_user_path(@user)
       expect(response).to redirect_to root_path
     end
+
+    it "getリクエスト：管理者ユーザ" do
+      log_in_as(@admin)
+      expect(logged_in?).to eq true
+      get edit_user_path(@user)
+      expect(response).to have_http_status(200)
+      expect(response).to render_template 'users/edit'
+    end
   end
 
   describe "edit_imageのテスト" do
@@ -165,6 +174,26 @@ RSpec.describe "Users", type: :request do
   describe "updateのテスト" do
     it "プロフィール編集：有効なユーザ情報" do
       log_in_as(@user)
+      expect(logged_in?).to eq true
+      name = "valid_user"
+      email = "valid_email@valid.com"
+      expect(@user.name).not_to eq name
+      expect(@user.email).not_to eq email
+      patch user_path(@user),
+            params: {edit_element: "profile",
+                     user: {name: name,
+                            email: email,
+                            introduction: "valid_introduction",
+                            password: "valid_password",
+                            password_confirmation: "valid_password"}}
+      expect(response).to redirect_to user_path(@user)
+      expect(flash.any?).to eq true
+      expect(@user.reload.name).to eq name
+      expect(@user.reload.email).to eq email
+    end
+
+    it "プロフィール編集：有効なユーザ情報(管理者ユーザ)" do
+      log_in_as(@admin)
       expect(logged_in?).to eq true
       name = "valid_user"
       email = "valid_email@valid.com"
@@ -260,8 +289,39 @@ RSpec.describe "Users", type: :request do
       expect(@user.reload.email).not_to eq email
     end
 
+    it "プロフィール編集：admin属性を変更" do
+      log_in_as(@user)
+      expect(logged_in?).to eq true
+      name = "valid_user"
+      email = "valid_email@valid.com"
+      expect(@user.admin?).to eq false
+      patch user_path(@user),
+            params: {edit_element: "profile",
+                     user: {name: name,
+                            email: email,
+                            introduction: "valid_introduction",
+                            password: "valid_password",
+                            password_confirmation: "valid_password",
+                            admin: true}}
+        expect(response).to redirect_to user_path(@user)
+        expect(@user.reload.admin?).to eq false
+    end
+
     it "プロフィール画像変更：有効なファイル形式" do
       log_in_as(@user)
+      expect(logged_in?).to eq true
+      expect(@user.image.attached?).to eq false
+      image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
+      patch user_path(@user),
+            params: {edit_element: "image",
+                     user: {image: image}}
+      expect(response).to redirect_to user_path(@user)
+      expect(flash.any?).to eq true
+      expect(@user.reload.image.attached?).to eq true
+    end
+
+    it "プロフィール画像変更：有効なファイル形式(管理者ユーザ)" do
+      log_in_as(@admin)
       expect(logged_in?).to eq true
       expect(@user.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
@@ -321,6 +381,18 @@ RSpec.describe "Users", type: :request do
       expect(@user.reload.image.attached?).to eq false
     end
 
+    it "プロフィール画像削除：管理者ユーザ" do
+      log_in_as(@admin)
+      expect(logged_in?).to eq true
+      expect(@user.image.attached?).to eq false
+      patch user_path(@user),
+            params: {edit_element: "image",
+                     user: {image: nil}}
+      expect(response).to redirect_to user_path(@user)
+      expect(flash.any?).to eq true
+      expect(@user.reload.image.attached?).to eq false
+    end
+
     it "プロフィール画像削除：ログインしていない" do
       expect(@user.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
@@ -366,10 +438,25 @@ RSpec.describe "Users", type: :request do
       get delete_user_path(@user)
       expect(response).to redirect_to root_path
     end
+
+    it "getリクエスト：管理者ユーザ" do
+      log_in_as(@admin)
+      expect(logged_in?).to eq true
+      get delete_user_path(@user)
+      expect(response).to have_http_status(200)
+      expect(response).to render_template 'users/delete'
+    end
   end
 
   describe "destroyのテスト" do
     it "ユーザ削除：ログイン状態" do
+      log_in_as(@user)
+      expect(logged_in?).to eq true
+      expect{ delete user_path(@user) }.to change{ User.count }.by(-1)
+      expect(response).to redirect_to root_path
+    end
+
+    it "ユーザ削除：管理者ユーザ" do
       log_in_as(@user)
       expect(logged_in?).to eq true
       expect{ delete user_path(@user) }.to change{ User.count }.by(-1)

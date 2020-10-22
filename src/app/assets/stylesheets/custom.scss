@@ -112,7 +112,7 @@ footer{
   .about{
     background-color: #eaf7ff;
     background-image: url("about.jpg");
-    background-color:rgba(255, 253, 253, 0.950);
+    background-color:rgba(255, 253, 253, 0.900);
     background-blend-mode:lighten;
     border: 1px solid #dadada;
     text-align: center;
@@ -296,6 +296,9 @@ input, textarea{
       border-radius: 50%;
       width: 40px;
       height: 40px;
+    }
+    .remove{
+      margin-left: auto;
     }
     .micropost-time{
       display: flex;

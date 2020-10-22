@@ -153,6 +153,7 @@ class User < ApplicationRecord
         user = micropost.user
         group = micropost.history.achievement.belong.group
         history = micropost.history
+        next if user.nil? || group.nil? || history.nil?
         props = {
           user_image: (user.image.attached? ? rails_blob_path(user.image, only_path: true) : "/assets/default-#{user.class.name}.png"),
           user_name: user.name,
@@ -218,6 +219,7 @@ class User < ApplicationRecord
       histories.each do |history|
         micropost = history.microposts.find_by(encouragement: false)
         group = history.achievement.belong.group
+        next if micropost.nil? || group.nil?
         props = {
           user_image: (self.image.attached? ? rails_blob_path(self.image, only_path: true) : "/assets/default-#{self.class.name}.png"),
           user_name: self.name,

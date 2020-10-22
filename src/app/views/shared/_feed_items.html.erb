@@ -14,7 +14,9 @@
               like_path: like_path(feed_item),
               like: current_user.like?(feed_item),
               like_count: feed_item.likers.count,
-              token: create_authenticity_token
+              token: create_authenticity_token,
+              poster: feed_item.poster?(current_user) || current_user.admin?,
+              micropost_path: micropost_path(feed_item)
             }) %>
       </li>
   <% end %>

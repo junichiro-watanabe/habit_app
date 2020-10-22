@@ -25,6 +25,14 @@ RSpec.describe "Relationships", type: :request do
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
+
+    it "自分をフォロー" do
+      log_in_as(@user)
+      expect(logged_in?).to eq true
+      expect(@user.following?(@user)).to eq false
+      expect{ patch relationship_path(@user) }.not_to change{ Relationship.count }
+      expect(@user.following?(@user)).to eq false
+    end
   end
 
   describe "destroyのテスト" do

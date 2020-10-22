@@ -7,6 +7,7 @@ RSpec.describe "MicropostsTimelines", type: :system do
     @user = create(:user)
     @other_user = create(:other_user)
     @other_user_2 = create(:users)
+    @admin = create(:admin)
     1.upto 3 do |n|
       eval("@group_#{n} = create(:groups, user: @user)")
     end
@@ -175,6 +176,40 @@ RSpec.describe "MicropostsTimelines", type: :system do
       expect(page).to have_content "#{@group_1.name} の #{@other_user.name} さんが煽っています"
       expect(page).not_to have_content "#{@group_2.name} の #{@other_user.name} さんが煽っています"
       expect(page).not_to have_content "#{@group_3.name} の #{@other_user_2.name} さんが煽っています"
+    end
+  end
+
+  describe "投稿削除のテスト" do
+    it "投稿削除ボタンが表示される → 投稿削除" do
+      log_in_as_system(@user)
+      visit user_path(@user)
+      micropost = Micropost.find_by(user: @user)
+      within "#micropost-#{micropost.id}" do
+        find(".glyphicon-remove-circle").click
+      end
+      expect(current_path).to eq user_path(@user)
+      expect(page).not_to have_selector "#micropost-#{micropost.id}"
+    end
+
+    it "投稿削除削除ボタンが表示されない：違うユーザ" do
+      log_in_as_system(@user)
+      visit user_path(@other_user)
+      micropost = Micropost.find_by(user: @other_user)
+      within "#micropost-#{micropost.id}" do
+        expect(page).not_to have_selector ".glyphicon-remove-circle"
+      end
+    end
+
+    it "投稿削除ボタンが表示される → 投稿削除：管理者ユーザ" do
+      log_in_as_system(@admin)
+      visit user_path(@user)
+      micropost = Micropost.find_by(user: @user)
+      within "#micropost-#{micropost.id}" do
+        find(".glyphicon-remove-circle").click
+      end
+      expect(current_path).to eq user_path(@admin)
+      visit user_path(@user)
+      expect(page).not_to have_selector "#micropost-#{micropost.id}"
     end
   end
 
