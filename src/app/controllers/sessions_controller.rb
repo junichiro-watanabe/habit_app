@@ -19,10 +19,10 @@ class SessionsController < ApplicationController
   def create_guest
     @user = User.find_by(email: "guest@example.com")
     log_in @user
-    if @user.encouraged_feed.count == 0
-      [{user: 2, group: 1, content: "本日の私のタスクは完了しました！みなさんも頑張ってくださいね(^^)"},
-       {user: 3, group: 10, content: "本日もたくさんの学びがありました。みなさんも本から学びましょう！"},
-       {user: 5, group: 9, content: "10分も勉強していないってマ？"}].each do |item|
+    if @user.encouraged.count == 0
+      [{user: 3, group: 1, content: "本日の私のタスクは完了しました！みなさんも頑張ってくださいね(^^)"},
+       {user: 4, group: 10, content: "本日もたくさんの学びがありました。みなさんも本から学びましょう！"},
+       {user: 6, group: 9, content: "10分も勉強していないってマ？"}].each do |item|
         user = User.find(item[:user])
         group = Group.find(item[:group])
         user.toggle_achieved(group)

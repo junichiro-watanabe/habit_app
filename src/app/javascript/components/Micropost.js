@@ -41,13 +41,17 @@ class Micropost extends React.Component {
                   token={this.props.token} />
               </div>
             </div>
+            {this.props.poster ?
+              <a className="remove" rel="nofollow" data-method="delete" href={this.props.micropost_path}>
+                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+              </a> : null}
           </div>
           <div className="micropost-content">
             {this.props.history && !this.props.encouragement ?
               <p dangerouslySetInnerHTML={{ __html: this.props.content }} /> :
               <p>{this.props.content}</p>}
           </div>
-        </div>
+        </div >
       </React.Fragment >
     );
   }
@@ -64,7 +68,9 @@ Micropost.proptypes = {
   like_path: PropTypes.string,
   like: PropTypes.bool,
   like_count: PropTypes.number,
-  token: PropTypes.string
+  token: PropTypes.string,
+  poster: PropTypes.bool,
+  micropost_path: PropTypes.string
 };
 
 export default Micropost
