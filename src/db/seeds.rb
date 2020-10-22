@@ -33,14 +33,11 @@ User.create!(name: "ゲストユーザ",
 
 (users_json.length).times do |n|
   user = User.create!(name: Faker::Name.name,
-                     email: "test#{n + 2}@example.com",
+                     email: "test#{n + 3}@example.com",
                      introduction: users_json[n]["introduction"],
                      password: "password",
                      password_confirmation: "password")
-  if rand(3) != 3
-    user.image.attach(io: File.open("db/fixtures/images/image (#{rand(200)}).png"), filename: "image (#{rand(200)}).png")
-  end
-  user.save
+  user.image.attach(io: File.open("db/fixtures/images/image (#{rand(200)}).png"), filename: "image (#{rand(200)}).png")
 end
 
 2.times do |n|
@@ -48,9 +45,6 @@ end
   group = user.groups.build(name: "テストグループ #{n + 1}",
                             habit: "毎日habit appを起動しよう！",
                             overview: "ゲストユーザが作成したテストグループです。毎日habitappを起動して習慣づけを頑張りましょう！")
-  if rand(3) != 3
-    group.image.attach(io: File.open("db/fixtures/images/image (#{rand(200)}).png"), filename: "image (#{rand(200)}).png")
-  end
   group.save
   user.belong(group)
 end
@@ -60,16 +54,14 @@ end
   group = user.groups.build(name: groups_json[n]["name"],
                             habit: groups_json[n]["habit"],
                             overview: groups_json[n]["overview"])
-  if rand(3) != 3
-    group.image.attach(io: File.open("db/fixtures/images/image (#{rand(200)}).png"), filename: "image (#{rand(200)}).png")
-  end
+  group.image.attach(io: File.open("db/fixtures/images/image (#{rand(200)}).png"), filename: "image (#{rand(200)}).png")
   group.save
   user.belong(group)
 end
 
 2.upto User.count do |n|
   user = User.find(n)
-  3.times do |m|
+  5.times do |m|
     group = Group.find(rand(1..Group.count))
     user.belong(group) until user.belonging?(group)
   end
@@ -80,5 +72,18 @@ end
   10.times do |m|
     other_user = User.find(rand(2..User.count))
     user.follow(other_user) until user.following?(other_user)
+  end
+end
+
+((Date.today - 20)..(Date.today - 1)).each do |date|
+  2.upto User.count do |n|
+    user = User.find(n)
+    user.belongs.each do |belong|
+      if rand(3) != 2
+        group = belong.group
+        history = belong.achievement.histories.create(date: date)
+        history.microposts.create(user: user, content: "#{history.date} 分の <a href=\"/groups/#{group.id}\">#{group.name}</a> の目標を達成しました。\n目標：#{group.habit}")
+      end
+    end
   end
 end
