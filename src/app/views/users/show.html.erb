@@ -33,7 +33,11 @@
                                               user_introduction: @user.introduction,
                                               token: create_authenticity_token,
                                               message_path: message_path(@user),
-                                              history: @history }) %>
+                                              history: @history,
+                                              admin: current_user.admin?,
+                                              edit_user_path: edit_user_path(@user),
+                                              edit_image_user_path: edit_image_user_path(@user),
+                                              delete_user_path: delete_user_path(@user) }) %>
   <% end %>
   <div class="title"><h3>タイムライン</h3></div>
   <%= render 'shared/feed_items' %>

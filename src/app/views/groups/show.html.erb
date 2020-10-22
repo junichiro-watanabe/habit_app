@@ -18,7 +18,7 @@
                                            delete_group_path: delete_group_path(@group),
                                            belong: current_user.belonging?(@group),
                                            achieved: current_user.achieved?(@group),
-                                           owner: @group.owner?(current_user),
+                                           owner: @group.owner?(current_user) || current_user.admin?,
                                            encouragement_path: encourage_achievement_path(@group),
                                            token: create_authenticity_token }) %>
 

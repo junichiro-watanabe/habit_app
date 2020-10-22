@@ -18,6 +18,13 @@ File.open("db/fixtures/groups.json") do |j|
   groups_json = JSON.load(j)
 end
 
+User.create!(name: "管理者ユーザ",
+             email: "admin@example.com",
+             introduction: "管理者ユーザです。よろしくお願いします。",
+             password: "password",
+             password_confirmation: "password",
+             admin: true)
+
 User.create!(name: "ゲストユーザ",
              email: "guest@example.com",
              introduction: "一時利用のためのゲストユーザです。よろしくお願いします。",
@@ -37,7 +44,7 @@ User.create!(name: "ゲストユーザ",
 end
 
 2.times do |n|
-  user = User.find(1)
+  user = User.find(2)
   group = user.groups.build(name: "テストグループ #{n + 1}",
                             habit: "毎日habit appを起動しよう！",
                             overview: "ゲストユーザが作成したテストグループです。毎日habitappを起動して習慣づけを頑張りましょう！")
@@ -49,7 +56,7 @@ end
 end
 
 (groups_json.length).times do |n|
-  user = User.find(rand(1..User.count))
+  user = User.find(rand(3..User.count))
   group = user.groups.build(name: groups_json[n]["name"],
                             habit: groups_json[n]["habit"],
                             overview: groups_json[n]["overview"])
@@ -60,10 +67,18 @@ end
   user.belong(group)
 end
 
-User.count.times do |n|
-  user = User.find(n + 1)
+2.upto User.count do |n|
+  user = User.find(n)
   3.times do |m|
     group = Group.find(rand(1..Group.count))
     user.belong(group) until user.belonging?(group)
+  end
+end
+
+2.upto User.count do |n|
+  user = User.find(n)
+  10.times do |m|
+    other_user = User.find(rand(2..User.count))
+    user.follow(other_user) until user.following?(other_user)
   end
 end

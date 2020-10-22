@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       post :encourage
     end
   end
+  resources :microposts, only: [:destroy]
   resources :relationships, only: [:update, :destroy]
   resources :messages, only: [:show, :update]
   resources :likes, only: [:show, :update, :destroy]
