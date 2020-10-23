@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_21_141625) do
+ActiveRecord::Schema.define(version: 2020_10_23_181446) do
 
   create_table "achievements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "belong_id", null: false
@@ -49,6 +49,15 @@ ActiveRecord::Schema.define(version: 2020_10_21_141625) do
     t.index ["group_id"], name: "index_belongs_on_group_id"
     t.index ["user_id", "group_id"], name: "index_belongs_on_user_id_and_group_id", unique: true
     t.index ["user_id"], name: "index_belongs_on_user_id"
+  end
+
+  create_table "contacts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "subject"
+    t.string "text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|

@@ -1,0 +1,10 @@
+<% provide(:title, "お問い合わせ") %>
+<% provide(:page, "user_show") %>
+
+<div class="contact">
+  <h4>お名前：<%= @contact.name %></h4>
+  <h4>メールアドレス：<%= @contact.email %></h4>
+  <h4>件名：<%= @contact.subject %></h4>
+  <h4>お問い合わせ内容：</h4>
+  <p><%= @contact.text %></p>
+</div>

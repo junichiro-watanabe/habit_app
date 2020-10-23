@@ -32,4 +32,5 @@ Rails.application.routes.draw do
   resources :relationships, only: [:update, :destroy]
   resources :messages, only: [:show, :update]
   resources :likes, only: [:show, :update, :destroy]
+  resources :contacts, only: [:index, :show, :create, :destroy]
 end

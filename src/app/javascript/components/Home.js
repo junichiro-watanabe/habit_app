@@ -35,13 +35,13 @@ class Home extends React.Component {
         <div className="container step-content">
           <h3>3ステップで習慣づけ</h3>
           <div className="cards row">
-            <div className="col-md-4">
+            <div className="col-sm-4">
               <Card src="/assets/notebook.png" alt="plan" text="習慣を決める" />
             </div>
-            <div className="col-md-4">
+            <div className="col-sm-4">
               <Card src="/assets/team.png" alt="team" text="仲間を集める" />
             </div>
-            <div className="col-md-4">
+            <div className="col-sm-4">
               <Card src="/assets/continue.png" alt="continue" text="共に継続する" />
             </div>
           </div>

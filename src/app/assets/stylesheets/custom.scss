@@ -1,5 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import 'react-calendar/dist/Calendar.css';
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
 @import url('https://fonts.googleapis.com/css?family=Montserrat+Subrayada');
 
@@ -24,7 +25,7 @@ ul,li{
   padding-bottom: 20px;
   background-color: #a1ffe0;
   border: 1px solid #6bc1e6;
-  border-radius: 30%;
+  border-radius: 50%;
   box-shadow: 0 0 8px rgb(155, 154, 154);
   img{
     padding: 10px;
@@ -72,6 +73,9 @@ footer{
     float: right;
     a{
       font-size: small;
+    }
+    a:hover{
+      cursor: pointer;
     }
   }
   h2{
@@ -583,4 +587,11 @@ input, textarea{
   }
 }
 
+/* お問い合わせ */
+.contact{
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+}
 

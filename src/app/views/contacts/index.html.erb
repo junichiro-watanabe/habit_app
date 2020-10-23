@@ -1,0 +1,24 @@
+<% provide(:title, "お問い合わせ") %>
+<% provide(:page, "user_show") %>
+
+<div class="message-list">
+  <h3>お問い合わせ一覧</h3>
+  <% if @contacts.length != 0 %>
+    <% @contacts.each do |contact| %>
+      <div class="message">
+        <div class="message-user">
+          <div>
+            <h4><%= contact.name %></h4>
+            <%= contact.created_at.strftime("%Y-%m-%d %H:%M") %>
+          </div>
+        </div>
+        <div class="message-content">
+          <h4><%= contact.subject %></h4>
+        </div>
+        <a href=<%= contact_path(contact) %>>&nbsp;</a>
+      </div>
+    <% end %>
+  <% else %>
+    <h3>メッセージはありません</h3>
+  <% end %>
+</div>
