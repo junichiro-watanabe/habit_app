@@ -46,7 +46,7 @@
       <% else %>
         <%= yield %>
       <% end %>
-      <%= react_component("Footer") %>
+      <%= react_component("Footer", token: create_authenticity_token) %>
       <%= debug(:params) if Rails.env.development? %>
     </div>
   </body>
