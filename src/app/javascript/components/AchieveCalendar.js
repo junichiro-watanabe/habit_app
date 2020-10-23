@@ -1,7 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css'
 import Modal from 'react-modal'
 import Micropost from './Micropost'
 

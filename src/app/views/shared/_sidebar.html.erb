@@ -1,25 +1,38 @@
 <% if yield(:page) == "user_show" %>
-  <%= react_component("Sidebar", { user_image: attached_image(current_user),
-                                   user_name: current_user.name,
-                                   links: [{link: "タイムライン", href: user_path(current_user)},
-                                           {link: "フォロー", href: following_user_path(current_user)},
-                                           {link: "フォロワー", href: followers_user_path(current_user)},
-                                           {link: "いいねした投稿", href: like_feeds_user_path(current_user)},
-                                           {link: "主催コミュニティ", href: owning_user_path(current_user)},
-                                           {link: "参加コミュニティ", href: belonging_user_path(current_user)},
-                                           {link: "ダイレクトメッセージ", href: message_path(current_user)}] }) %>
+  <% if current_user.admin? %>
+    <%= react_component("Sidebar", { user_image: attached_image(current_user),
+                                    user_name: current_user.name,
+                                    links: [{link: "<span class=\"glyphicon glyphicon-th-list\" aria-hidden=\"true\"></span>&nbsp;タイムライン", href: user_path(current_user)},
+                                            {link: "<span class=\"glyphicon glyphicon-hand-right\" aria-hidden=\"true\"></span>&nbsp;フォロー", href: following_user_path(current_user)},
+                                            {link: "<span class=\"glyphicon glyphicon-hand-left\" aria-hidden=\"true\"></span>&nbsp;フォロワー", href: followers_user_path(current_user)},
+                                            {link: "<span class=\"glyphicon glyphicon-heart\" aria-hidden=\"true\"></span>&nbsp;いいねした投稿", href: like_feeds_user_path(current_user)},
+                                            {link: "<span class=\"glyphicon glyphicon-tower\" aria-hidden=\"true\"></span>&nbsp;主催コミュニティ", href: owning_user_path(current_user)},
+                                            {link: "<span class=\"glyphicon glyphicon-globe\" aria-hidden=\"true\"></span>&nbsp;参加コミュニティ", href: belonging_user_path(current_user)},
+                                            {link: "<span class=\"glyphicon glyphicon-envelope\" aria-hidden=\"true\"></span>&nbsp;ダイレクトメッセージ", href: message_path(current_user)},
+                                            {link: "&nbsp;お問い合わせ一覧", href: contacts_path}] }) %>
+  <% else %>
+    <%= react_component("Sidebar", { user_image: attached_image(current_user),
+                                    user_name: current_user.name,
+                                    links: [{link: "<span class=\"glyphicon glyphicon-th-list\" aria-hidden=\"true\"></span>&nbsp;タイムライン", href: user_path(current_user)},
+                                            {link: "<span class=\"glyphicon glyphicon-hand-right\" aria-hidden=\"true\"></span>&nbsp;フォロー", href: following_user_path(current_user)},
+                                            {link: "<span class=\"glyphicon glyphicon-hand-left\" aria-hidden=\"true\"></span>&nbsp;フォロワー", href: followers_user_path(current_user)},
+                                            {link: "<span class=\"glyphicon glyphicon-heart\" aria-hidden=\"true\"></span>&nbsp;いいねした投稿", href: like_feeds_user_path(current_user)},
+                                            {link: "<span class=\"glyphicon glyphicon-tower\" aria-hidden=\"true\"></span>&nbsp;主催コミュニティ", href: owning_user_path(current_user)},
+                                            {link: "<span class=\"glyphicon glyphicon-globe\" aria-hidden=\"true\"></span>&nbsp;参加コミュニティ", href: belonging_user_path(current_user)},
+                                            {link: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>&nbsp;ダイレクトメッセージ", href: message_path(current_user)}] }) %>
+  <% end %>
 <% elsif yield(:page) == "user_edit" %>
   <%= react_component("Sidebar", { user_image: attached_image(current_user),
                                    user_name: current_user.name,
-                                   links: [{link: "アカウント情報", href: edit_user_path(@user)},
-                                           {link: "プロフィール画像", href: edit_image_user_path(@user)},
-                                           {link: "アカウントを閉鎖", href: delete_user_path(@user)}] }) %>
+                                   links: [{link: "<span class=\"glyphicon glyphicon-user\" aria-hidden=\"true\"></span>&nbsp;アカウント情報", href: edit_user_path(@user)},
+                                           {link: "<span class=\"glyphicon glyphicon-picture\" aria-hidden=\"true\"></span>&nbsp;プロフィール画像", href: edit_image_user_path(@user)},
+                                           {link: "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>&nbsp;アカウントを閉鎖", href: delete_user_path(@user)}] }) %>
 <% elsif yield(:page) == "group" %>
   <%= react_component("Sidebar", { user_image: attached_image(current_user),
                                    user_name: current_user.name,
-                                   links: [{link: "仲間を探す", href: users_path},
-                                           {link: "コミュニティを作る", href: "/create_group"},
-                                           {link: "コミュニティを探す", href: groups_path},
-                                           {link: "主催コミュニティ", href: owning_user_path(current_user)},
-                                           {link: "参加コミュニティ", href: belonging_user_path(current_user)}] }) %>
+                                   links: [{link: "<span class=\"glyphicon glyphicon-glass\" aria-hidden=\"true\"></span>&nbsp;仲間を探す", href: users_path},
+                                           {link: "<span class=\"glyphicon glyphicon-flag\" aria-hidden=\"true\"></span>&nbsp;コミュニティを作る", href: "/create_group"},
+                                           {link: "<span class=\"glyphicon glyphicon-search\" aria-hidden=\"true\"></span>&nbsp;コミュニティを探す", href: groups_path},
+                                           {link: "<span class=\"glyphicon glyphicon-tower\" aria-hidden=\"true\"></span>&nbsp;主催コミュニティ", href: owning_user_path(current_user)},
+                                           {link: "<span class=\"glyphicon glyphicon-globe\" aria-hidden=\"true\"></span>&nbsp;参加コミュニティ", href: belonging_user_path(current_user)}] }) %>
 <% end %>
