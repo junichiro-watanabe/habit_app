@@ -11,11 +11,15 @@ srand(0)
 
 users_json = []
 groups_json = []
+messages_json = []
 File.open("db/fixtures/users.json") do |j|
   users_json = JSON.load(j)
 end
 File.open("db/fixtures/groups.json") do |j|
   groups_json = JSON.load(j)
+end
+File.open("db/fixtures/messages.json") do |j|
+  messages_json = JSON.load(j)
 end
 
 User.create!(name: "管理者ユーザ",
@@ -75,6 +79,22 @@ end
   end
 end
 
+(messages_json.length).times do |n|
+  my_user = User.find(2)
+  your_user = User.find(rand(3..User.count))
+  if n % 2 == 0 then
+    (messages_json[n]["my_message"].length).times do |m|
+      Message.create(sender_id: my_user.id, receiver_id: your_user.id, content: messages_json[n]["my_message"][m])
+      Message.create(sender_id: your_user.id, receiver_id: my_user.id, content: messages_json[n]["your_message"][m])
+    end
+  else
+    (messages_json[n]["my_message"].length).times do |m|
+      Message.create!(sender_id: your_user.id, receiver_id: my_user.id, content: messages_json[n]["your_message"][m])
+      Message.create!(sender_id: my_user.id, receiver_id: your_user.id, content: messages_json[n]["my_message"][m])
+    end
+  end
+end
+
 ((Date.today - 20)..(Date.today - 1)).each do |date|
   2.upto User.count do |n|
     user = User.find(n)
@@ -85,5 +105,12 @@ end
         history.microposts.create(user: user, content: "#{history.date} 分の <a href=\"/groups/#{group.id}\">#{group.name}</a> の目標を達成しました。\n目標：#{group.habit}")
       end
     end
+  end
+end
+
+2.upto User.count do |n|
+  user = User.find(n)
+  Micropost.all.each do |micropost|
+    user.like(micropost) if rand(100) == 0
   end
 end

@@ -16,7 +16,7 @@ class Sidebar extends React.Component {
 
           <div className="list">
             <ul>
-              {this.props.links.map((item, index) => <li key={index}><a href={item.href}>{item.link}</a></li>)}
+              {this.props.links.map((item, index) => <li key={index}><a href={item.href} dangerouslySetInnerHTML={{ __html: item.link }} /></li>)}
             </ul>
           </div>
         </aside>

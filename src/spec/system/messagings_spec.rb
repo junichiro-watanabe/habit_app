@@ -52,5 +52,18 @@ RSpec.describe "Messagings", type: :system do
       expect(page).not_to have_content "メッセージを受信しました"
       expect(page).to have_content "メッセージを送信しました"
     end
+
+    it "フレンドリーフォロワーディング" do
+      visit message_path(@user)
+      expect(current_path).to eq root_path
+			find('.glyphicon-log-in').click
+      fill_in "session_email", with: @user.email
+      fill_in "session_password", with: "password"
+      click_button "ログイン"
+      expect(current_path).to eq message_path(@user)
+      expect(page).to have_content "メッセージを受信しました"
+      expect(page).not_to have_content "メッセージを送信しました"
+      expect(page).to have_link nil, href: message_path(@other_user)
+    end
   end
 end

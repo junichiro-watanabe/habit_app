@@ -45,8 +45,9 @@ class UserIntroduction extends React.Component {
                   <li><h3>{this.props.user_name}</h3></li>
                   <li>フォロー：<a href={this.props.following_path}>{this.state.passiveFollowingCount}人</a></li>
                   <li>フォロワー：<a href={this.props.followers_path}>{this.state.passiveFollowersCount}人</a></li>
-                  <li><a href={this.props.owning_path}>主催コミュニティ</a></li>
-                  <li><a href={this.props.belonging_path}>参加コミュニティ</a></li><br />
+                  <li><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;<a href={this.props.like_feeds_path}>いいねした投稿</a></li>
+                  <li><span class="glyphicon glyphicon-tower" aria-hidden="true"></span>&nbsp;<a href={this.props.owning_path}>主催コミュニティ</a></li>
+                  <li><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>&nbsp;<a href={this.props.belonging_path}>参加コミュニティ</a></li><br />
                 </div>
                 <div className="follow">
                   <Follow
@@ -59,9 +60,9 @@ class UserIntroduction extends React.Component {
                 </div>
                 {this.props.admin ?
                   <React.Fragment>
-                    <li><a href={this.props.edit_user_path}>編集する</a></li>
-                    <li><a href={this.props.edit_image_user_path}>画像変更する</a></li>
-                    <li><a href={this.props.delete_user_path}>削除する</a></li>
+                    <li><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<a href={this.props.edit_user_path}>編集する</a></li>
+                    <li><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;<a href={this.props.edit_image_user_path}>画像変更する</a></li>
+                    <li><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;<a href={this.props.delete_user_path}>削除する</a></li>
                   </React.Fragment> : null}
               </div>
               <div className="col-sm-5 calendar">
@@ -100,7 +101,8 @@ UserIntroduction.PropTypes = {
   admin: PropTypes.bool,
   edit_image_user_path: PropTypes.string,
   edit_user_path: PropTypes.string,
-  delete_user_path: PropTypes.string
+  delete_user_path: PropTypes.string,
+  like_feeds_path: PropTypes.string
 };
 
 export default UserIntroduction
