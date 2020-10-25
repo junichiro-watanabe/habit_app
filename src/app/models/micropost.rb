@@ -4,7 +4,7 @@ class Micropost < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many  :likers, through: :likes, source: :user
   validates :user, presence: true
-  validates :content, presence: true, length: {maximum: 255}
+  validates :content, presence: true, length: { maximum: 255 }
 
   def poster?(user)
     self.user == user

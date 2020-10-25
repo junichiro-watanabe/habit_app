@@ -29,7 +29,7 @@ RSpec.describe "GroupsIndex", type: :system do
     it "フレンドリーフォロワーディング" do
       visit groups_path
       expect(current_path).to eq root_path
-			find('.glyphicon-log-in').click
+      find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"

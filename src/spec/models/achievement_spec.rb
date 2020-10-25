@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Achievement, type: :model do
-  let(:user){ create(:user) }
-  let(:group){ create(:group, user: user) }
-  let(:belong){ Belong.new(user: user, group: group) }
-  let(:achievement){ Achievement.new(belong: belong) }
+  let(:user) { create(:user) }
+  let(:group) { create(:group, user: user) }
+  let(:belong) { Belong.new(user: user, group: group) }
+  let(:achievement) { Achievement.new(belong: belong) }
 
   describe "有効性のテスト" do
     it "有効な情報" do

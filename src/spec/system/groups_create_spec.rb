@@ -23,9 +23,9 @@ RSpec.describe "GroupsCreate", type: :system do
     it "作成失敗" do
       log_in_as_system(@user)
       visit '/create_group'
-      fill_in "group_name", with: "a"*51
-      fill_in "group_habit", with: "a"*51
-      fill_in "group_overview", with: "a"*256
+      fill_in "group_name", with: "a" * 51
+      fill_in "group_habit", with: "a" * 51
+      fill_in "group_overview", with: "a" * 256
       click_button "コミュニティ作成"
       expect(current_path).to eq groups_path
       expect(page).to have_selector '.alert-danger'
@@ -34,7 +34,7 @@ RSpec.describe "GroupsCreate", type: :system do
     it "フレンドリーフォロワーディング" do
       visit '/create_group'
       expect(current_path).to eq root_path
-			find('.glyphicon-log-in').click
+      find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"

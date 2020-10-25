@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @heading = "仲間を探す"
     @controller = :users
     @action = :index
-    if params[:users] == nil
+    if params[:users].nil?
       @users = User.paginate(page: params[:page], per_page: 7)
     else
       keyword = params[:users][:search]
@@ -35,11 +35,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @history = @user.achievement_history
-    if current_user?(@user)
-      @feed_items = @user.feed.paginate(page: params[:page], per_page: 7)
-    else
-      @feed_items = Micropost.where(user: @user).paginate(page: params[:page], per_page: 7).order("created_at DESC")
-    end
+    @feed_items = if current_user?(@user)
+                    @user.feed.paginate(page: params[:page], per_page: 7)
+                  else
+                    Micropost.where(user: @user).paginate(page: params[:page], per_page: 7).order("created_at DESC")
+                  end
   end
 
   def edit
@@ -98,7 +98,7 @@ class UsersController < ApplicationController
     @heading = "#{@user.name}  さんの #{@title}"
     @controller = :users
     @action = :owning
-    if params[:users] == nil
+    if params[:users].nil?
       @groups = @user.groups.paginate(page: params[:page], per_page: 7)
     else
       keyword = params[:users][:search]
@@ -113,7 +113,7 @@ class UsersController < ApplicationController
     @heading = "#{@user.name}  さんの #{@title}"
     @controller = :users
     @action = :belonging
-    if params[:users] == nil
+    if params[:users].nil?
       @groups = @user.belonging.paginate(page: params[:page], per_page: 7)
     else
       keyword = params[:users][:search]
@@ -138,7 +138,7 @@ class UsersController < ApplicationController
     @heading = "#{@user.name}  さんの #{@title}"
     @controller = :users
     @action = :following
-    if params[:users] == nil
+    if params[:users].nil?
       @users = @user.following.paginate(page: params[:page], per_page: 7)
     else
       keyword = params[:users][:search]
@@ -153,7 +153,7 @@ class UsersController < ApplicationController
     @heading = "#{@user.name}  さんの #{@title}"
     @controller = :users
     @action = :followers
-    if params[:users] == nil
+    if params[:users].nil?
       @users = @user.followers.paginate(page: params[:page], per_page: 7)
     else
       keyword = params[:users][:search]
@@ -169,13 +169,12 @@ class UsersController < ApplicationController
 
   private
 
-    def user_params
-      params.require(:user).permit(:name, :email, :introduction, :password, :password_confirmation)
-    end
+  def user_params
+    params.require(:user).permit(:name, :email, :introduction, :password, :password_confirmation)
+  end
 
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to root_path unless current_user?(@user) || current_user.admin?
-    end
-
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to root_path unless current_user?(@user) || current_user.admin?
+  end
 end

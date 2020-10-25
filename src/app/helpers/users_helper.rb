@@ -26,6 +26,6 @@ module UsersHelper
       error_messages << "パスワード確認が一致しません"
     end
 
-    return error_messages
+    error_messages
   end
 end

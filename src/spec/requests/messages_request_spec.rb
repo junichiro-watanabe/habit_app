@@ -28,18 +28,18 @@ RSpec.describe "Messages", type: :request do
   describe "updateのテスト" do
     it "メッセージ送信：ログイン状態" do
       log_in_as(@user)
-      expect{ patch message_path(@other_user), params: {content: "content"} }.to change{ Message.count }.by(+1)
+      expect { patch message_path(@other_user), params: { content: "content" } }.to change { Message.count }.by(+1)
     end
 
     it "メッセージ送信：ログインしていない" do
-      expect{ patch message_path(@other_user), params: {content: "content"} }.not_to change{ Message.count }
+      expect { patch message_path(@other_user), params: { content: "content" } }.not_to change { Message.count }
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
 
     it "メッセージ送信：ログイン状態" do
       log_in_as(@user)
-      expect{ patch message_path(@other_user), params: {content: "a"*256} }.not_to change{ Message.count }
+      expect { patch message_path(@other_user), params: { content: "a" * 256 } }.not_to change { Message.count }
     end
   end
 end

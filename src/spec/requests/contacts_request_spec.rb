@@ -59,23 +59,25 @@ RSpec.describe "Contacts", type: :request do
 
   describe "createのテスト" do
     it "問い合わせ成功" do
-      expect{ post contacts_path,
-              params: {contact: {name: "valid_user",
-                                email: "valid_email@valid.com",
-                                subject: "valid_subject",
-                                text: "valid_text"}}
-      }.to change{ Contact.count }.by(+1)
+      expect do
+        post contacts_path,
+             params: { contact: { name: "valid_user",
+                                  email: "valid_email@valid.com",
+                                  subject: "valid_subject",
+                                  text: "valid_text" } }
+      end.to change { Contact.count }.by(+1)
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
 
     it "問い合わせ失敗" do
-      expect{ post contacts_path,
-              params: {contact: {name: "",
-                                 email: "",
-                                 subject: "",
-                                 text: ""}}
-      }.not_to change{ Contact.count }
+      expect do
+        post contacts_path,
+             params: { contact: { name: "",
+                                  email: "",
+                                  subject: "",
+                                  text: "" } }
+      end.not_to change { Contact.count }
       expect(response).to render_template 'static_pages/home'
       expect(response.body).to include "class=\"alert alert-danger\""
     end
@@ -85,7 +87,7 @@ RSpec.describe "Contacts", type: :request do
     it "お問い合わせ削除：管理者ユーザ" do
       log_in_as(@admin)
       expect(logged_in?).to eq true
-      expect{ delete contact_path(@contact) }.to change{ Contact.count }.by(-1)
+      expect { delete contact_path(@contact) }.to change { Contact.count }.by(-1)
       expect(response).to redirect_to user_path(@admin)
       expect(flash.any?).to eq true
     end
@@ -93,15 +95,14 @@ RSpec.describe "Contacts", type: :request do
     it "お問い合わせ削除：管理者ユーザでない" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      expect{ delete contact_path(@contact) }.not_to change{ Contact.count }
+      expect { delete contact_path(@contact) }.not_to change { Contact.count }
       expect(response).to redirect_to root_path
     end
 
     it "お問い合わせ削除：管理者ユーザでない" do
-      expect{ delete contact_path(@contact) }.not_to change{ Contact.count }
+      expect { delete contact_path(@contact) }.not_to change { Contact.count }
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
   end
-
 end

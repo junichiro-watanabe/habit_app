@@ -50,11 +50,12 @@ RSpec.describe "Groups", type: :request do
     it "コミュニティ作成：有効なコミュニティ情報" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      expect{ post groups_path,
-              params: {group: {name: "valid_name",
-                               habit: "valid_habit",
-                               overview: "valid_overview"}}
-      }.to change{ Group.count }.by(+1)
+      expect do
+        post groups_path,
+             params: { group: { name: "valid_name",
+                                habit: "valid_habit",
+                                overview: "valid_overview" } }
+      end.to change { Group.count }.by(+1)
       group = Group.last
       expect(response).to redirect_to group_path(group)
       expect(flash.any?).to eq true
@@ -63,21 +64,23 @@ RSpec.describe "Groups", type: :request do
     it "コミュニティ作成：無効なコミュニティ情報(全て空欄)" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      expect{ post groups_path,
-              params: {group: {name: "",
-                               habit: "",
-                               overview: ""}}
-      }.to change{ Group.count }.by(+0)
+      expect do
+        post groups_path,
+             params: { group: { name: "",
+                                habit: "",
+                                overview: "" } }
+      end.to change { Group.count }.by(+0)
       expect(response).to render_template 'groups/new'
       expect(response.body).to include "class=\"alert alert-danger\""
     end
 
     it "コミュニティ作成：ログインしていない" do
-      expect{ post groups_path,
-              params: {group: {name: "valid_name",
-                               habit: "valid_habit",
-                               overview: "valid_overview"}}
-      }.to change{ Group.count }.by(+0)
+      expect do
+        post groups_path,
+             params: { group: { name: "valid_name",
+                                habit: "valid_habit",
+                                overview: "valid_overview" } }
+      end.to change { Group.count }.by(+0)
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
@@ -164,10 +167,10 @@ RSpec.describe "Groups", type: :request do
       expect(@group.habit).not_to eq habit
       expect(@group.overview).not_to eq overview
       patch group_path(@group),
-            params: {edit_element: "group",
-                      group: {name: name,
-                              habit: habit,
-                              overview: overview}}
+            params: { edit_element: "group",
+                      group: { name: name,
+                               habit: habit,
+                               overview: overview } }
       expect(response).to redirect_to group_path(@group)
       expect(flash.any?).to eq true
       expect(@group.reload.name).to eq name
@@ -179,10 +182,10 @@ RSpec.describe "Groups", type: :request do
       log_in_as(@user)
       expect(logged_in?).to eq true
       patch group_path(@group),
-            params: {edit_element: "group",
-                      group: {name: "",
-                              habit: "",
-                              overview: ""}}
+            params: { edit_element: "group",
+                      group: { name: "",
+                               habit: "",
+                               overview: "" } }
       expect(response).to render_template 'groups/edit'
       expect(response.body).to include "class=\"alert alert-danger\""
     end
@@ -195,10 +198,10 @@ RSpec.describe "Groups", type: :request do
       expect(@group.habit).not_to eq habit
       expect(@group.overview).not_to eq overview
       patch group_path(@group),
-            params: {edit_element: "group",
-                      group: {name: name,
-                              habit: habit,
-                              overview: overview}}
+            params: { edit_element: "group",
+                      group: { name: name,
+                               habit: habit,
+                               overview: overview } }
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
       expect(@group.name).not_to eq name
@@ -216,10 +219,10 @@ RSpec.describe "Groups", type: :request do
       expect(@group.habit).not_to eq habit
       expect(@group.overview).not_to eq overview
       patch group_path(@group),
-            params: {edit_element: "group",
-                      group: {name: name,
-                              habit: habit,
-                              overview: overview}}
+            params: { edit_element: "group",
+                      group: { name: name,
+                               habit: habit,
+                               overview: overview } }
       expect(@group.name).not_to eq name
       expect(@group.habit).not_to eq habit
       expect(@group.overview).not_to eq overview
@@ -236,10 +239,10 @@ RSpec.describe "Groups", type: :request do
       expect(@group.habit).not_to eq habit
       expect(@group.overview).not_to eq overview
       patch group_path(@group),
-            params: {edit_element: "group",
-                      group: {name: name,
-                              habit: habit,
-                              overview: overview}}
+            params: { edit_element: "group",
+                      group: { name: name,
+                               habit: habit,
+                               overview: overview } }
       expect(response).to redirect_to group_path(@group)
       expect(flash.any?).to eq true
       expect(@group.reload.name).to eq name
@@ -253,8 +256,8 @@ RSpec.describe "Groups", type: :request do
       expect(@group.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
       patch group_path(@group),
-            params: {edit_element: "image",
-                     group: {image: image}}
+            params: { edit_element: "image",
+                      group: { image: image } }
       expect(response).to redirect_to group_path(@group)
       expect(flash.any?).to eq true
       expect(@group.reload.image.attached?).to eq true
@@ -266,8 +269,8 @@ RSpec.describe "Groups", type: :request do
       expect(@group.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.txt', 'txt')
       patch group_path(@group),
-            params: {edit_element: "image",
-                     group: {image: image}}
+            params: { edit_element: "image",
+                      group: { image: image } }
       expect(response).to render_template 'groups/edit'
       expect(response.body).to include "class=\"alert alert-danger\""
       expect(@group.reload.image.attached?).to eq false
@@ -277,8 +280,8 @@ RSpec.describe "Groups", type: :request do
       expect(@group.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.txt', 'txt')
       patch group_path(@group),
-            params: {edit_element: "image",
-                     group: {image: image}}
+            params: { edit_element: "image",
+                      group: { image: image } }
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
       expect(@group.reload.image.attached?).to eq false
@@ -290,8 +293,8 @@ RSpec.describe "Groups", type: :request do
       expect(@group.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.txt', 'txt')
       patch group_path(@group),
-            params: {edit_element: "image",
-                     group: {image: image}}
+            params: { edit_element: "image",
+                      group: { image: image } }
       expect(@group.reload.image.attached?).to eq false
       expect(response).to redirect_to groups_path
     end
@@ -302,8 +305,8 @@ RSpec.describe "Groups", type: :request do
       expect(@group.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
       patch group_path(@group),
-            params: {edit_element: "image",
-                     group: {image: image}}
+            params: { edit_element: "image",
+                      group: { image: image } }
       expect(response).to redirect_to group_path(@group)
       expect(flash.any?).to eq true
       expect(@group.reload.image.attached?).to eq true
@@ -313,10 +316,10 @@ RSpec.describe "Groups", type: :request do
       log_in_as(@user)
       expect(logged_in?).to eq true
       expect(@group.image.attached?).to eq false
-      image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
+      fixture_file_upload('spec/factories/images/img.png', 'image/png')
       patch group_path(@group),
-            params: {edit_element: "image",
-                     group: {image: nil}}
+            params: { edit_element: "image",
+                      group: { image: nil } }
       expect(response).to redirect_to group_path(@group)
       expect(flash.any?).to eq true
       expect(@group.image.attached?).to eq false
@@ -324,10 +327,10 @@ RSpec.describe "Groups", type: :request do
 
     it "コミュニティ画像削除：ログインしていない" do
       expect(@group.image.attached?).to eq false
-      image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
+      fixture_file_upload('spec/factories/images/img.png', 'image/png')
       patch group_path(@group),
-            params: {edit_element: "image",
-                     group: {image: nil}}
+            params: { edit_element: "image",
+                      group: { image: nil } }
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
       expect(@group.image.attached?).to eq false
@@ -337,10 +340,10 @@ RSpec.describe "Groups", type: :request do
       log_in_as(@other_user)
       expect(logged_in?).to eq true
       expect(@group.image.attached?).to eq false
-      image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
+      fixture_file_upload('spec/factories/images/img.png', 'image/png')
       patch group_path(@group),
-            params: {edit_element: "image",
-                     group: {image: nil}}
+            params: { edit_element: "image",
+                      group: { image: nil } }
       expect(@group.image.attached?).to eq false
       expect(response).to redirect_to groups_path
     end
@@ -349,10 +352,10 @@ RSpec.describe "Groups", type: :request do
       log_in_as(@admin)
       expect(logged_in?).to eq true
       expect(@group.image.attached?).to eq false
-      image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
+      fixture_file_upload('spec/factories/images/img.png', 'image/png')
       patch group_path(@group),
-            params: {edit_element: "image",
-                     group: {image: nil}}
+            params: { edit_element: "image",
+                      group: { image: nil } }
       expect(response).to redirect_to group_path(@group)
       expect(flash.any?).to eq true
       expect(@group.image.attached?).to eq false
@@ -394,12 +397,12 @@ RSpec.describe "Groups", type: :request do
     it "コミュニティ削除" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      expect{ delete group_path(@group_1) }.to change{ Group.count }.by(-1)
+      expect { delete group_path(@group_1) }.to change { Group.count }.by(-1)
       expect(response).to redirect_to groups_path
     end
 
     it "コミュニティ削除：ログインしていない" do
-      expect{ delete group_path(@group_1) }.not_to change{ Group.count }
+      expect { delete group_path(@group_1) }.not_to change { Group.count }
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
@@ -407,14 +410,14 @@ RSpec.describe "Groups", type: :request do
     it "コミュニティ削除：オーナ以外のユーザ" do
       log_in_as(@other_user)
       expect(logged_in?).to eq true
-      expect{ delete group_path(@group_1) }.not_to change{ Group.count }
+      expect { delete group_path(@group_1) }.not_to change { Group.count }
       expect(response).to redirect_to groups_path
     end
 
     it "コミュニティ削除：管理者ユーザ" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      expect{ delete group_path(@group_1) }.to change{ Group.count }.by(-1)
+      expect { delete group_path(@group_1) }.to change { Group.count }.by(-1)
       expect(response).to redirect_to groups_path
     end
   end
@@ -434,5 +437,4 @@ RSpec.describe "Groups", type: :request do
       expect(flash.any?).to eq true
     end
   end
-
 end
