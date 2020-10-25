@@ -98,6 +98,9 @@ footer{
     margin-top: 80px;
     font-family: 'Montserrat Subrayada', sans-serif;
   }
+  h4{
+    font-weight: bold;
+  }
 }
 
 .content{
@@ -115,7 +118,7 @@ footer{
   .about{
     background-color: #eaf7ff;
     background-image: url("about.jpg");
-    background-color:rgba(255, 253, 253, 0.900);
+    background-color:rgba(255, 253, 253, 0.950);
     background-blend-mode:lighten;
     border: 1px solid #dadada;
     text-align: center;
@@ -125,6 +128,7 @@ footer{
     }
     p{
       font-size: medium;
+      font-weight: bold;
     }
   }
   .step-content{
@@ -174,9 +178,6 @@ input, textarea{
   }
   .card{
     width: 420px;
-  }
-  .submit{
-    margin-bottom: 100px;
   }
 }
 

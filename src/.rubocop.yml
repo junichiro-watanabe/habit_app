@@ -1,0 +1,110 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+
+Rails:
+  Enabled: true
+
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'bin/*'
+    - 'config/environments/*'
+
+# 日本語でのコメントを許可
+AsciiComments:
+  Enabled: false
+
+# クラスの説明コメント不要
+Style/Documentation:
+  Enabled: false
+
+# .frozen 不要
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# "" の通常使用を許可
+Style/StringLiterals:
+  Enabled: false
+
+# 1行の文字列を制限しない
+Layout/LineLength:
+  Enabled: false
+
+# ブロック数を制限しない
+Metrics/BlockLength:
+  Enabled: false
+
+# クラスのライン数を制限しない
+Metrics/ClassLength:
+  Enabled: false
+
+# メソッドのライン数を制限しない
+Metrics/MethodLength:
+  Enabled: false
+
+# AbcSize を緩和
+Metrics/AbcSize:
+  Max: 50
+
+# 複雑度制限を緩和
+Metrics/CyclomaticComplexity:
+  Max: 10
+Metrics/PerceivedComplexity:
+  Max: 15
+
+# %iか%I付けないシンボル配列宣言を許可
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+# change {xxx} の記述を許可
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+# if分の中にifを使う記述を許可
+Style/GuardClause:
+  Enabled: false
+
+# else分の中にifを使う記述を許可
+Style/IfInsideElse:
+  Enabled: false
+
+# Date.todayの記述を許可
+Rails/Date:
+  Enabled: false
+
+# Rails.root.join('path/to')以外の記述を許可
+Rails/FilePath:
+  Enabled: false
+
+# ヘルパー内でのインスタンス変数代入を許可
+Rails/HelperInstanceVariable:
+  Enabled: false
+
+# evalの使用を許可
+Security/Eval:
+  Enabled: false
+Style/EvalWithLocation:
+  Enabled: false
+
+# JSON.loadの使用を許可
+Security/JSONLoad:
+  Enabled: false
+
+# ブロックコメントの使用を許可
+Style/BlockComments:
+  Enabled: false
+
+# toggle!の記述を許可
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'app/models/user.rb'
+
+# @current_user ||= User.find(user_id) の記述を許可
+Rails/InverseOf:
+  Exclude:
+    - 'app/models/user.rb'

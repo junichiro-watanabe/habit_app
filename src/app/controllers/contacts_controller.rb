@@ -29,12 +29,11 @@ class ContactsController < ApplicationController
 
   private
 
-    def contact_params
-      params.require(:contact).permit(:name, :email, :subject, :text)
-    end
+  def contact_params
+    params.require(:contact).permit(:name, :email, :subject, :text)
+  end
 
-    def admin_user
-      redirect_to root_path unless current_user.admin?
-    end
-
+  def admin_user
+    redirect_to root_path unless current_user.admin?
+  end
 end

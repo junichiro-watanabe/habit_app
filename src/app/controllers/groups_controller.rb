@@ -7,7 +7,7 @@ class GroupsController < ApplicationController
     @heading = "コミュニティを探す"
     @controller = :groups
     @action = :index
-    if params[:groups] == nil
+    if params[:groups].nil?
       @groups = Group.paginate(page: params[:page], per_page: 7)
     else
       keyword = params[:groups][:search]
@@ -91,7 +91,7 @@ class GroupsController < ApplicationController
     @heading = "#{@group.name} の メンバー"
     @controller = :groups
     @action = :member
-    if params[:groups] == nil
+    if params[:groups].nil?
       @users = @group.members.paginate(page: params[:page], per_page: 7)
     else
       keyword = params[:groups][:search]
@@ -102,12 +102,12 @@ class GroupsController < ApplicationController
 
   private
 
-    def group_params
-      params.require(:group).permit(:name, :habit, :overview)
-    end
+  def group_params
+    params.require(:group).permit(:name, :habit, :overview)
+  end
 
-    def owner_user
-      @group = Group.find(params[:id])
-      redirect_to groups_path unless @group.owner?(current_user) || current_user.admin?
-    end
+  def owner_user
+    @group = Group.find(params[:id])
+    redirect_to groups_path unless @group.owner?(current_user) || current_user.admin?
+  end
 end

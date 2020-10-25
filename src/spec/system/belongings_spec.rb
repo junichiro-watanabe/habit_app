@@ -5,7 +5,7 @@ RSpec.describe "Belongings", type: :system do
 
   before do
     @user = create(:user)
-    @group = create(:group, user:@user)
+    @group = create(:group, user: @user)
     1.upto 10 do |n|
       eval("@group_#{n} = create(:groups, user: @user)")
     end
@@ -36,7 +36,7 @@ RSpec.describe "Belongings", type: :system do
     it "フレンドリーフォロワーディング" do
       visit owning_user_path(@user)
       expect(current_path).to eq root_path
-			find('.glyphicon-log-in').click
+      find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"
@@ -72,7 +72,7 @@ RSpec.describe "Belongings", type: :system do
     it "フレンドリーフォロワーディング" do
       visit belonging_user_path(@user_1)
       expect(current_path).to eq root_path
-			find('.glyphicon-log-in').click
+      find('.glyphicon-log-in').click
       fill_in "session_email", with: @user_1.email
       fill_in "session_password", with: "password"
       click_button "ログイン"
@@ -106,7 +106,7 @@ RSpec.describe "Belongings", type: :system do
     it "フレンドリーフォロワーディング" do
       visit member_group_path(@group_1)
       expect(current_path).to eq root_path
-			find('.glyphicon-log-in').click
+      find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"
@@ -155,8 +155,8 @@ RSpec.describe "Belongings", type: :system do
       expect(current_path).to eq user_path(@user_1)
       expect(page).to have_content "未達成の目標が #{@user_1.not_achieved.count} 個あります"
       find("#not-achieved").click
-      notAchieved = @user_1.not_achieved
-      notAchieved.each do |item|
+      not_achieved = @user_1.not_achieved
+      not_achieved.each do |item|
         within "#group-#{item[:group_id]}" do
           expect(page).to have_link item[:group_name], href: item[:group_path]
           expect(page).to have_link item[:user_name], href: item[:user_path]
@@ -173,6 +173,5 @@ RSpec.describe "Belongings", type: :system do
         expect(page).to have_content "未達成の目標が #{@user_1.not_achieved.count} 個あります"
       end
     end
-
   end
 end

@@ -5,7 +5,7 @@ RSpec.describe "Achievements", type: :system do
 
   before do
     @user = create(:user)
-    @group = create(:group, user:@user)
+    @group = create(:group, user: @user)
     2.times do |n|
       eval("@user_#{n + 1} = create(:users)")
     end
@@ -81,10 +81,9 @@ RSpec.describe "Achievements", type: :system do
       visit group_path(@group)
       expect(current_path).to eq group_path(@group)
       click_button "達成状況の変更"
-      fill_in "encouragement", with: "a"*256
+      fill_in "encouragement", with: "a" * 256
       click_button "煽る"
       expect(page).to have_selector '.alert-danger'
     end
   end
-
 end
