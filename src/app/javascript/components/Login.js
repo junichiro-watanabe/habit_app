@@ -41,30 +41,30 @@ class Login extends React.Component {
           className="col-sm-4"
           contentLabel="Login Modal"
         >
-          <form action="/login" accept-charset="UTF-8" method="post">
-            <input type="hidden" name="authenticity_token" value={this.props.token} />
-            <span ref={close => this.close = close} onClick={this.props.closeModal} className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
-            <div>
-              <h2>ログイン</h2>
+          <div class="form">
+            <form action="/login" accept-charset="UTF-8" method="post">
+              <input type="hidden" name="authenticity_token" value={this.props.token} />
+              <span ref={close => this.close = close} onClick={this.props.closeModal} className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+              <div>
+                <h2>ログイン</h2>
 
-              <span className="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;
+                <span className="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;
               <label for="session_email">メールアドレス</label>
-              <input className="form-controll" type="email" name="session[email]" id="session_email" />
+                <input className="form-controll" type="email" name="session[email]" id="session_email" />
 
-              <span className="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp;
+                <span className="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp;
               <label for="session_password">パスワード</label>
-              <input className="form-controll" type="password" name="session[password]" id="session_password" />
-            </div>
+                <input className="form-controll" type="password" name="session[password]" id="session_password" />
+              </div>
 
-            <div className="col-xs-6 col-xs-offset-3 submit">
-              <input ref={submit => this.submit = submit} type="submit" name="commit" value="ログイン" className="btn btn-primary" data-disable-with="ログイン" />
-            </div>
-            <div className="col-xs-9 col-xs-offset-2 col-sm-6 col-sm-offset-3 submit">
-              <a href="/login_guest">
-                <button ref={guest => this.guest = guest} className="btn btn-secondaly">ゲストユーザとしてログイン</button>
-              </a>
-            </div>
-          </form>
+              <div className="col-sm-8 col-sm-offset-2 submit">
+                <input ref={submit => this.submit = submit} type="submit" name="commit" value="ログイン" className="btn btn-primary" data-disable-with="ログイン" />
+                <a href="/login_guest">
+                  <button ref={guest => this.guest = guest} className="btn btn-secondaly">ゲストユーザとしてログイン</button>
+                </a>
+              </div>
+            </form>
+          </div>
         </Modal>
       </React.Fragment>
     );
