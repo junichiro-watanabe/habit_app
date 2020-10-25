@@ -11,7 +11,13 @@ class MessagesController < ApplicationController
                      OR sender_id = :user_id AND receiver_id = :current_user_id"
       message = Message.where("id IN (#{message_ids})",
                               current_user_id: current_user.id, user_id: @user.id).order("created_at ASC")
-      @message = message.map{|m| m.sender_id == current_user.id ? m.attributes.merge({"myself": true, "time": m.created_at.strftime("%Y-%m-%d %H:%M")}) : m.attributes.merge({"myself": false, "time": m.created_at.strftime("%Y-%m-%d %H:%M")})}
+      @message = message.map do |m|
+        if m.sender_id == current_user.id
+          m.attributes.merge({ "myself": true, "time": m.created_at.strftime("%Y-%m-%d %H:%M") })
+        else
+          m.attributes.merge({ "myself": false, "time": m.created_at.strftime("%Y-%m-%d %H:%M") })
+        end
+      end
     end
   end
 
@@ -24,13 +30,18 @@ class MessagesController < ApplicationController
                       where sender_id = :current_user_id AND receiver_id = :user_id
                       OR sender_id = :user_id AND receiver_id = :current_user_id"
         response = Message.where("id IN (#{message_ids})",
-                                  current_user_id: current_user.id, user_id: @user.id).order("created_at ASC")
-        response = response.map{|m| m.sender_id == current_user.id ? m.attributes.merge({"myself": true, "time": m.created_at.strftime("%Y-%m-%d %H:%M")}) : m.attributes.merge({"myself": false, "time": m.created_at.strftime("%Y-%m-%d %H:%M")})}
+                                 current_user_id: current_user.id, user_id: @user.id).order("created_at ASC")
+        response = response.map do |m|
+          if m.sender_id == current_user.id
+            m.attributes.merge({ "myself": true, "time": m.created_at.strftime("%Y-%m-%d %H:%M") })
+          else
+            m.attributes.merge({ "myself": false, "time": m.created_at.strftime("%Y-%m-%d %H:%M") })
+          end
+        end
         render json: response
       else
         render "show"
       end
     end
   end
-
 end

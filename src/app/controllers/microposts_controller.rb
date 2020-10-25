@@ -10,9 +10,8 @@ class MicropostsController < ApplicationController
 
   private
 
-    def poster_user
-      @micropost = Micropost.find(params[:id])
-      redirect_to root_path unless @micropost.poster?(current_user) || current_user.admin?
-    end
-
+  def poster_user
+    @micropost = Micropost.find(params[:id])
+    redirect_to root_path unless @micropost.poster?(current_user) || current_user.admin?
+  end
 end

@@ -20,6 +20,6 @@ module GroupsHelper
       error_messages << "概要は255文字以下にしてください"
     end
 
-    return error_messages
+    error_messages
   end
 end

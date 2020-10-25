@@ -5,7 +5,7 @@ RSpec.describe "SiteLayout", type: :system do
 
   before do
     @user = create(:user)
-    @group = create(:group, user:@user)
+    @group = create(:group, user: @user)
     @admin = create(:admin)
     5.times do |n|
       eval("@user_#{n + 1} = create(:users)")
@@ -97,5 +97,4 @@ RSpec.describe "SiteLayout", type: :system do
       expect(page).to have_content @group.overview
     end
   end
-
 end

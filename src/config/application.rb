@@ -18,6 +18,6 @@ module HabitApp
 
     config.hosts << ".example.com"
     config.hosts << ".watanavi.work"
-    config.hosts << Socket.ip_address_list.detect { |addr| addr.ipv4_private? }.ip_address
+    config.hosts << Socket.ip_address_list.detect(&:ipv4_private?).ip_address
   end
 end

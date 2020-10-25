@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Contact, type: :model do
-  let(:contact){ Contact.new(name: "valid_user",
-                             email: "valid_email@valid.com",
-                             subject: "valid_subject",
-                             text: "valid_text") }
+  let(:contact) do
+    Contact.new(name: "valid_user",
+                email: "valid_email@valid.com",
+                subject: "valid_subject",
+                text: "valid_text")
+  end
 
   describe "有効性のテスト" do
     it "有効な問い合わせ" do
@@ -17,7 +19,7 @@ RSpec.describe Contact, type: :model do
     end
 
     it "ユーザ名が50文字超過" do
-      contact.name = "a"*51
+      contact.name = "a" * 51
       expect(contact).not_to be_valid
     end
 
@@ -27,7 +29,7 @@ RSpec.describe Contact, type: :model do
     end
 
     it "メールアドレスが255文字超過" do
-      contact.email = "a"*256 + "@aaa.com"
+      contact.email = "a" * 256 + "@aaa.com"
       expect(contact).not_to be_valid
     end
 
@@ -42,7 +44,7 @@ RSpec.describe Contact, type: :model do
     end
 
     it "件名が50字超過" do
-      contact.subject = "a"*51
+      contact.subject = "a" * 51
       expect(contact).not_to be_valid
     end
 
@@ -52,7 +54,7 @@ RSpec.describe Contact, type: :model do
     end
 
     it "問い合わせ内容が1000字超過" do
-      contact.text = "a"*1001
+      contact.text = "a" * 1001
       expect(contact).not_to be_valid
     end
   end

@@ -35,12 +35,12 @@ User.create!(name: "ゲストユーザ",
              password: "password",
              password_confirmation: "password")
 
-(users_json.length).times do |n|
+users_json.length.times do |n|
   user = User.create!(name: Faker::Name.name,
-                     email: "test#{n + 3}@example.com",
-                     introduction: users_json[n]["introduction"],
-                     password: "password",
-                     password_confirmation: "password")
+                      email: "test#{n + 3}@example.com",
+                      introduction: users_json[n]["introduction"],
+                      password: "password",
+                      password_confirmation: "password")
   user.image.attach(io: File.open("db/fixtures/images/image (#{rand(200)}).png"), filename: "image (#{rand(200)}).png")
 end
 
@@ -53,7 +53,7 @@ end
   user.belong(group)
 end
 
-(groups_json.length).times do |n|
+groups_json.length.times do |n|
   user = User.find(rand(3..User.count))
   group = user.groups.build(name: groups_json[n]["name"],
                             habit: groups_json[n]["habit"],
@@ -65,7 +65,7 @@ end
 
 2.upto User.count do |n|
   user = User.find(n)
-  5.times do |m|
+  5.times do
     group = Group.find(rand(1..Group.count))
     user.belong(group) until user.belonging?(group)
   end
@@ -73,22 +73,22 @@ end
 
 2.upto User.count do |n|
   user = User.find(n)
-  10.times do |m|
+  10.times do
     other_user = User.find(rand(2..User.count))
     user.follow(other_user) until user.following?(other_user)
   end
 end
 
-(messages_json.length).times do |n|
+messages_json.length.times do |n|
   my_user = User.find(2)
   your_user = User.find(rand(3..User.count))
-  if n % 2 == 0 then
-    (messages_json[n]["my_message"].length).times do |m|
+  if (n % 2).zero?
+    messages_json[n]["my_message"].length.times do |m|
       Message.create(sender_id: my_user.id, receiver_id: your_user.id, content: messages_json[n]["my_message"][m])
       Message.create(sender_id: your_user.id, receiver_id: my_user.id, content: messages_json[n]["your_message"][m])
     end
   else
-    (messages_json[n]["my_message"].length).times do |m|
+    messages_json[n]["my_message"].length.times do |m|
       Message.create!(sender_id: your_user.id, receiver_id: my_user.id, content: messages_json[n]["your_message"][m])
       Message.create!(sender_id: my_user.id, receiver_id: your_user.id, content: messages_json[n]["my_message"][m])
     end
@@ -99,11 +99,11 @@ end
   2.upto User.count do |n|
     user = User.find(n)
     user.belongs.each do |belong|
-      if rand(3) != 2
-        group = belong.group
-        history = belong.achievement.histories.create(date: date)
-        history.microposts.create(user: user, content: "#{history.date} 分の <a href=\"/groups/#{group.id}\">#{group.name}</a> の目標を達成しました。\n目標：#{group.habit}")
-      end
+      next unless rand(2).zero?
+
+      group = belong.group
+      history = belong.achievement.histories.create(date: date)
+      history.microposts.create(user: user, content: "#{history.date} 分の <a href=\"/groups/#{group.id}\">#{group.name}</a> の目標を達成しました。\n目標：#{group.habit}")
     end
   end
 end
@@ -111,6 +111,6 @@ end
 2.upto User.count do |n|
   user = User.find(n)
   Micropost.all.each do |micropost|
-    user.like(micropost) if rand(100) == 0
+    user.like(micropost) if rand(100).zero?
   end
 end

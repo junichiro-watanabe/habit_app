@@ -39,50 +39,54 @@ RSpec.describe "Users", type: :request do
 
   describe "createのテスト" do
     it "ユーザ作成：有効なユーザ情報" do
-      expect{ post users_path,
-              params: {user: {name: "valid_user",
+      expect do
+        post users_path,
+             params: { user: { name: "valid_user",
                                email: "valid_email@valid.com",
                                introduction: "valid_introduction",
                                password: "valid_password",
-                               password_confirmation: "valid_password"}}
-      }.to change{ User.count }.by(+1)
+                               password_confirmation: "valid_password" } }
+      end.to change { User.count }.by(+1)
       user = User.last
       expect(response).to redirect_to user_path(user)
       expect(flash.empty?).to eq false
     end
 
     it "ユーザ作成：無効なユーザ情報(全て空欄)" do
-      expect{ post users_path,
-              params: {user: {name: "",
-                              email: "",
-                              introduction: "",
-                              password: "",
-                              password_confirmation: ""}}
-      }.to change{ User.count }.by(+0)
+      expect do
+        post users_path,
+             params: { user: { name: "",
+                               email: "",
+                               introduction: "",
+                               password: "",
+                               password_confirmation: "" } }
+      end.to change { User.count }.by(+0)
       expect(response).to render_template 'users/new'
       expect(response.body).to include "class=\"alert alert-danger\""
     end
 
     it "ユーザ作成：無効なユーザ情報(すでに登録されているメールアドレス)" do
-      expect{ post users_path,
-              params: {user: {name: "test",
+      expect do
+        post users_path,
+             params: { user: { name: "test",
                                email: "user@example.com",
                                introduction: "valid_introduction",
                                password: "password",
-                               password_confirmation: "password"}}
-      }.to change{ User.count }.by(+0)
+                               password_confirmation: "password" } }
+      end.to change { User.count }.by(+0)
       expect(response).to render_template 'users/new'
       expect(response.body).to include "class=\"alert alert-danger\""
     end
 
     it "ユーザ作成：無効なユーザ情報(パスワード確認が一致しない)" do
-      expect{ post users_path,
-              params: {user: {name: "test",
+      expect do
+        post users_path,
+             params: { user: { name: "test",
                                email: "hogehoge@example.com",
                                introduction: "valid_introduction",
                                password: "password",
-                               password_confirmation: "p@ssw0rd"}}
-      }.to change{ User.count }.by(+0)
+                               password_confirmation: "p@ssw0rd" } }
+      end.to change { User.count }.by(+0)
       expect(response).to render_template 'users/new'
       expect(response.body).to include "class=\"alert alert-danger\""
     end
@@ -180,12 +184,12 @@ RSpec.describe "Users", type: :request do
       expect(@user.name).not_to eq name
       expect(@user.email).not_to eq email
       patch user_path(@user),
-            params: {edit_element: "profile",
-                     user: {name: name,
-                            email: email,
-                            introduction: "valid_introduction",
-                            password: "valid_password",
-                            password_confirmation: "valid_password"}}
+            params: { edit_element: "profile",
+                      user: { name: name,
+                              email: email,
+                              introduction: "valid_introduction",
+                              password: "valid_password",
+                              password_confirmation: "valid_password" } }
       expect(response).to redirect_to user_path(@user)
       expect(flash.any?).to eq true
       expect(@user.reload.name).to eq name
@@ -200,12 +204,12 @@ RSpec.describe "Users", type: :request do
       expect(@user.name).not_to eq name
       expect(@user.email).not_to eq email
       patch user_path(@user),
-            params: {edit_element: "profile",
-                     user: {name: name,
-                            email: email,
-                            introduction: "valid_introduction",
-                            password: "valid_password",
-                            password_confirmation: "valid_password"}}
+            params: { edit_element: "profile",
+                      user: { name: name,
+                              email: email,
+                              introduction: "valid_introduction",
+                              password: "valid_password",
+                              password_confirmation: "valid_password" } }
       expect(response).to redirect_to user_path(@user)
       expect(flash.any?).to eq true
       expect(@user.reload.name).to eq name
@@ -216,12 +220,12 @@ RSpec.describe "Users", type: :request do
       log_in_as(@user)
       expect(logged_in?).to eq true
       patch user_path(@user),
-            params: {edit_element: "profile",
-                     user: {name: "",
-                            email: "",
-                            introduction: "",
-                            password: "",
-                            password_confirmation: ""}}
+            params: { edit_element: "profile",
+                      user: { name: "",
+                              email: "",
+                              introduction: "",
+                              password: "",
+                              password_confirmation: "" } }
       expect(response).to render_template 'users/edit'
       expect(response.body).to include "class=\"alert alert-danger\""
     end
@@ -230,12 +234,12 @@ RSpec.describe "Users", type: :request do
       log_in_as(@user)
       expect(logged_in?).to eq true
       patch user_path(@user),
-            params: {edit_element: "profile",
-                     user: {name: "test",
-                            email: "other_user@example.com",
-                            introduction: "valid_introduction",
-                            password: "password",
-                            password_confirmation: "password"}}
+            params: { edit_element: "profile",
+                      user: { name: "test",
+                              email: "other_user@example.com",
+                              introduction: "valid_introduction",
+                              password: "password",
+                              password_confirmation: "password" } }
       expect(response).to render_template 'users/edit'
       expect(response.body).to include "class=\"alert alert-danger\""
     end
@@ -244,12 +248,12 @@ RSpec.describe "Users", type: :request do
       log_in_as(@user)
       expect(logged_in?).to eq true
       patch user_path(@user),
-            params: {edit_element: "profile",
-                     user: {name: "test",
-                            email: "hogehoge@example.com",
-                            introduction: "valid_introduction",
-                            password: "password",
-                            password_confirmation: "p@ssw0rd"}}
+            params: { edit_element: "profile",
+                      user: { name: "test",
+                              email: "hogehoge@example.com",
+                              introduction: "valid_introduction",
+                              password: "password",
+                              password_confirmation: "p@ssw0rd" } }
       expect(response).to render_template 'users/edit'
       expect(response.body).to include "class=\"alert alert-danger\""
     end
@@ -260,12 +264,12 @@ RSpec.describe "Users", type: :request do
       expect(@user.name).not_to eq name
       expect(@user.email).not_to eq email
       patch user_path(@user),
-            params: {edit_element: "profile",
-                     user: {name: name,
-                            email: email,
-                            introduction: "valid_introduction",
-                            password: "valid_password",
-                            password_confirmation: "valid_password"}}
+            params: { edit_element: "profile",
+                      user: { name: name,
+                              email: email,
+                              introduction: "valid_introduction",
+                              password: "valid_password",
+                              password_confirmation: "valid_password" } }
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
       expect(@user.reload.name).not_to eq name
@@ -278,12 +282,12 @@ RSpec.describe "Users", type: :request do
       name = "valid_user"
       email = "valid_email@valid.com"
       patch user_path(@user),
-            params: {edit_element: "profile",
-                     user: {name: name,
-                            email: email,
-                            introduction: "valid_introduction",
-                            password: "valid_password",
-                            password_confirmation: "valid_password"}}
+            params: { edit_element: "profile",
+                      user: { name: name,
+                              email: email,
+                              introduction: "valid_introduction",
+                              password: "valid_password",
+                              password_confirmation: "valid_password" } }
       expect(response).to redirect_to root_path
       expect(@user.reload.name).not_to eq name
       expect(@user.reload.email).not_to eq email
@@ -296,15 +300,15 @@ RSpec.describe "Users", type: :request do
       email = "valid_email@valid.com"
       expect(@user.admin?).to eq false
       patch user_path(@user),
-            params: {edit_element: "profile",
-                     user: {name: name,
-                            email: email,
-                            introduction: "valid_introduction",
-                            password: "valid_password",
-                            password_confirmation: "valid_password",
-                            admin: true}}
-        expect(response).to redirect_to user_path(@user)
-        expect(@user.reload.admin?).to eq false
+            params: { edit_element: "profile",
+                      user: { name: name,
+                              email: email,
+                              introduction: "valid_introduction",
+                              password: "valid_password",
+                              password_confirmation: "valid_password",
+                              admin: true } }
+      expect(response).to redirect_to user_path(@user)
+      expect(@user.reload.admin?).to eq false
     end
 
     it "プロフィール画像変更：有効なファイル形式" do
@@ -313,8 +317,8 @@ RSpec.describe "Users", type: :request do
       expect(@user.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
       patch user_path(@user),
-            params: {edit_element: "image",
-                     user: {image: image}}
+            params: { edit_element: "image",
+                      user: { image: image } }
       expect(response).to redirect_to user_path(@user)
       expect(flash.any?).to eq true
       expect(@user.reload.image.attached?).to eq true
@@ -326,8 +330,8 @@ RSpec.describe "Users", type: :request do
       expect(@user.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
       patch user_path(@user),
-            params: {edit_element: "image",
-                     user: {image: image}}
+            params: { edit_element: "image",
+                      user: { image: image } }
       expect(response).to redirect_to user_path(@user)
       expect(flash.any?).to eq true
       expect(@user.reload.image.attached?).to eq true
@@ -339,8 +343,8 @@ RSpec.describe "Users", type: :request do
       expect(@user.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.txt', 'txt')
       patch user_path(@user),
-            params: {edit_element: "image",
-                     user: {image: image}}
+            params: { edit_element: "image",
+                      user: { image: image } }
       expect(response).to render_template 'users/edit'
       expect(response.body).to include "class=\"alert alert-danger\""
       expect(@user.reload.image.attached?).to eq false
@@ -350,8 +354,8 @@ RSpec.describe "Users", type: :request do
       expect(@user.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
       patch user_path(@user),
-            params: {edit_element: "image",
-                     user: {image: image}}
+            params: { edit_element: "image",
+                      user: { image: image } }
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
       expect(@user.reload.image.attached?).to eq false
@@ -363,8 +367,8 @@ RSpec.describe "Users", type: :request do
       expect(@user.image.attached?).to eq false
       image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
       patch user_path(@user),
-            params: {edit_element: "image",
-                     user: {image: image}}
+            params: { edit_element: "image",
+                      user: { image: image } }
       expect(response).to redirect_to root_path
       expect(@user.reload.image.attached?).to eq false
     end
@@ -374,8 +378,8 @@ RSpec.describe "Users", type: :request do
       expect(logged_in?).to eq true
       expect(@user.image.attached?).to eq false
       patch user_path(@user),
-            params: {edit_element: "image",
-                     user: {image: nil}}
+            params: { edit_element: "image",
+                      user: { image: nil } }
       expect(response).to redirect_to user_path(@user)
       expect(flash.any?).to eq true
       expect(@user.reload.image.attached?).to eq false
@@ -386,8 +390,8 @@ RSpec.describe "Users", type: :request do
       expect(logged_in?).to eq true
       expect(@user.image.attached?).to eq false
       patch user_path(@user),
-            params: {edit_element: "image",
-                     user: {image: nil}}
+            params: { edit_element: "image",
+                      user: { image: nil } }
       expect(response).to redirect_to user_path(@user)
       expect(flash.any?).to eq true
       expect(@user.reload.image.attached?).to eq false
@@ -395,10 +399,10 @@ RSpec.describe "Users", type: :request do
 
     it "プロフィール画像削除：ログインしていない" do
       expect(@user.image.attached?).to eq false
-      image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
+      fixture_file_upload('spec/factories/images/img.png', 'image/png')
       patch user_path(@user),
-            params: {edit_element: "image",
-                     user: {image: nil}}
+            params: { edit_element: "image",
+                      user: { image: nil } }
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
       expect(@user.reload.image.attached?).to eq false
@@ -408,10 +412,10 @@ RSpec.describe "Users", type: :request do
       log_in_as(@other_user)
       expect(logged_in?).to eq true
       expect(@user.image.attached?).to eq false
-      image = fixture_file_upload('spec/factories/images/img.png', 'image/png')
+      fixture_file_upload('spec/factories/images/img.png', 'image/png')
       patch user_path(@user),
-            params: {edit_element: "image",
-                     user: {image: nil}}
+            params: { edit_element: "image",
+                      user: { image: nil } }
       expect(response).to redirect_to root_path
       expect(@user.reload.image.attached?).to eq false
     end
@@ -452,19 +456,19 @@ RSpec.describe "Users", type: :request do
     it "ユーザ削除：ログイン状態" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      expect{ delete user_path(@user) }.to change{ User.count }.by(-1)
+      expect { delete user_path(@user) }.to change { User.count }.by(-1)
       expect(response).to redirect_to root_path
     end
 
     it "ユーザ削除：管理者ユーザ" do
       log_in_as(@user)
       expect(logged_in?).to eq true
-      expect{ delete user_path(@user) }.to change{ User.count }.by(-1)
+      expect { delete user_path(@user) }.to change { User.count }.by(-1)
       expect(response).to redirect_to root_path
     end
 
     it "ユーザ削除：ログインしていない" do
-      expect{ delete user_path(@user) }.not_to change{ User.count }
+      expect { delete user_path(@user) }.not_to change { User.count }
       expect(response).to redirect_to root_path
       expect(flash.any?).to eq true
     end
@@ -472,7 +476,7 @@ RSpec.describe "Users", type: :request do
     it "ユーザ削除：違うユーザ" do
       log_in_as(@other_user)
       expect(logged_in?).to eq true
-      expect{ delete user_path(@user) }.not_to change{ User.count }
+      expect { delete user_path(@user) }.not_to change { User.count }
       expect(response).to redirect_to root_path
     end
   end
@@ -586,5 +590,4 @@ RSpec.describe "Users", type: :request do
       expect(flash.any?).to eq true
     end
   end
-
 end

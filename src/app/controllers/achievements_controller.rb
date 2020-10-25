@@ -26,20 +26,20 @@ class AchievementsController < ApplicationController
   end
 
   private
-    def belonged_to_group
-      @group = Group.find(params[:id])
-      unless current_user.belonging?(@group)
-        flash[:danger] = "コミュニティに参加してください"
-        redirect_to @group
-      end
-    end
 
-    def achieved_habit
-      @group = Group.find(params[:id])
-      unless current_user.achieved?(@group)
-        flash[:danger] = "煽るためには本日の目標を達成してください"
-        redirect_to @group
-      end
+  def belonged_to_group
+    @group = Group.find(params[:id])
+    unless current_user.belonging?(@group)
+      flash[:danger] = "コミュニティに参加してください"
+      redirect_to @group
     end
+  end
 
+  def achieved_habit
+    @group = Group.find(params[:id])
+    unless current_user.achieved?(@group)
+      flash[:danger] = "煽るためには本日の目標を達成してください"
+      redirect_to @group
+    end
+  end
 end

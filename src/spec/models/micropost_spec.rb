@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Micropost, type: :model do
-  let(:user){ create(:user) }
-  let(:micropost){ Micropost.new(user: user, content: "valid_content") }
+  let(:user) { create(:user) }
+  let(:micropost) { Micropost.new(user: user, content: "valid_content") }
 
   describe "有効性のテスト" do
     it "有効な情報" do
@@ -20,7 +20,7 @@ RSpec.describe Micropost, type: :model do
     end
 
     it "contentが255文字超過" do
-      micropost.content = "a"*256
+      micropost.content = "a" * 256
       expect(micropost).not_to be_valid
     end
   end
