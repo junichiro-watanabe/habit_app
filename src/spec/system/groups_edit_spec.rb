@@ -30,9 +30,9 @@ RSpec.describe "GroupsEdit", type: :system do
       expect(page).to have_link "編集する", href: edit_group_path(@group)
       click_link "編集する"
       expect(current_path).to eq edit_group_path(@group)
-      fill_in "group_name", with: "a"*51
-      fill_in "group_habit", with: "a"*51
-      fill_in "group_overview", with: "a"*256
+      fill_in "group_name", with: "a" * 51
+      fill_in "group_habit", with: "a" * 51
+      fill_in "group_overview", with: "a" * 256
       click_button "編集する"
       expect(current_path).to eq group_path(@group)
       expect(page).to have_selector '.alert-danger'
@@ -41,7 +41,7 @@ RSpec.describe "GroupsEdit", type: :system do
     it "フレンドリーフォロワーディング" do
       visit edit_group_path(@group)
       expect(current_path).to eq root_path
-			find('.glyphicon-log-in').click
+      find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"
@@ -98,7 +98,7 @@ RSpec.describe "GroupsEdit", type: :system do
     it "フレンドリーフォロワーディング" do
       visit edit_image_group_path(@group)
       expect(current_path).to eq root_path
-			find('.glyphicon-log-in').click
+      find('.glyphicon-log-in').click
       fill_in "session_email", with: @user.email
       fill_in "session_password", with: "password"
       click_button "ログイン"

@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
-  let(:user){ create(:user) }
-  let(:other_user){ create(:other_user) }
-  let(:micropost){ Micropost.create(user: other_user, content: "valid_content") }
-  let(:like){ Like.new(user: user, micropost: micropost) }
+  let(:user) { create(:user) }
+  let(:other_user) { create(:other_user) }
+  let(:micropost) { Micropost.create(user: other_user, content: "valid_content") }
+  let(:like) { Like.new(user: user, micropost: micropost) }
 
   describe "有効性の確認" do
     it "有効な情報" do

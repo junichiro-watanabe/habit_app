@@ -4,7 +4,7 @@ RSpec.describe "StaticPages", type: :request do
   include TestHelper
   include SessionsHelper
 
-  let(:user){ create(:user) }
+  let(:user) { create(:user) }
 
   describe "homeのテスト" do
     it "getリクエスト：ログインしていない" do
@@ -20,5 +20,4 @@ RSpec.describe "StaticPages", type: :request do
       expect(response).to redirect_to user_path(user)
     end
   end
-
 end

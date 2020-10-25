@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Belong, type: :model do
-  let(:user){ create(:user) }
-  let(:group){ create(:group, user: user) }
-  let(:belong){ Belong.new(user: user, group: group) }
+  let(:user) { create(:user) }
+  let(:group) { create(:group, user: user) }
+  let(:belong) { Belong.new(user: user, group: group) }
 
   describe "有効性のテスト" do
     it "有効な情報" do
@@ -19,6 +19,5 @@ RSpec.describe Belong, type: :model do
       belong.group = nil
       expect(belong).not_to eq be_valid
     end
-
   end
 end
