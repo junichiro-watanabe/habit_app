@@ -119,7 +119,7 @@ Habit App はコミュニティを作成して、仲間と一緒に習慣づけ�
 
 ![インフラ構成図](https://user-images.githubusercontent.com/64312219/97151125-6a4d4b00-17b2-11eb-8d14-296ff2fb4beb.png)
 
-##　E-R図
+## E-R図
 
 ![E-R図](https://user-images.githubusercontent.com/64312219/97176681-a4c9de80-17d8-11eb-9541-5b739e0f12ff.png)
 
