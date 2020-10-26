@@ -82,7 +82,6 @@ Habit App はコミュニティを作成して、仲間と一緒に習慣づけ�
    
  - レスポンシブ対応
  
-
 ## 工夫した点
 
 - 直感で操作できるようシンプルなUIにしました。
@@ -90,18 +89,19 @@ Habit App はコミュニティを作成して、仲間と一緒に習慣づけ�
 - 目標達成 ⇒ アウトプット の流れが自然とできるように非同期による画面遷移にしました。
 - CI/CD による開発ができるように Docker, ECS/ECR, CircleCI等 を用いて テスト→ビルド→デプロイの自動パイプラインを構築しました。
 
-<img width="442" alt="マイページ" src="https://user-images.githubusercontent.com/64312219/97169248-169c2b00-17cd-11eb-81ac-1decaa4d4265.png">&emsp;&emsp;<img width="449" alt="目標達成" src="https://user-images.githubusercontent.com/64312219/97169255-1734c180-17cd-11eb-84aa-d218ece5f6ef.png">
+<img width="332" alt="マイページ" src="https://user-images.githubusercontent.com/64312219/97169248-169c2b00-17cd-11eb-81ac-1decaa4d4265.png">&emsp;<img width="337" alt="目標達成" src="https://user-images.githubusercontent.com/64312219/97169255-1734c180-17cd-11eb-84aa-d218ece5f6ef.png">
+
 ## 使用技術
 ### フロントエンド
  - HTML
- - Scss
+ - scss
  - Bootstrap
  - JavaScript
  - React
  
 ### バックエンド
  - Ruby 2.6.6
- - RubyOnRails 6.0.3.2
+ - Ruby on Rails 6.0.3.2
  
 ### インフラ
  - Docker / docker-compose
@@ -118,3 +118,8 @@ Habit App はコミュニティを作成して、仲間と一緒に習慣づけ�
 ## インフラ構成図
 
 ![インフラ構成図](https://user-images.githubusercontent.com/64312219/97151125-6a4d4b00-17b2-11eb-8d14-296ff2fb4beb.png)
+
+##　E-R図
+
+![E-R図](https://user-images.githubusercontent.com/64312219/97176681-a4c9de80-17d8-11eb-9541-5b739e0f12ff.png)
+
