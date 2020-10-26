@@ -16,8 +16,6 @@ module HabitApp
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    config.hosts << ".example.com"
-    config.hosts << "web"
-    config.hosts << Socket.ip_address_list.detect(&:ipv4_private?).ip_address
+    config.hosts.clear
   end
 end
