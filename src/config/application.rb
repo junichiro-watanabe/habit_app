@@ -17,7 +17,7 @@ module HabitApp
     # the framework and any gems in your application.
 
     config.hosts << ".example.com"
-    config.hosts << ".watanavi.work"
+    config.hosts << "web"
     config.hosts << Socket.ip_address_list.detect(&:ipv4_private?).ip_address
   end
 end
