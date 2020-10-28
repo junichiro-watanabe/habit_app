@@ -106,7 +106,7 @@ Habit App はコミュニティを作成して、仲間と一緒に習慣づけ�
 ### インフラ
  - Docker / docker-compose
  - AWS(ECS, ECR, EC2, VPC, ALB, RDS, Route53, ACM, S3)
- - CircleCI(自動ビルド、自動テスト、自動デプロイ)
+ - CircleCI(自動テスト、自動ビルド、自動デプロイ)
  - Nginx
 
 ### その他
