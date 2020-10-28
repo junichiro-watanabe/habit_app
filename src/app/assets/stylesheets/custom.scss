@@ -22,13 +22,20 @@ ul,li{
 .card{
   text-align: center;
   padding-bottom: 20px;
-  background-color: #a1ffe0;
+  background-color: #b9ffe2;
+  border-radius: 10%;
   border: 1px solid #6bc1e6;
-  border-radius: 50%;
   box-shadow: 0 0 8px rgb(155, 154, 154);
   img{
-    padding: 10px;
+    background-color: #ffeeb6;
+    height: 50%;
+    width: 50%;
+    padding: 5px;
     margin: 20px;
+    border-radius: 50%;
+  }
+  h4{
+    font-weight: bold;
   }
 }
 
@@ -175,9 +182,6 @@ input, textarea{
   .word{
     margin-top: 15px;
     margin-bottom: 30px;
-  }
-  .card{
-    width: 420px;
   }
 }
 

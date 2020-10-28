@@ -5,7 +5,7 @@ import { StrongEachWord } from "./Effects"
 import Card from "./Card"
 
 const cards = [
-  { id: 0, value: <Card src="/assets/notebook.png" alt="plan" text="習慣を決める" /> },
+  { id: 0, value: <Card src="/assets/light.png" alt="plan" text="習慣を決める" /> },
   { id: 1, value: <Card src="/assets/team.png" alt="team" text="仲間を集める" /> },
   { id: 2, value: <Card src="/assets/continue.png" alt="continue" text="共に継続する" /> }
 ]
