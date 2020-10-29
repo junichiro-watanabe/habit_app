@@ -575,6 +575,7 @@ input, textarea{
   }
   .react-calendar{
     margin: auto;
+    padding: 0 5px 5px 5px;
     .zero{
       color: black;
       background-color: white;
@@ -587,6 +588,9 @@ input, textarea{
     }
     .high{
       background-color: orange;
+    }
+    .react-calendar__tile{
+      border-radius: 50%;
     }
   }
 }
