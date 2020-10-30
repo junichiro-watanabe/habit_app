@@ -89,7 +89,7 @@ Habit App はコミュニティを作成して、仲間と一緒に習慣づけ�
 - 目標達成 ⇒ アウトプット の流れが自然とできるように非同期による画面遷移にしました。
 - CI/CD による開発ができるように Docker, ECS/ECR, CircleCI等 を用いて テスト→ビルド→デプロイの自動パイプラインを構築しました。
 
-<img width="332" alt="マイページ" src="https://user-images.githubusercontent.com/64312219/97169248-169c2b00-17cd-11eb-81ac-1decaa4d4265.png">&emsp;<img width="337" alt="目標達成" src="https://user-images.githubusercontent.com/64312219/97169255-1734c180-17cd-11eb-84aa-d218ece5f6ef.png">
+<img width="337" alt="マイページ" src="https://user-images.githubusercontent.com/64312219/97724905-df9d8080-1b10-11eb-8f99-14db79d044ab.png">&emsp;<img width="337" alt="目標達成" src="https://user-images.githubusercontent.com/64312219/97169255-1734c180-17cd-11eb-84aa-d218ece5f6ef.png">
 
 ## 使用技術
 ### フロントエンド
