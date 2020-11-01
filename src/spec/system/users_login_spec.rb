@@ -15,27 +15,25 @@ RSpec.describe "UsersLogin", type: :system do
       expect(page).not_to have_link "ホーム", href: root_path
       expect(page).not_to have_content "ログイン"
       expect(page).not_to have_link "新規登録", href: signup_path
-      expect(page).to have_link "マイページ", href: user_path(@user)
-      expect(page).to have_link "プロフィール", href: edit_user_path(@user)
-      expect(page).to have_link "コミュニティ", href: groups_path
-      expect(page).to have_link "ログアウト", href: login_path
+      expect(page).to have_link "ホーム", href: user_path(@user)
+      expect(page).to have_link "コミュニティ", href: "#"
+      expect(page).to have_link @user.name, href: "#"
+      click_link @user.name
       click_link "ログアウト"
       expect(page).to have_link "ホーム", href: root_path
       expect(page).to have_content "ログイン"
       expect(page).to have_link "新規登録", href: signup_path
-      expect(page).not_to have_link "マイページ", href: user_path(@user)
-      expect(page).not_to have_link "プロフィール", href: edit_user_path(@user)
-      expect(page).not_to have_link "コミュニティ", href: groups_path
-      expect(page).not_to have_link "ログアウト", href: login_path
+      expect(page).not_to have_link "ホーム", href: user_path(@user)
+      expect(page).not_to have_link "コミュニティ", href: "#"
+      expect(page).not_to have_link @user.name, href: "#"
       delete login_path
       visit root_path
       expect(page).to have_link "ホーム", href: root_path
       expect(page).to have_content "ログイン"
       expect(page).to have_link "新規登録", href: signup_path
-      expect(page).not_to have_link "マイページ", href: user_path(@user)
-      expect(page).not_to have_link "プロフィール", href: edit_user_path(@user)
-      expect(page).not_to have_link "コミュニティ", href: groups_path
-      expect(page).not_to have_link "ログアウト", href: login_path
+      expect(page).not_to have_link "ホーム", href: user_path(@user)
+      expect(page).not_to have_link "コミュニティ", href: "#"
+      expect(page).not_to have_link @user.name, href: "#"
     end
 
     it "ログイン失敗 + ホーム画面に遷移したらエラーメッセージが表示されない" do
