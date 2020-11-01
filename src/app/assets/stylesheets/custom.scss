@@ -214,8 +214,15 @@ input, textarea{
   ul{
     margin: 0;
     padding: 10px 0;
+    a{
+      text-decoration: none;
+    }
     li{
-      margin-bottom: 5px;
+      padding: 3px;
+    }
+    li:hover{
+      background-color: rgb(148, 227, 253);
+      border-radius: 5%;
     }
   }
   .submit{
