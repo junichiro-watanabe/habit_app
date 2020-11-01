@@ -1,0 +1,9 @@
+<% provide(:title, @title) %>
+<% provide(:page, "user_show") %>
+
+<div class="index">
+    <h2><%= @heading %></h2>
+    <%= render 'shared/search' %>
+    <%= render 'shared/user_items' %>
+    <%= will_paginate @users, params: {controller: @controller, action: @action} %>
+</div>
