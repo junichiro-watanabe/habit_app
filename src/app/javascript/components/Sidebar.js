@@ -5,6 +5,12 @@ class Sidebar extends React.Component {
     super(props);
   }
 
+  getClass(url) {
+    if (url === location.pathname) {
+      return "selected"
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -16,7 +22,7 @@ class Sidebar extends React.Component {
 
           <div className="list">
             <ul>
-              {this.props.links.map((item, index) => <a href={item.href}><li key={index} dangerouslySetInnerHTML={{ __html: item.link }} /></a>)}
+              {this.props.links.map((item, index) => <a href={item.href}><li className={this.getClass(item.href)} key={index} dangerouslySetInnerHTML={{ __html: item.link }} /></a>)}
             </ul>
           </div>
         </aside>
