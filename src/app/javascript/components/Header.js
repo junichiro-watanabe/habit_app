@@ -41,10 +41,28 @@ class Header extends React.Component {
                   <ul className="nav nav-pills navbar-right">
                     {this.props.logged_in ?
                       <React.Fragment>
-                        <li><a href={this.props.user_path}><span class="glyphicon glyphicon-home" aria-hidden="true"></span> マイページ</a></li>
-                        <li><a href={this.props.edit_user_path}><span className="glyphicon glyphicon-user" aria-hidden="true"></span> プロフィール</a></li>
-                        <li><a href={this.props.groups_path}><span className="glyphicon glyphicon-tower" aria-hidden="true"></span> コミュニティ</a></li>
-                        <li><a rel="nofollow" data-method="delete" href="/login"><span className="glyphicon glyphicon-log-out" aria-hidden="true"></span> ログアウト</a></li>
+                        <li><a href={this.props.user_path}><span class="glyphicon glyphicon-home" aria-hidden="true"></span> ホーム</a></li>
+                        <li className="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <span className="glyphicon glyphicon-tower" aria-hidden="true"></span> コミュニティ<span class="caret"></span>
+                          </a>
+                          <ul className="dropdown-menu" role="menu">
+                            <li><a href={this.props.users_path}><span className="glyphicon glyphicon-glass" aria-hidden="true"></span> ユーザを探す</a></li>
+                            <li><a href={this.props.create_group_path}><span className="glyphicon glyphicon-flag" aria-hidden="true"></span> コミュニティを作る</a></li>
+                            <li><a href={this.props.groups_path}><span className="glyphicon glyphicon-search" aria-hidden="true"></span> コミュニティを探す</a></li>
+                            <li><a href={this.props.owning_path}><span className="glyphicon glyphicon-tower" aria-hidden="true"></span> 主催コミュニティ</a></li>
+                            <li><a href={this.props.belonging_path}><span className="glyphicon glyphicon-globe" aria-hidden="true"></span> 参加コミュニティ</a></li>
+                          </ul>
+                        </li>
+                        <li className="dropdown user">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <img src={this.props.user_image} height="20px" width="20px" /> {this.props.user_name}<span class="caret"></span>
+                          </a>
+                          <ul className="dropdown-menu" role="menu">
+                            <li><a href={this.props.edit_user_path}><span className="glyphicon glyphicon-user" aria-hidden="true"></span> プロフィール</a></li>
+                            <li><a rel="nofollow" data-method="delete" href="/login"><span className="glyphicon glyphicon-log-out" aria-hidden="true"></span> ログアウト</a></li>
+                          </ul>
+                        </li>
                       </React.Fragment> :
                       <React.Fragment>
                         <li><a href="/"><span className="glyphicon glyphicon-home" aria-hidden="true"></span> ホーム</a></li>
@@ -69,8 +87,15 @@ class Header extends React.Component {
 Header.PropTypes = {
   logged_in: PropTypes.bool,
   root_path: PropTypes.string,
+  user_name: PropTypes.string,
+  user_image: PropTypes.string,
   user_path: PropTypes.string,
   edit_user_path: PropTypes.string,
+  users_path: PropTypes.string,
+  groups_path: PropTypes.string,
+  owning_path: PropTypes.string,
+  belonging_path: PropTypes.string,
+  create_group_path: PropTypes.string,
   token: PropTypes.string
 };
 

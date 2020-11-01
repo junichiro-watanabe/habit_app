@@ -17,8 +17,6 @@
                                             {link: "<span class=\"glyphicon glyphicon-hand-right\" aria-hidden=\"true\"></span>&nbsp;フォロー", href: following_user_path(current_user)},
                                             {link: "<span class=\"glyphicon glyphicon-hand-left\" aria-hidden=\"true\"></span>&nbsp;フォロワー", href: followers_user_path(current_user)},
                                             {link: "<span class=\"glyphicon glyphicon-heart\" aria-hidden=\"true\"></span>&nbsp;いいねした投稿", href: like_feeds_user_path(current_user)},
-                                            {link: "<span class=\"glyphicon glyphicon-tower\" aria-hidden=\"true\"></span>&nbsp;主催コミュニティ", href: owning_user_path(current_user)},
-                                            {link: "<span class=\"glyphicon glyphicon-globe\" aria-hidden=\"true\"></span>&nbsp;参加コミュニティ", href: belonging_user_path(current_user)},
                                             {link: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>&nbsp;ダイレクトメッセージ", href: message_path(current_user)}] }) %>
   <% end %>
 <% elsif yield(:page) == "user_edit" %>
