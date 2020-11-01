@@ -56,8 +56,7 @@ class Header extends React.Component {
                         </li>
                         <li className="dropdown user">
                           <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button">
-                            <img src={this.props.user_image} height="30px" width="30px" />
-                            <span className="name">{this.props.user_name}</span><span className="caret"></span>
+                            <img src={this.props.user_image} height="30px" width="30px" /><span className="caret"></span>
                           </a>
                           <ul className="dropdown-menu" role="menu">
                             <li><a href={this.props.edit_user_path}><span className="glyphicon glyphicon-user" aria-hidden="true"></span> プロフィール</a></li>
