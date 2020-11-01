@@ -54,16 +54,16 @@ class AchievedInformation extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div class="timeline-information">
+        <div className="timeline-information">
           {this.state.notAchieved.length == 0 ?
             <React.Fragment>
-              <div class="alert alert-success">
+              <div className="alert alert-success">
                 <h3>今日の目標は全て達成しました</h3>
                 <h4>お疲れさまでした！</h4>
               </div>
             </React.Fragment> :
             <React.Fragment>
-              <div class="alert alert-danger">
+              <div className="alert alert-danger">
                 <h3>未達成の目標が <b><a id="not-achieved" onClick={this.openModal}>{this.state.notAchieved.length}</a></b> 個あります</h3>
                 <h4>今日も目標達成できるように</h4>
                 <h4>頑張りましょう！</h4>
@@ -79,7 +79,7 @@ class AchievedInformation extends React.Component {
             <h3>目標未達一覧</h3>
             {this.state.notAchieved.map((item) =>
               <React.Fragment>
-                <div class="index" id={`group-${item.group_id}`}>
+                <div className="index" id={`group-${item.group_id}`}>
                   <Group
                     group_image={item.group_image}
                     group_name={item.group_name}

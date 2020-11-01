@@ -12,9 +12,7 @@ RSpec.describe "GroupsEdit", type: :system do
   describe "コミュニティ情報編集のテスト" do
     it "編集成功" do
       log_in_as_system(@user)
-      visit group_path(@group)
-      expect(page).to have_link "編集する", href: edit_group_path(@group)
-      click_link "編集する"
+      visit edit_group_path(@group)
       expect(current_path).to eq edit_group_path(@group)
       fill_in "group_name", with: "valid_name"
       fill_in "group_habit", with: "valid_habit"
@@ -26,9 +24,7 @@ RSpec.describe "GroupsEdit", type: :system do
 
     it "編集失敗" do
       log_in_as_system(@user)
-      visit group_path(@group)
-      expect(page).to have_link "編集する", href: edit_group_path(@group)
-      click_link "編集する"
+      visit edit_group_path(@group)
       expect(current_path).to eq edit_group_path(@group)
       fill_in "group_name", with: "a" * 51
       fill_in "group_habit", with: "a" * 51

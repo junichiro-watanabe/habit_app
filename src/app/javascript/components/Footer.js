@@ -24,9 +24,7 @@ class Footer extends React.Component {
         <footer className="footer">
           <div className="container">
             <a href="/">
-              <h2>
-                Habit App
-              </h2>
+              <img src="/assets/logo2.png" height="40px" />
             </a>
             <nav>
               <ul>
