@@ -43,7 +43,7 @@ class Header extends React.Component {
                       <React.Fragment>
                         <li><a href={this.props.user_path}><span class="glyphicon glyphicon-home" aria-hidden="true"></span> ホーム</a></li>
                         <li className="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                          <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button">
                             <span className="glyphicon glyphicon-tower" aria-hidden="true"></span> コミュニティ<span class="caret"></span>
                           </a>
                           <ul className="dropdown-menu" role="menu">
@@ -55,7 +55,7 @@ class Header extends React.Component {
                           </ul>
                         </li>
                         <li className="dropdown user">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                          <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button">
                             <img src={this.props.user_image} height="20px" width="20px" /> {this.props.user_name}<span class="caret"></span>
                           </a>
                           <ul className="dropdown-menu" role="menu">
