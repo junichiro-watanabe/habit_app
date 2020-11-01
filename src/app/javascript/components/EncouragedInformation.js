@@ -54,16 +54,16 @@ class EncouragedInformation extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div class="timeline-information">
+        <div className="timeline-information">
           {this.state.encouraged.length == 0 ?
             <React.Fragment>
-              <div class="alert alert-success">
+              <div className="alert alert-success">
                 <h3>煽っているユーザはいません</h3>
                 <h4>先に目標を達成しましょう！</h4>
               </div>
             </React.Fragment> :
             <React.Fragment>
-              <div class="alert alert-warning">
+              <div className="alert alert-warning">
                 <h3>
                   <span className="glyphicon glyphicon-fire" aria-hidden="true"></span>
                   &nbsp;&nbsp;<b><a id="encouraged" onClick={this.openModal}>{this.state.encouraged.length}</a></b> 回煽られています
@@ -78,7 +78,7 @@ class EncouragedInformation extends React.Component {
             onRequestClose={this.closeModal}
             style={customStyles}
             contentLabel="Encouraged Modal" >
-            <span ref={close => this.close = close} onClick={this.closeModal} class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+            <span ref={close => this.close = close} onClick={this.closeModal} className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
             <h3>仲間の投稿を見て頑張りましょう！</h3>
             {this.state.encouraged.map((item) =>
               <React.Fragment>

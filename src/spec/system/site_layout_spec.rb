@@ -16,7 +16,7 @@ RSpec.describe "SiteLayout", type: :system do
   describe "ホーム画面のテスト" do
     it "リンクが正常" do
       visit root_path
-      expect(page).to have_link "Habit App", href: root_path
+      expect(page).to have_link nil, href: root_path
       expect(page).to have_link "ホーム", href: root_path
       expect(page).to have_link "新規登録", href: signup_path
       expect(page).to have_link "今すぐ始める", href: signup_path

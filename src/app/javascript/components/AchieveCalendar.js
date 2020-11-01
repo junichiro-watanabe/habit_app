@@ -86,7 +86,7 @@ class AchieveCalendar extends React.Component {
               onRequestClose={this.closeModal}
               style={customStyles}
               contentLabel="Micropost Modal" >
-              <span ref={close => this.close = close} onClick={this.closeModal} class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+              <span ref={close => this.close = close} onClick={this.closeModal} className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
               <h3>{this.getFormatDate(this.state.date)} 達成目標</h3>
               {this.state.history[this.getFormatDate(this.state.date)].map((item) =>
                 <React.Fragment>

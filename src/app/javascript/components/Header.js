@@ -23,12 +23,12 @@ class Header extends React.Component {
       <React.Fragment>
         <header className="navbar navbar-fixed-top navbar-inverse">
           <div className="container">
-            <a href={this.props.root_path}>
-              <h2>Habit App</h2>
-            </a>
             <nav>
               <div className="container-fluid">
                 <div className="navbar-header">
+                  <a href={this.props.root_path}>
+                    <img src="/assets/logo.png" height="40px" />
+                  </a>
                   <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-menu">
                     <span className="sr-only">Toggle navigation</span>
                     <span className="icon-bar"></span>
@@ -41,10 +41,10 @@ class Header extends React.Component {
                   <ul className="nav nav-pills navbar-right">
                     {this.props.logged_in ?
                       <React.Fragment>
-                        <li><a href={this.props.user_path}><span class="glyphicon glyphicon-home" aria-hidden="true"></span> ホーム</a></li>
+                        <li><a href={this.props.user_path}><span className="glyphicon glyphicon-home" aria-hidden="true"></span> ホーム</a></li>
                         <li className="dropdown">
                           <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button">
-                            <span className="glyphicon glyphicon-tower" aria-hidden="true"></span> コミュニティ<span class="caret"></span>
+                            <span className="glyphicon glyphicon-tower" aria-hidden="true"></span> コミュニティ<span className="caret"></span>
                           </a>
                           <ul className="dropdown-menu" role="menu">
                             <li><a href={this.props.users_path}><span className="glyphicon glyphicon-glass" aria-hidden="true"></span> 仲間を探す</a></li>
@@ -56,7 +56,8 @@ class Header extends React.Component {
                         </li>
                         <li className="dropdown user">
                           <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button">
-                            <img src={this.props.user_image} height="20px" width="20px" /> {this.props.user_name}<span class="caret"></span>
+                            <img src={this.props.user_image} height="30px" width="30px" />
+                            <span className="name">{this.props.user_name}</span><span className="caret"></span>
                           </a>
                           <ul className="dropdown-menu" role="menu">
                             <li><a href={this.props.edit_user_path}><span className="glyphicon glyphicon-user" aria-hidden="true"></span> プロフィール</a></li>
