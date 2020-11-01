@@ -47,7 +47,7 @@ class Header extends React.Component {
                             <span className="glyphicon glyphicon-tower" aria-hidden="true"></span> コミュニティ<span class="caret"></span>
                           </a>
                           <ul className="dropdown-menu" role="menu">
-                            <li><a href={this.props.users_path}><span className="glyphicon glyphicon-glass" aria-hidden="true"></span> ユーザを探す</a></li>
+                            <li><a href={this.props.users_path}><span className="glyphicon glyphicon-glass" aria-hidden="true"></span> 仲間を探す</a></li>
                             <li><a href={this.props.create_group_path}><span className="glyphicon glyphicon-flag" aria-hidden="true"></span> コミュニティを作る</a></li>
                             <li><a href={this.props.groups_path}><span className="glyphicon glyphicon-search" aria-hidden="true"></span> コミュニティを探す</a></li>
                             <li><a href={this.props.owning_path}><span className="glyphicon glyphicon-tower" aria-hidden="true"></span> 主催コミュニティ</a></li>

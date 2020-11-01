@@ -26,7 +26,7 @@
                                       groups_path: groups_path,
                                       owning_path: owning_user_path(current_user),
                                       belonging_path: belonging_user_path(current_user),
-                                      new_groups_path: "/create_group" }) %>
+                                      create_group_path: "/create_group" }) %>
     <% else %>
       <%= react_component("Header", { logged_in: logged_in?,
                                       root_path: root_path,
