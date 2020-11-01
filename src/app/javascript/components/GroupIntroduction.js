@@ -59,9 +59,9 @@ class GroupIntroduction extends React.Component {
                 <div className="edit list col-sm-4">
                   {this.props.owner ?
                     <React.Fragment>
-                      <li><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<a href={this.props.edit_group_path}>編集する</a></li>
-                      <li><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;<a href={this.props.edit_image_group_path}>画像変更する</a></li>
-                      <li><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;<a href={this.props.delete_group_path}>削除する</a></li>
+                      <li><span className="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<a href={this.props.edit_group_path}>編集する</a></li>
+                      <li><span className="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;<a href={this.props.edit_image_group_path}>画像変更する</a></li>
+                      <li><span className="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;<a href={this.props.delete_group_path}>削除する</a></li>
                     </React.Fragment> : null}
                 </div>
               </div>

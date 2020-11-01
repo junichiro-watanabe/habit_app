@@ -1,0 +1,26 @@
+<div class="form row">
+
+  <%= form_with(url: login_path, scope: :session, local: true) do |f| %>
+
+    <div class="col-md-8 col-md-offset-2">
+      <h2>ログイン</h2>
+
+      <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+      <%= f.label "メールアドレス" %>
+    　<%= f.email_field :email, class: "form-controll" %>
+
+      <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+      <%= f.label "パスワード" %>
+      <%= f.password_field :password, class: "form-controll" %>
+    </div>
+
+    <div class="col-md-6 col-md-offset-3 submit">
+      <%= f.submit "ログイン", class: "btn btn-primary" %>
+      <a href="/login_guest">
+        <button class="btn btn-secondaly">ゲストユーザとしてログイン</button>
+      </a>
+    </div>
+
+  <% end %>
+
+</div>

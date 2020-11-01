@@ -41,7 +41,7 @@ class Login extends React.Component {
           className="col-sm-4"
           contentLabel="Login Modal"
         >
-          <div class="form">
+          <div className="form">
             <form action="/login" accept-charset="UTF-8" method="post">
               <input type="hidden" name="authenticity_token" value={this.props.token} />
               <span ref={close => this.close = close} onClick={this.props.closeModal} className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>

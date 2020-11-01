@@ -43,7 +43,7 @@ class Micropost extends React.Component {
             </div>
             {this.props.poster ?
               <a className="remove" rel="nofollow" data-method="delete" href={this.props.micropost_path}>
-                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                <span className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
               </a> : null}
           </div>
           <div className="micropost-content">
