@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     @feed_items = if current_user?(@user)
                     @user.feed.paginate(page: params[:page], per_page: 7)
                   else
-                    Micropost.where(user: @user).paginate(page: params[:page], per_page: 7).order("created_at DESC")
+                    Micropost.where(user: @user).paginate(page: params[:page], per_page: 7)
                   end
   end
 
@@ -164,7 +164,7 @@ class UsersController < ApplicationController
 
   def like_feeds
     @user = User.find(params[:id])
-    @feed_items = @user.like_feeds.paginate(page: params[:page], per_page: 7).order("created_at DESC")
+    @feed_items = @user.like_feeds.paginate(page: params[:page], per_page: 7)
   end
 
   private
