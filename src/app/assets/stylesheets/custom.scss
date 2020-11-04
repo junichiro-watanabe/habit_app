@@ -531,6 +531,53 @@ input, textarea{
   }
 }
 
+.message-notification{
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px rgb(235, 235, 235);
+  background-color: #faffff;
+  padding: 10px;
+  margin-right: 20px;
+  position: relative;
+  :hover{
+    opacity: 0.3;
+    background-color: rgb(203, 238, 255);
+  }
+  a{
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .message-sender{
+    span{
+      padding: 0;
+      margin: 0;
+      float: right;
+    }
+  }
+  .message-user{
+    clear: both;
+    display: flex;
+    img{
+      margin: 20px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+    }
+  }
+  .message-content{
+    font-size: 15px;
+    margin: 0 10px 10px 10px;
+    p{
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  }
+}
+
 /* 煽り機能 */
 .encouragement{
   margin-top: 20px;
