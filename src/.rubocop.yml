@@ -47,9 +47,9 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Enabled: false
 
-# AbcSize を緩和
+# AbcSize を制限しない
 Metrics/AbcSize:
-  Max: 50
+  Enabled: false
 
 # 複雑度制限を緩和
 Metrics/CyclomaticComplexity:

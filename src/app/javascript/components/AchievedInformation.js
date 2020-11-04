@@ -75,7 +75,7 @@ class AchievedInformation extends React.Component {
             onRequestClose={this.closeModal}
             style={customStyles}
             contentLabel="Not Achieved Modal" >
-            <span ref={close => this.close = close} onClick={this.closeModal} class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+            <span ref={close => this.close = close} onClick={this.closeModal} className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
             <h3>目標未達一覧</h3>
             {this.state.notAchieved.map((item) =>
               <React.Fragment>

@@ -282,4 +282,43 @@ class User < ApplicationRecord
                                 message: message,
                                 action: "message")
   end
+
+  def notification
+    hash = { count: passive_notifications.where(checked: false).count,
+             information: [] }
+    passive_notifications.each do |notification|
+      information = if !notification.relationship.nil?
+                      {}
+                    elsif !notification.belong.nil?
+                      { group: notification.belong.group.name, group_path: group_path(notification.belong.group) }
+                    elsif !notification.like.nil?
+                      { user_image: (image.attached? ? rails_blob_path(image, only_path: true) : "/assets/default-#{self.class.name}.png"),
+                        user_name: name,
+                        user_path: user_path(self),
+                        group_name: notification.like.micropost.history.achievement.belong.group.name,
+                        group_path: group_path(notification.like.micropost.history.achievement.belong.group),
+                        content: notification.like.micropost.content,
+                        time: notification.like.micropost.created_at.strftime("%Y-%m-%d %H:%M"),
+                        history: notification.like.micropost.history,
+                        encouragement: notification.like.micropost.encouragement,
+                        like_path: like_path(notification.like.micropost),
+                        like: like?(notification.like.micropost),
+                        like_count: notification.like.micropost.likers.count,
+                        poster: notification.like.micropost.poster?(self) || admin?,
+                        micropost_path: micropost_path(notification.like.micropost) }
+                    elsif !notification.message.nil?
+                      { message: notification.message.content,
+                        message_path: message_path(notification.visitor),
+                        message_image: (notification.visitor.image.attached? ? rails_blob_path(notification.visitor.image, only_path: true) : "/assets/default-#{visitor.class.name}.png") }
+                    end
+      information.merge!({ visitor: notification.visitor.name,
+                           visitor_path: user_path(notification.visitor),
+                           visited: notification.visited.name,
+                           action: notification.action,
+                           checked: notification.checked,
+                           time: notification.created_at.strftime("%Y-%m-%d %H:%M") })
+      hash[:information].push(information)
+    end
+    hash
+  end
 end
