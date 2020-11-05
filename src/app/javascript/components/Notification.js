@@ -56,24 +56,36 @@ class Notification extends React.Component {
   getNotification(item) {
     if (item.action === "follow") {
       return (
-        <div>
-          {item.time}<br />
-          <a href={item.visitor_path}>{item.visitor}</a> が あなたをフォローしました。
+        <div className="notification">
+          <div className="information">
+            <a href={item.visitor_path}>{item.visitor}</a> が あなたをフォローしました。
+            <div className="time">
+              {item.time}
+            </div>
+          </div>
         </div>
       )
     } else if (item.action === "belong") {
       return (
-        <div>
-          {item.time}<br />
-          <a href={item.visitor_path}>{item.visitor}</a> が
-          あなたの主催する <a href={item.group_path}>{item.group}</a> に参加しました。
+        <div className="notification">
+          <div className="information">
+            <a href={item.visitor_path}>{item.visitor}</a> が
+            あなたの主催する <a href={item.group_path}>{item.group}</a> に参加しました。
+            <div className="time">
+              {item.time}
+            </div>
+          </div>
         </div>
       )
     } else if (item.action === "like") {
       return (
-        <div>
-          {item.time}<br />
-          <a href={item.visitor_path}>{item.visitor}</a> が あなたの投稿をいいねしました。
+        <div className="notification">
+          <div className="information">
+            <a href={item.visitor_path}>{item.visitor}</a> が あなたの投稿をいいねしました。
+            <div className="time">
+              {item.time}
+            </div>
+          </div>
           <Micropost
             user_image={item.user_image}
             user_name={item.user_name}
@@ -92,10 +104,14 @@ class Notification extends React.Component {
       )
     } else if (item.action === "message") {
       return (
-        <div>
-          {item.time}<br />
-          <a href={item.visitor_path}>{item.visitor}</a> が
-          あなたに <a href={item.message_path}>メッセージ</a> を送りました。
+        <div className="notification">
+          <div className="information">
+            <a href={item.visitor_path}>{item.visitor}</a> が
+          あなたに <a href={item.message_path}>メッセージ</a> を送りました。<br />
+            <div className="time">
+              {item.time}
+            </div>
+          </div>
           <div className="message-notification">
             <div className="message-sender">
               <span className="alert alert-warning">メッセージを受信しました</span>

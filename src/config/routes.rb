@@ -33,4 +33,5 @@ Rails.application.routes.draw do
   resources :messages, only: [:show, :update]
   resources :likes, only: [:show, :update, :destroy]
   resources :contacts, only: [:index, :show, :create, :destroy]
+  resources :notifications, only: [:update]
 end
