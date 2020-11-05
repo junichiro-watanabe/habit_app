@@ -101,8 +101,7 @@ Style/BlockComments:
 
 # toggle!の記述を許可
 Rails/SkipsModelValidations:
-  Exclude:
-    - 'app/models/user.rb'
+  Enabled: false
 
 # @current_user ||= User.find(user_id) の記述を許可
 Rails/InverseOf:

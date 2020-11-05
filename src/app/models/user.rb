@@ -309,7 +309,7 @@ class User < ApplicationRecord
                     elsif !notification.message.nil?
                       { message: notification.message.content,
                         message_path: message_path(notification.visitor),
-                        message_image: (notification.visitor.image.attached? ? rails_blob_path(notification.visitor.image, only_path: true) : "/assets/default-#{visitor.class.name}.png") }
+                        message_image: (notification.visitor.image.attached? ? rails_blob_path(notification.visitor.image, only_path: true) : "/assets/default-#{notification.visitor.class.name}.png") }
                     end
       information.merge!({ visitor: notification.visitor.name,
                            visitor_path: user_path(notification.visitor),

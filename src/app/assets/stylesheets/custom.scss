@@ -664,3 +664,20 @@ input, textarea{
   border-radius: 10px;
 }
 
+/* お知らせ */
+.notification{
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px rgb(235, 235, 235);
+  background-color: #fdff89;
+  padding: 10px;
+  margin-bottom: 20px;
+  .information{
+    font-weight: bold;
+    font-size: large;
+    .time{
+      font-size: xx-small;
+    }
+  }
+}
+

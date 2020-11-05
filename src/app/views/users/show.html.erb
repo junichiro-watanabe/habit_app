@@ -6,7 +6,9 @@
     <div class="row">
       <div class="col-sm-5">
         <% unless current_user.passive_notifications.size.zero? %>
-          <%= react_component("Notification", {notification: current_user.notification, token: create_authenticity_token}) %>
+          <%= react_component("Notification", {notification: current_user.notification,
+                                              path: notification_path(current_user),
+                                              token: create_authenticity_token}) %>
         <% end %>
         <%= react_component("AchieveCalendar", { history: @history, token: create_authenticity_token }) %><br />
       </div>
