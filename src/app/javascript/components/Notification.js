@@ -20,9 +20,7 @@ class Notification extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalIsOpen: false,
-      information: this.props.notification.information,
-      count: this.props.notification.count
+      information: this.props.notification.information
     }
   }
 
@@ -30,10 +28,6 @@ class Notification extends React.Component {
     this.close.style.float = 'right';
     this.close.style.fontSize = '30px';
     this.close.style.cursor = 'pointer';
-  }
-
-  openModal = () => {
-    this.setState({ modalIsOpen: true });
   }
 
   closeModal = () => {
@@ -48,9 +42,10 @@ class Notification extends React.Component {
           information: json.information,
           count: json.count
         })
+        this.props.setCount(json.count)
+        this.props.closeModal()
       }
     )
-    this.setState({ modalIsOpen: false });
   }
 
   getNotification(item) {
@@ -112,22 +107,6 @@ class Notification extends React.Component {
               {item.time}
             </div>
           </div>
-          <div className="message-notification">
-            <div className="message-sender">
-              <span className="alert alert-warning">メッセージを受信しました</span>
-            </div>
-            <div className="message-user">
-              <img src={item.message_image} />
-              <div>
-                <h4>{item.visitor}</h4>
-                {item.time}
-              </div>
-            </div>
-            <div className="message-content">
-              <p>{item.message}</p>
-            </div>
-            <a href={item.message_path}>&nbsp;</a>
-          </div>
         </div>
       )
     }
@@ -136,9 +115,8 @@ class Notification extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button className="btn btn-default" onClick={() => { this.setState({ modalIsOpen: true }) }} >押してね {this.state.count}</button>
         <Modal
-          isOpen={this.state.modalIsOpen}
+          isOpen={this.props.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
@@ -158,7 +136,10 @@ class Notification extends React.Component {
 
 Notification.proptypes = {
   path: PropTypes.string,
-  token: PropTypes.string
+  token: PropTypes.string,
+  modalIsOpen: PropTypes.bool,
+  closeModal: PropTypes.func,
+  setCount: PropTypes.func
 };
 
 export default Notification

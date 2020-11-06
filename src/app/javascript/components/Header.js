@@ -2,11 +2,14 @@ import React from "react"
 import PropTypes from "prop-types"
 import Modal from 'react-modal'
 import Login from './Login'
+import Notification from './Notification'
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalIsOpen: false
+      modalIsOpen: false,
+      count: this.props.notification.count
     }
   }
 
@@ -16,6 +19,10 @@ class Header extends React.Component {
 
   closeModal = () => {
     this.setState({ modalIsOpen: false });
+  }
+
+  setCount = (count) => {
+    this.setState({ count: count })
   }
 
   render() {
@@ -54,6 +61,7 @@ class Header extends React.Component {
                             <li><a href={this.props.belonging_path}><span className="glyphicon glyphicon-globe" aria-hidden="true"></span> 参加コミュニティ</a></li>
                           </ul>
                         </li>
+                        <li className="bell"><a onClick={this.openModal}><span className="glyphicon glyphicon-bell" aria-hidden="true"></span> <span>{this.state.count}</span></a></li>
                         <li className="dropdown user">
                           <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button">
                             <img src={this.props.user_image} height="30px" width="30px" /><span className="caret"></span>
@@ -63,21 +71,28 @@ class Header extends React.Component {
                             <li><a rel="nofollow" data-method="delete" href="/login"><span className="glyphicon glyphicon-log-out" aria-hidden="true"></span> ログアウト</a></li>
                           </ul>
                         </li>
+                        <Notification
+                          modalIsOpen={this.state.modalIsOpen}
+                          closeModal={this.closeModal}
+                          setCount={this.setCount}
+                          notification={this.props.notification}
+                          path={this.props.notification_path}
+                          token={this.props.token} />
                       </React.Fragment> :
                       <React.Fragment>
                         <li><a href="/"><span className="glyphicon glyphicon-home" aria-hidden="true"></span> ホーム</a></li>
                         <li><a onClick={this.openModal}><span className="glyphicon glyphicon-log-in" aria-hidden="true"></span> ログイン</a></li>
                         <li className="active"><a href="/signup"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span> 新規登録</a></li>
+                        <Login
+                          modalIsOpen={this.state.modalIsOpen}
+                          closeModal={this.closeModal}
+                          token={this.props.token} />
                       </React.Fragment>}
                   </ul>
                 </div>
               </div>
             </nav>
           </div>
-          <Login
-            modalIsOpen={this.state.modalIsOpen}
-            closeModal={this.closeModal}
-            token={this.props.token} />
         </header>
       </React.Fragment>
     );
@@ -96,6 +111,7 @@ Header.PropTypes = {
   owning_path: PropTypes.string,
   belonging_path: PropTypes.string,
   create_group_path: PropTypes.string,
+  notification_path: PropTypes.string,
   token: PropTypes.string
 };
 

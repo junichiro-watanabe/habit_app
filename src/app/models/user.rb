@@ -307,9 +307,7 @@ class User < ApplicationRecord
                         poster: notification.like.micropost.poster?(self) || admin?,
                         micropost_path: micropost_path(notification.like.micropost) }
                     elsif !notification.message.nil?
-                      { message: notification.message.content,
-                        message_path: message_path(notification.visitor),
-                        message_image: (notification.visitor.image.attached? ? rails_blob_path(notification.visitor.image, only_path: true) : "/assets/default-#{notification.visitor.class.name}.png") }
+                      { message: notification.message.content, message_path: message_path(notification.visitor) }
                     end
       information.merge!({ visitor: notification.visitor.name,
                            visitor_path: user_path(notification.visitor),
