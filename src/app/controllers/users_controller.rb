@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     @feed_items = if current_user?(@user)
                     @user.feed.paginate(page: params[:page], per_page: 7)
                   else
-                    Micropost.where(user: @user).paginate(page: params[:page], per_page: 7).order("created_at DESC")
+                    Micropost.where(user: @user).paginate(page: params[:page], per_page: 7)
                   end
   end
 
@@ -164,17 +164,12 @@ class UsersController < ApplicationController
 
   def like_feeds
     @user = User.find(params[:id])
-    @feed_items = @user.like_feeds.paginate(page: params[:page], per_page: 7).order("created_at DESC")
+    @feed_items = @user.like_feeds.paginate(page: params[:page], per_page: 7)
   end
 
   private
 
   def user_params
     params.require(:user).permit(:name, :email, :introduction, :password, :password_confirmation)
-  end
-
-  def correct_user
-    @user = User.find(params[:id])
-    redirect_to root_path unless current_user?(@user) || current_user.admin?
   end
 end

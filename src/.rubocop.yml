@@ -47,9 +47,9 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Enabled: false
 
-# AbcSize を緩和
+# AbcSize を制限しない
 Metrics/AbcSize:
-  Max: 50
+  Enabled: false
 
 # 複雑度制限を緩和
 Metrics/CyclomaticComplexity:
@@ -101,8 +101,7 @@ Style/BlockComments:
 
 # toggle!の記述を許可
 Rails/SkipsModelValidations:
-  Exclude:
-    - 'app/models/user.rb'
+  Enabled: false
 
 # @current_user ||= User.find(user_id) の記述を許可
 Rails/InverseOf:
