@@ -1,4 +1,7 @@
 class NotificationsController < ApplicationController
+  before_action :logged_in_user
+  before_action :correct_user
+
   def update
     user = User.find(params[:id])
     notifications = user.passive_notifications.where(checked: false)
