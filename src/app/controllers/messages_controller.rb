@@ -38,6 +38,7 @@ class MessagesController < ApplicationController
             m.attributes.merge({ "myself": false, "time": m.created_at.strftime("%Y-%m-%d %H:%M") })
           end
         end
+        current_user.create_notification_message(message)
         render json: response
       else
         render "show"

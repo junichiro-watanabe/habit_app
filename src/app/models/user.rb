@@ -24,6 +24,12 @@ class User < ApplicationRecord
   has_many :senders, through: :passive_messages, source: :sender
   has_many :likes, dependent: :destroy
   has_many :like_feeds, through: :likes, source: :micropost
+  has_many :active_notifications, class_name: "Notification",
+                                  foreign_key: "visitor_id",
+                                  dependent: :destroy
+  has_many :passive_notifications, class_name: "Notification",
+                                   foreign_key: "visited_id",
+                                   dependent: :destroy
   has_one_attached :image
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
@@ -44,7 +50,9 @@ class User < ApplicationRecord
 
   def belong(group)
     belonging << group
-    belongs.find_by(group: group).create_achievement
+    belong = belongs.find_by(group: group)
+    belong.create_achievement
+    create_notification_belong(belong)
   end
 
   def belonging?(group)
@@ -123,7 +131,7 @@ class User < ApplicationRecord
     history_ids = "SELECT id FROM histories
                      WHERE achievement_id IN (#{achievement_ids})"
     Micropost.where("history_id IN (#{history_ids})",
-                    user_id: id, today: Date.today).order("created_at DESC")
+                    user_id: id, today: Date.today)
   end
 
   def encouraged
@@ -145,7 +153,7 @@ class User < ApplicationRecord
                      AND date = :today"
     microposts = Micropost.where("history_id IN (#{history_ids})
                                     AND encouragement = true",
-                                 user_id: id, today: Date.today).order("created_at DESC")
+                                 user_id: id, today: Date.today)
     array = []
     microposts.each do |micropost|
       user = micropost.user
@@ -174,6 +182,8 @@ class User < ApplicationRecord
 
   def follow(other_user)
     following << other_user
+    relationship = active_relationships.find_by(followed: other_user)
+    create_notification_follow(relationship)
   end
 
   def unfollow(other_user)
@@ -198,6 +208,8 @@ class User < ApplicationRecord
 
   def like(feed)
     like_feeds << feed
+    like = likes.find_by(micropost: feed)
+    create_notification_like(like)
   end
 
   def unlike(feed)
@@ -239,6 +251,71 @@ class User < ApplicationRecord
       else
         hash[history.date] = [props]
       end
+    end
+    hash
+  end
+
+  def create_notification_follow(relationship)
+    active_notifications.create(visitor: self,
+                                visited: relationship.followed,
+                                relationship: relationship,
+                                action: "follow")
+  end
+
+  def create_notification_belong(belong)
+    active_notifications.create(visitor: self,
+                                visited: belong.user,
+                                belong: belong,
+                                action: "belong")
+  end
+
+  def create_notification_like(like)
+    active_notifications.create(visitor: self,
+                                visited: like.micropost.user,
+                                like: like,
+                                action: "like")
+  end
+
+  def create_notification_message(message)
+    active_notifications.create(visitor: self,
+                                visited: message.receiver,
+                                message: message,
+                                action: "message")
+  end
+
+  def notification
+    hash = { count: passive_notifications.where(checked: false).count,
+             information: [] }
+    passive_notifications.each do |notification|
+      information = if !notification.relationship.nil?
+                      {}
+                    elsif !notification.belong.nil?
+                      { group: notification.belong.group.name, group_path: group_path(notification.belong.group) }
+                    elsif !notification.like.nil?
+                      { user_image: (image.attached? ? rails_blob_path(image, only_path: true) : "/assets/default-#{self.class.name}.png"),
+                        user_name: name,
+                        user_path: user_path(self),
+                        group_name: notification.like.micropost.history.achievement.belong.group.name,
+                        group_path: group_path(notification.like.micropost.history.achievement.belong.group),
+                        content: notification.like.micropost.content,
+                        time: notification.like.micropost.created_at.strftime("%Y-%m-%d %H:%M"),
+                        history: notification.like.micropost.history,
+                        encouragement: notification.like.micropost.encouragement,
+                        like_path: like_path(notification.like.micropost),
+                        like: like?(notification.like.micropost),
+                        like_count: notification.like.micropost.likers.count,
+                        poster: notification.like.micropost.poster?(self) || admin?,
+                        micropost_path: micropost_path(notification.like.micropost) }
+                    elsif !notification.message.nil?
+                      { message: notification.message.content, message_path: message_path(notification.visitor) }
+                    end
+      information.merge!({ visitor: notification.visitor.name,
+                           visitor_path: user_path(notification.visitor),
+                           visited: notification.visited.name,
+                           action: notification.action,
+                           checked: notification.checked,
+                           time: notification.created_at.strftime("%Y-%m-%d %H:%M") })
+      hash[:information].push(information)
     end
     hash
   end

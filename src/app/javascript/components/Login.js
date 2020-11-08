@@ -38,7 +38,7 @@ class Login extends React.Component {
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.props.closeModal}
           style={customStyles}
-          className="col-sm-4"
+          className="col-md-4"
           contentLabel="Login Modal"
         >
           <div className="form">
@@ -57,10 +57,10 @@ class Login extends React.Component {
                 <input className="form-controll" type="password" name="session[password]" id="session_password" />
               </div>
 
-              <div className="col-sm-8 col-sm-offset-2 submit">
+              <div className="col-md-8 col-md-offset-2 submit">
                 <input ref={submit => this.submit = submit} type="submit" name="commit" value="ログイン" className="btn btn-primary" data-disable-with="ログイン" />
                 <a href="/login_guest">
-                  <button ref={guest => this.guest = guest} className="btn btn-secondaly">ゲストユーザとしてログイン</button>
+                  <button ref={guest => this.guest = guest} className="btn btn-secondaly">ゲストユーザでログイン</button>
                 </a>
               </div>
             </form>

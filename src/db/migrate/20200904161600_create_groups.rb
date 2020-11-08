@@ -3,7 +3,7 @@ class CreateGroups < ActiveRecord::Migration[6.0]
     create_table :groups do |t|
       t.string :name
       t.string :habit
-      t.string :overview
+      t.string :overview, default: ''
 
       t.timestamps
     end

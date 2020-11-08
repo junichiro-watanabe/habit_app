@@ -12,4 +12,9 @@ class ApplicationController < ActionController::Base
   def redirect_to_user
     redirect_to current_user if logged_in?
   end
+
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to root_path unless current_user?(@user) || current_user.admin?
+  end
 end

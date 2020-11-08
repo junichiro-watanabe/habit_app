@@ -26,12 +26,16 @@
                                       groups_path: groups_path,
                                       owning_path: owning_user_path(current_user),
                                       belonging_path: belonging_user_path(current_user),
-                                      create_group_path: "/create_group" }) %>
+                                      create_group_path: "/create_group",
+                                      notification: current_user.notification,
+                                      notification_path: notification_path(current_user),
+                                      token: create_authenticity_token }) %>
     <% else %>
       <%= react_component("Header", { logged_in: logged_in?,
                                       root_path: root_path,
                                       user_path: nil,
                                       edit_user_path: nil,
+                                      notification: {count: 0},
                                       token: create_authenticity_token }) %>
     <% end %>
     <div id="main">
