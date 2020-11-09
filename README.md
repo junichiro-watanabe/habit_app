@@ -121,5 +121,5 @@ Habit App はコミュニティを作成して、仲間と一緒に習慣づけ�
 
 ## E-R図
 
-![E-R図](https://user-images.githubusercontent.com/64312219/98547389-73263c80-22db-11eb-9ef6-037295d2023d.png)
+![E-R図](https://user-images.githubusercontent.com/64312219/98558084-5a705380-22e8-11eb-8cca-c249d5e124de.png)
 
