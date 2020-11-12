@@ -28,6 +28,7 @@ RSpec.describe "Messages", type: :request do
   describe "updateのテスト" do
     it "メッセージ送信：ログイン状態" do
       log_in_as(@user)
+      expect(logged_in?).to eq true
       expect { patch message_path(@other_user), params: { content: "content" } }.to change { Message.count }.by(+1)
     end
 
@@ -37,8 +38,9 @@ RSpec.describe "Messages", type: :request do
       expect(flash.any?).to eq true
     end
 
-    it "メッセージ送信：ログイン状態" do
+    it "メッセージ送信：256文字超過" do
       log_in_as(@user)
+      expect(logged_in?).to eq true
       expect { patch message_path(@other_user), params: { content: "a" * 256 } }.not_to change { Message.count }
     end
   end

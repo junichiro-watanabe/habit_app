@@ -121,7 +121,7 @@ class Notification extends React.Component {
           onRequestClose={this.closeModal}
           style={customStyles}
           contentLabel="Notification Modal" >
-          <span ref={close => this.close = close} onClick={this.closeModal} className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+          <span ref={close => this.close = close} onClick={this.closeModal} id="remove-notification" className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
           <h3>お知らせ一覧</h3>
           {this.state.information.map((item) =>
             <React.Fragment>
