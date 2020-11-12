@@ -44,7 +44,7 @@ class Login extends React.Component {
           <div className="form">
             <form action="/login" accept-charset="UTF-8" method="post">
               <input type="hidden" name="authenticity_token" value={this.props.token} />
-              <span ref={close => this.close = close} onClick={this.props.closeModal} className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+              <span ref={close => this.close = close} onClick={this.props.closeModal} id="remove-login" className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
               <div>
                 <h2>ログイン</h2>
 
