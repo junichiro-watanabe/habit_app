@@ -256,31 +256,39 @@ class User < ApplicationRecord
   end
 
   def create_notification_follow(relationship)
-    active_notifications.create(visitor: self,
-                                visited: relationship.followed,
-                                relationship: relationship,
-                                action: "follow")
+    unless self == relationship.followed
+      active_notifications.create(visitor: self,
+                                  visited: relationship.followed,
+                                  relationship: relationship,
+                                  action: "follow")
+    end
   end
 
   def create_notification_belong(belong)
-    active_notifications.create(visitor: self,
-                                visited: belong.user,
-                                belong: belong,
-                                action: "belong")
+    unless self == belong.group.user
+      active_notifications.create(visitor: self,
+                                  visited: belong.group.user,
+                                  belong: belong,
+                                  action: "belong")
+    end
   end
 
   def create_notification_like(like)
-    active_notifications.create(visitor: self,
-                                visited: like.micropost.user,
-                                like: like,
-                                action: "like")
+    unless self == like.micropost.user
+      active_notifications.create(visitor: self,
+                                  visited: like.micropost.user,
+                                  like: like,
+                                  action: "like")
+    end
   end
 
   def create_notification_message(message)
-    active_notifications.create(visitor: self,
-                                visited: message.receiver,
-                                message: message,
-                                action: "message")
+    unless self == message.receiver
+      active_notifications.create(visitor: self,
+                                  visited: message.receiver,
+                                  message: message,
+                                  action: "message")
+    end
   end
 
   def notification
