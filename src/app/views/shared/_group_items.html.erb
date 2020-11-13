@@ -1,3 +1,5 @@
+<%= javascript_pack_tag 'server_rendering.js' %>
+
 <% if @groups.length != 0 %>
   <% @groups.each do |group| %>
     <li id = <%= "group-#{group.id}" %>>
