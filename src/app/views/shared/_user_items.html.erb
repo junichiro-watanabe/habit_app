@@ -1,5 +1,3 @@
-<%= javascript_pack_tag 'server_rendering.js' %>
-
 <% if @users.length != 0 %>
   <% @users.each do |user| %>
     <li id = <%= "user-#{user.id}" %>>
