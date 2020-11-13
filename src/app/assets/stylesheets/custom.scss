@@ -49,25 +49,44 @@ ul,li{
 
 /* header */
 header{
+  .navbar-collapse{
+    padding: 0px;
+  }
+  .navbar-toggle{
+    margin-top: 3px;
+    margin-bottom: 3px;
+  }
   .container{
     margin-top: 5px;
     margin-bottom: 5px;
+  }
+  a{
+    padding: 10px 10px;
   }
   a:hover{
     cursor: pointer;
   }
   .user{
     .dropdown-toggle{
+      height: 40px;
       padding-left: 5px;
-    }
-    .caret{
-      margin-left: 35px;
+      padding-right: 10px;
+      .caret{
+        margin-top: 7px;
+        margin-left: 35px;
+      }
     }
     img{
       position: absolute;
       top: 5px;
       background-color: white;
       border-radius: 50%;
+    }
+    .dropdown-menu{
+      left: auto;
+      right: 0;
+      &::before {left:auto !important; right:9px;}
+      &::after {left:auto !important; right:10px;}
     }
   }
   .bell{
@@ -84,7 +103,6 @@ header{
     }
   }
 }
-
 
 /* footer */
 footer{
