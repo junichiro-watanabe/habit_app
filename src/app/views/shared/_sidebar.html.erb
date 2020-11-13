@@ -1,3 +1,5 @@
+<%= javascript_pack_tag 'server_rendering.js' %>
+
 <% if yield(:page) == "user_show" %>
   <% if current_user.admin? %>
     <%= react_component("Sidebar", { user_image: attached_image(current_user),
