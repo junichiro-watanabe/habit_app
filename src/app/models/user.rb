@@ -64,21 +64,20 @@ class User < ApplicationRecord
   end
 
   def achieved?(group)
-    if belonging?(group)
-      @achievement = achieving.find_by(belong: belongs.find_by(group: group))
-      if @achievement.histories.find_by(date: Date.today).nil?
-        @achievement.update(achieved: false)
-      else
-        @achievement.update(achieved: true)
-      end
-      @achievement.achieved
-    end
+    group.belongs.find_by(user: self).achievement.achieved if belonging?(group)
   end
 
   def not_achieved
     group_ids = []
-    belonging.each do |group|
-      group_ids.push(group.id) unless achieved?(group)
+    belongs.includes(:group).includes(achievement: :histories).find_each do |belong|
+      next if achieved?(belong.group)
+
+      if belong.achievement.histories.find_by(date: Date.today).nil?
+        belong.achievement.update(achieved: false)
+      else
+        belong.achievement.update(achieved: true)
+      end
+      group_ids.push(belong.group.id)
     end
     groups = Group.where("id IN (?)", group_ids)
     array = []
@@ -157,7 +156,7 @@ class User < ApplicationRecord
     array = []
     microposts.includes(:user) \
               .includes(history: { achievement: { belong: :group } }) \
-              .each do |micropost|
+              .find_each do |micropost|
       user = micropost.user
       group = micropost.history.achievement.belong.group
       history = micropost.history
