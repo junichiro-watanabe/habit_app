@@ -1,5 +1,5 @@
 <% if @feed_items.length != 0 %>
-  <% @feed_items.each do |feed_item| %>
+  <% @feed_items.includes(:user).includes(history: { achievement: { belong: :group } }).each do |feed_item| %>
     <li id = <%= "micropost-#{feed_item.id}" %>>
       <%= react_component("Micropost",
             { user_image: attached_image(feed_item.user),
