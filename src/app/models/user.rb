@@ -294,7 +294,13 @@ class User < ApplicationRecord
   def notification
     hash = { count: passive_notifications.where(checked: false).count,
              information: [] }
-    passive_notifications.each do |notification|
+    passive_notifications.includes(:visitor) \
+                         .includes(:visited) \
+                         .includes(like: { micropost: { history: { achievement: { belong: :group } } } }) \
+                         .includes(like: { micropost: :user }) \
+                         .includes(belong: :group) \
+                         .includes(:message) \
+                         .find_each do |notification|
       information = if !notification.relationship.nil?
                       {}
                     elsif !notification.belong.nil?
@@ -310,12 +316,11 @@ class User < ApplicationRecord
                         history: notification.like.micropost.history,
                         encouragement: notification.like.micropost.encouragement,
                         like_path: like_path(notification.like.micropost),
-                        like: like?(notification.like.micropost),
                         like_count: notification.like.micropost.likers.count,
                         poster: notification.like.micropost.poster?(self) || admin?,
                         micropost_path: micropost_path(notification.like.micropost) }
                     elsif !notification.message.nil?
-                      { message: notification.message.content, message_path: message_path(notification.visitor) }
+                      { message_path: message_path(notification.visitor) }
                     end
       information.merge!({ visitor: notification.visitor.name,
                            visitor_path: user_path(notification.visitor),
