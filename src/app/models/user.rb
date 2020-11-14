@@ -70,14 +70,12 @@ class User < ApplicationRecord
   def not_achieved
     group_ids = []
     belongs.includes(:group).includes(achievement: :histories).find_each do |belong|
-      next if achieved?(belong.group)
-
       if belong.achievement.histories.find_by(date: Date.today).nil?
         belong.achievement.update(achieved: false)
       else
         belong.achievement.update(achieved: true)
       end
-      group_ids.push(belong.group.id)
+      group_ids.push(belong.group.id) unless achieved?(belong.group)
     end
     groups = Group.where("id IN (?)", group_ids)
     array = []
@@ -102,16 +100,17 @@ class User < ApplicationRecord
   end
 
   def toggle_achieved(group)
+    achievement = group.belongs.find_by(user: self).achievement
     if achieved?(group)
-      @history = History.find_by(achievement: @achievement, date: Date.today)
-      @history&.destroy
+      history = History.find_by(achievement: achievement, date: Date.today)
+      history&.destroy
     else
-      if @achievement.histories.find_by(date: Date.today).nil?
-        @history = @achievement.histories.create(date: Date.today)
-        @history.microposts.create(user: self, content: "#{@history.date} 分の <a href=\"/groups/#{group.id}\">#{group.name}</a> の目標を達成しました。\n目標：#{group.habit}")
+      if achievement.histories.find_by(date: Date.today).nil?
+        history = achievement.histories.create(date: Date.today)
+        history.microposts.create(user: self, content: "#{history.date} 分の <a href=\"/groups/#{group.id}\">#{group.name}</a> の目標を達成しました。\n目標：#{group.habit}")
       end
     end
-    @achievement.toggle!(:achieved) if belonging?(group)
+    achievement.toggle!(:achieved) if belonging?(group)
   end
 
   def feed
@@ -228,10 +227,12 @@ class User < ApplicationRecord
                          WHERE belong_id IN (#{belong_ids})"
     histories = History.where("achievement_id IN (#{achievement_ids})", user_id: id)
     hash = {}
-    histories.each do |history|
-      micropost = history.microposts.find_by(encouragement: false)
+    histories.includes(:microposts) \
+             .includes(achievement: { belong: :group }) \
+             .find_each do |history|
+      micropost = history.microposts.last
       group = history.achievement.belong.group
-      next if micropost.nil? || group.nil?
+      next if micropost.nil? || group.nil? || micropost.encouragement
 
       props = {
         user_image: (image.attached? ? rails_blob_path(image, only_path: true) : "/assets/default-#{self.class.name}.png"),
@@ -244,7 +245,6 @@ class User < ApplicationRecord
         history: history,
         encouragement: micropost.encouragement,
         like_path: like_path(micropost),
-        like: like?(micropost),
         like_count: micropost.likers.count
       }
       if hash.key?(history.date)
