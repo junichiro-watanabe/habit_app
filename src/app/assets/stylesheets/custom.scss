@@ -17,6 +17,11 @@ ul,li{
 .ReactModal__Body--open {
   position: fixed;
   width: 100%;
+  .glyphicon-remove-circle{
+    float: right;
+    font-size: 30px;
+    cursor: pointer;
+  }
 }
 
 .card{
