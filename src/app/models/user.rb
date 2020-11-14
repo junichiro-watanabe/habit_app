@@ -155,7 +155,9 @@ class User < ApplicationRecord
                                     AND encouragement = true",
                                  user_id: id, today: Date.today)
     array = []
-    microposts.each do |micropost|
+    microposts.includes(:user) \
+              .includes(history: { achievement: { belong: :group } }) \
+              .each do |micropost|
       user = micropost.user
       group = micropost.history.achievement.belong.group
       history = micropost.history
