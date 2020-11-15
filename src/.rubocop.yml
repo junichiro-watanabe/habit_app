@@ -107,3 +107,7 @@ Rails/SkipsModelValidations:
 Rails/InverseOf:
   Exclude:
     - 'app/models/user.rb'
+
+# each の記述を許可
+Rails/FindEach:
+  Enabled: false
