@@ -69,7 +69,7 @@ class User < ApplicationRecord
 
   def not_achieved
     group_ids = []
-    belongs.includes(:group).includes(achievement: :histories).find_each do |belong|
+    belongs.includes(:group).includes(achievement: :histories).each do |belong|
       if belong.achievement.histories.find_by(date: Date.today).nil?
         belong.achievement.update(achieved: false)
       else
@@ -155,7 +155,7 @@ class User < ApplicationRecord
     array = []
     microposts.includes(:user) \
               .includes(history: { achievement: { belong: :group } }) \
-              .find_each do |micropost|
+              .each do |micropost|
       user = micropost.user
       group = micropost.history.achievement.belong.group
       history = micropost.history
@@ -229,7 +229,7 @@ class User < ApplicationRecord
     hash = {}
     histories.includes(:microposts) \
              .includes(achievement: { belong: :group }) \
-             .find_each do |history|
+             .each do |history|
       micropost = history.microposts.last
       group = history.achievement.belong.group
       next if micropost.nil? || group.nil? || micropost.encouragement
@@ -301,7 +301,7 @@ class User < ApplicationRecord
                          .includes(like: { micropost: :user }) \
                          .includes(belong: :group) \
                          .includes(:message) \
-                         .find_each do |notification|
+                         .each do |notification|
       information = if !notification.relationship.nil?
                       {}
                     elsif !notification.belong.nil?
