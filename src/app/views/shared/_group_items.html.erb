@@ -1,5 +1,5 @@
 <% if @groups.length != 0 %>
-  <% @groups.each do |group| %>
+  <% @groups.includes(:user).each do |group| %>
     <li id = <%= "group-#{group.id}" %>>
       <%= react_component("Group", { group_image: attached_image(group),
                                      group_name: group.name,
