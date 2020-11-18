@@ -24,6 +24,7 @@ class SessionsController < ApplicationController
        { user: 5, group: 9, content: "10分も勉強していないってマ？" }].each do |item|
         user = User.find(item[:user])
         group = Group.find(item[:group])
+        user.not_achieved
         user.toggle_achieved(group)
         achievement = user.achieving.find_by(belong: user.belongs.find_by(group: group))
         history = History.find_by(achievement: achievement, date: Date.today)
