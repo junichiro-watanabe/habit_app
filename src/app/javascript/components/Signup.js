@@ -26,17 +26,15 @@ function Slide(props) {
   ))
 }
 
-class Signup extends React.Component {
-  render() {
-    return (
-      <React.Fragment>
-        <div className="word">
-          <StrongEachWord word="新規登録して習慣付けを開始しよう！" />
-        </div>
-        <Slide />
-      </React.Fragment>
-    );
-  }
+function Signup() {
+  return (
+    <React.Fragment>
+      <div className="word">
+        <StrongEachWord word="新規登録して習慣付けを開始しよう！" />
+      </div>
+      <Slide />
+    </React.Fragment>
+  );
 }
 
 export default Signup
