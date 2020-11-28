@@ -1,57 +1,53 @@
 import React from "react"
 import PropTypes from "prop-types"
-class Belong extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
-  belong = () => {
-    fetch(this.props.path, {
+function Belong(props) {
+
+  function belong() {
+    fetch(props.path, {
       method: 'PATCH',
       headers: new Headers({ "Content-type": "application/json" }),
-      body: JSON.stringify({ "authenticity_token": this.props.token })
+      body: JSON.stringify({ "authenticity_token": props.token })
     }).then((response) => response.json()
     ).then(
       (json) => {
-        this.props.setBelong(json.belong)
-        this.props.setMemberCount(json.member_count)
-        this.props.setAchieved(json.achieved)
+        props.setBelong(json.belong)
+        props.setMemberCount(json.member_count)
+        props.setAchieved(json.achieved)
       }
     )
   }
 
-  leave = () => {
-    fetch(this.props.path, {
+  function leave() {
+    fetch(props.path, {
       method: 'DELETE',
       headers: new Headers({ "Content-type": "application/json" }),
-      body: JSON.stringify({ "authenticity_token": this.props.token })
+      body: JSON.stringify({ "authenticity_token": props.token })
     }).then((response) => response.json()
     ).then(
       (json) => {
-        this.props.setBelong(json.belong)
-        this.props.setMemberCount(json.member_count)
-        this.props.setAchieved(json.achieved)
+        props.setBelong(json.belong)
+        props.setMemberCount(json.member_count)
+        props.setAchieved(json.achieved)
       }
     )
   }
 
-  getClass() {
-    if (this.props.belong) {
+  function getClass() {
+    if (props.belong) {
       return "btn btn-warning";
     } else {
       return "btn btn-default";
     }
   }
 
-  render() {
-    return (
-      <React.Fragment>
-        <button className={this.getClass()} onClick={this.props.belong ? this.leave : this.belong}>
-          {this.props.belong ? "脱退する" : "参加する"}
-        </button>
-      </React.Fragment >
-    );
-  }
+  return (
+    <React.Fragment>
+      <button className={getClass()} onClick={props.belong ? leave : belong}>
+        {props.belong ? "脱退する" : "参加する"}
+      </button>
+    </React.Fragment >
+  );
 }
 
 Belong.PropTypes = {
