@@ -1,19 +1,14 @@
 import React from 'react'
 import PropTypes from "prop-types"
 
-class Card extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+function Card(props) {
 
-  render() {
-    return (
-      <div className="card">
-        <img src={this.props.src} alt={this.props.alt} />
-        <h4>{this.props.text}</h4>
-      </div>
-    );
-  }
+  return (
+    <div className="card">
+      <img src={props.src} alt={props.alt} />
+      <h4>{props.text}</h4>
+    </div>
+  );
 }
 
 Card.PropTypes = {
