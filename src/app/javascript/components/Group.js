@@ -1,59 +1,49 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import Achievement from "./Achievement"
-class Group extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      belong: this.props.belong,
-      achieved: this.props.achieved,
-      memberCount: this.props.member_count
-    }
-  }
 
-  setAchieved = (achieved) => {
-    this.setState({ achieved: achieved })
-  }
+function Group(props) {
+  const [belong, setBelong] = useState(props.belong)
+  const [achieved, setAchieved] = useState(props.achieved)
+  const [memberCount, setMenberCount] = useState(props.member_count)
 
-  render() {
-    return (
-      <React.Fragment>
-        <div className="item">
-          {this.state.belong ?
-            <span className="alert alert-info">
-              このコミュニティに参加しています
+  return (
+    <React.Fragment>
+      <div className="item">
+        {belong ?
+          <span className="alert alert-info">
+            このコミュニティに参加しています
             </span> : null}
-          <div className="item-info row">
-            <div className="user-image col-sm-2">
-              <img src={this.props.group_image} />
-            </div>
-            <div className="col-sm-7">
-              <div className="list">
-                <a href={this.props.group_path}><li><h3>{this.props.group_name}</h3></li></a>
-                <li>オーナー：<a href={this.props.owner_path}>{this.props.owner_name}</a></li>
-                <li>メンバー：<a href={this.props.member_path}>{this.state.memberCount}人が参加</a></li>
-                <li>習慣：{this.props.group_habit}</li>
-              </div>
-            </div>
-            <div className="achievement col-sm-3">
-              {this.state.belong ?
-                <React.Fragment>
-                  <h4>
-                    {this.state.achieved ? <a className="alert alert-success">達成</a> : <a className="alert alert-danger">未達</a>}
-                  </h4>
-                  <Achievement
-                    path={this.props.achievement_path}
-                    achieved={this.state.achieved}
-                    token={this.props.token}
-                    setAchieved={this.setAchieved} />
-                </React.Fragment> :
-                null}
+        <div className="item-info row">
+          <div className="user-image col-sm-2">
+            <img src={props.group_image} />
+          </div>
+          <div className="col-sm-7">
+            <div className="list">
+              <a href={props.group_path}><li><h3>{props.group_name}</h3></li></a>
+              <li>オーナー：<a href={props.owner_path}>{props.owner_name}</a></li>
+              <li>メンバー：<a href={props.member_path}>{memberCount}人が参加</a></li>
+              <li>習慣：{props.group_habit}</li>
             </div>
           </div>
+          <div className="achievement col-sm-3">
+            {belong ?
+              <React.Fragment>
+                <h4>
+                  {achieved ? <a className="alert alert-success">達成</a> : <a className="alert alert-danger">未達</a>}
+                </h4>
+                <Achievement
+                  path={props.achievement_path}
+                  achieved={achieved}
+                  token={props.token}
+                  setAchieved={setAchieved} />
+              </React.Fragment> :
+              null}
+          </div>
         </div>
-      </React.Fragment>
-    );
-  }
+      </div>
+    </React.Fragment>
+  );
 }
 
 Group.PropTypes = {
