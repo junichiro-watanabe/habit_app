@@ -1,111 +1,93 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import Belong from "./Belong"
 import Achievement from "./Achievement"
 import Encouragement from "./Encouragement"
-class GroupIntroduction extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      belong: this.props.belong,
-      achieved: this.props.achieved,
-      memberCount: this.props.member_count
-    }
-  }
 
-  setBelong = (belong) => {
-    this.setState({ belong: belong })
-  }
+function GroupIntroduction(props) {
+  const [belong, setBelong] = useState(props.belong)
+  const [achieved, setAchieved] = useState(props.achieved)
+  const [memberCount, setMemberCount] = useState(props.member_count)
 
-  setAchieved = (achieved) => {
-    this.setState({ achieved: achieved })
-  }
-
-  setMemberCount = (memberCount) => {
-    this.setState({ memberCount: memberCount })
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <div className="describe">
-          <div className="head">
-            {this.state.belong ?
-              <span className="alert alert-info">
-                このコミュニティに参加しています
+  return (
+    <React.Fragment>
+      <div className="describe">
+        <div className="head">
+          {belong ?
+            <span className="alert alert-info">
+              このコミュニティに参加しています
               </span> : null}
-            <div className="menu row">
-              <div className="user-image col-sm-3">
-                <img src={this.props.group_image} />
+          <div className="menu row">
+            <div className="user-image col-sm-3">
+              <img src={props.group_image} />
+            </div>
+            <div className="col-sm-9 row">
+              <div className="col-sm-8">
+                <div className="list">
+                  <li><h3>{props.group_name}</h3></li>
+                  <li>オーナー：<a href={props.owner_path}>{props.owner_name}</a></li>
+                  <li>メンバー：<a href={props.member_path}>{memberCount}人が参加</a></li><br />
+                </div>
+                <div className="belong">
+                  <Belong
+                    path={props.belong_path}
+                    belong={belong}
+                    memberCount={memberCount}
+                    token={props.token}
+                    setBelong={setBelong}
+                    setMemberCount={setMemberCount}
+                    setAchieved={setAchieved} />
+                </div>
               </div>
-              <div className="col-sm-9 row">
-                <div className="col-sm-8">
-                  <div className="list">
-                    <li><h3>{this.props.group_name}</h3></li>
-                    <li>オーナー：<a href={this.props.owner_path}>{this.props.owner_name}</a></li>
-                    <li>メンバー：<a href={this.props.member_path}>{this.state.memberCount}人が参加</a></li><br />
-                  </div>
-                  <div className="belong">
-                    <Belong
-                      path={this.props.belong_path}
-                      belong={this.state.belong}
-                      memberCount={this.state.memberCount}
-                      token={this.props.token}
-                      setBelong={this.setBelong}
-                      setMemberCount={this.setMemberCount}
-                      setAchieved={this.setAchieved} />
-                  </div>
-                </div>
-                <div className="edit list col-sm-4">
-                  {this.props.owner ?
-                    <React.Fragment>
-                      <li><span className="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<a href={this.props.edit_group_path}>編集する</a></li>
-                      <li><span className="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;<a href={this.props.edit_image_group_path}>画像変更する</a></li>
-                      <li><span className="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;<a href={this.props.delete_group_path}>削除する</a></li>
-                    </React.Fragment> : null}
-                </div>
+              <div className="edit list col-sm-4">
+                {props.owner ?
+                  <React.Fragment>
+                    <li><span className="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<a href={props.edit_group_path}>編集する</a></li>
+                    <li><span className="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;<a href={props.edit_image_group_path}>画像変更する</a></li>
+                    <li><span className="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;<a href={props.delete_group_path}>削除する</a></li>
+                  </React.Fragment> : null}
               </div>
             </div>
           </div>
-          <div className="achievement">
-            {this.state.belong ?
-              <React.Fragment>
-                <h3>
-                  本日の目標は
-                  {this.state.achieved ? <a className="alert alert-success">達成</a> : <a className="alert alert-danger">未達</a>}
+        </div>
+        <div className="achievement">
+          {belong ?
+            <React.Fragment>
+              <h3>
+                本日の目標は
+                  {achieved ? <a className="alert alert-success">達成</a> : <a className="alert alert-danger">未達</a>}
                   です！
                 </h3>
-                <Achievement
-                  path={this.props.achievement_path}
-                  achieved={this.state.achieved}
-                  token={this.props.token}
-                  setAchieved={this.setAchieved} />
-              </React.Fragment> :
-              null}
+              <Achievement
+                path={props.achievement_path}
+                achieved={achieved}
+                token={props.token}
+                setAchieved={setAchieved} />
+            </React.Fragment> :
+            null}
+        </div>
+        <div className="encouragement">
+          {achieved ?
+            <React.Fragment>
+              <Encouragement
+                path={props.encouragement_path}
+                token={props.token} />
+            </React.Fragment> :
+            null}
+        </div>
+        <div className="body">
+          <div>
+            <h3>習慣</h3>
+            <p>{props.group_habit}</p>
           </div>
-          <div className="encouragement">
-            {this.state.achieved ?
-              <React.Fragment>
-                <Encouragement
-                  path={this.props.encouragement_path}
-                  token={this.props.token} />
-              </React.Fragment> :
-              null}
+          <div>
+            <h3>概要</h3>
+            <p>{props.group_overview}</p>
           </div>
-          <div className="body">
-            <div>
-              <h3>習慣</h3>
-              <p>{this.props.group_habit}</p>
-            </div>
-            <div>
-              <h3>概要</h3>
-              <p>{this.props.group_overview}</p>
-            </div>
-          </div>
-        </div >
-      </React.Fragment >
-    );
-  }
+        </div>
+      </div >
+    </React.Fragment >
+  );
 }
 
 GroupIntroduction.PropTypes = {
