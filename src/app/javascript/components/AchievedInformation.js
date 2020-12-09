@@ -62,8 +62,8 @@ function AchievedInformation(props) {
           contentLabel="Not Achieved Modal" >
           <span onClick={closeModal} className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
           <h3>目標未達一覧</h3>
-          {notAchieved.map((item) =>
-            <React.Fragment>
+          {notAchieved.map((item, index) =>
+            <React.Fragment key={index}>
               <div className="index" id={`group-${item.group_id}`}>
                 <Group
                   group_image={item.group_image}

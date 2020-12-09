@@ -17,7 +17,7 @@ function Sidebar(props) {
 
         <div className="list">
           <ul>
-            {props.links.map((item, index) => <a href={item.href}><li className={getClass(item.href)} key={index} dangerouslySetInnerHTML={{ __html: item.link }} /></a>)}
+            {props.links.map((item, index) => <a href={item.href} key={index}><li className={getClass(item.href)} dangerouslySetInnerHTML={{ __html: item.link }} /></a>)}
           </ul>
         </div>
       </aside>
