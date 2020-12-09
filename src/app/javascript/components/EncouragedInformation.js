@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import Modal from 'react-modal'
 import Micropost from './Micropost'
 
@@ -89,9 +89,9 @@ function EncouragedInformation(props) {
   );
 }
 
-EncouragedInformation.PropTypes = {
-  path: PropTypes.string,
-  token: PropTypes.string
+EncouragedInformation.propTypes = {
+  path: propTypes.string,
+  token: propTypes.string
 };
 
 export default EncouragedInformation

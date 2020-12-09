@@ -1,5 +1,5 @@
 import React from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import Modal from 'react-modal'
 
 const customStyles = {
@@ -71,11 +71,11 @@ class Login extends React.Component {
   }
 }
 
-Login.PropTypes = {
-  path: PropTypes.string,
-  token: PropTypes.string,
-  modalIsOpen: PropTypes.bool,
-  closeModal: PropTypes.func
+Login.propTypes = {
+  path: propTypes.string,
+  token: propTypes.string,
+  modalIsOpen: propTypes.bool,
+  closeModal: propTypes.func
 };
 
 export default Login

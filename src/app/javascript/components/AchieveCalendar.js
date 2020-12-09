@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import Calendar from 'react-calendar'
 import Modal from 'react-modal'
 import Micropost from './Micropost'
@@ -100,8 +100,8 @@ function AchieveCalendar(props) {
   );
 }
 
-AchieveCalendar.PropTypes = {
-  token: PropTypes.string
+AchieveCalendar.propTypes = {
+  token: propTypes.string
 };
 
 export default AchieveCalendar

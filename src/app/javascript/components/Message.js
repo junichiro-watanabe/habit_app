@@ -1,5 +1,5 @@
 import React from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import * as Scroll from 'react-scroll';
 import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 class Message extends React.Component {
@@ -92,15 +92,15 @@ class Message extends React.Component {
   }
 }
 
-Message.PropTypes = {
-  path: PropTypes.string,
-  token: PropTypes.string,
-  my_name: PropTypes.string,
-  your_name: PropTypes.string,
-  my_path: PropTypes.string,
-  your_path: PropTypes.string,
-  my_image: PropTypes.string,
-  your_image: PropTypes.string
+Message.propTypes = {
+  path: propTypes.string,
+  token: propTypes.string,
+  my_name: propTypes.string,
+  your_name: propTypes.string,
+  my_path: propTypes.string,
+  your_path: propTypes.string,
+  my_image: propTypes.string,
+  your_image: propTypes.string
 }
 
 export default Message

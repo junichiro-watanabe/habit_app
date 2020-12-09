@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 
 function Like(props) {
   const [liked, setLiked] = useState(props.like)
@@ -51,11 +51,11 @@ function Like(props) {
   );
 }
 
-Like.PropTypes = {
-  path: PropTypes.string,
-  like: PropTypes.bool,
-  like_count: PropTypes.number,
-  token: PropTypes.string
+Like.propTypes = {
+  path: propTypes.string,
+  like: propTypes.bool,
+  like_count: propTypes.number,
+  token: propTypes.string
 }
 
 export default Like

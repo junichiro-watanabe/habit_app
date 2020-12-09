@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import Modal from 'react-modal'
 import Micropost from './Micropost'
 
@@ -107,9 +107,9 @@ function Notification(props) {
         contentLabel="Notification Modal" >
         <span onClick={closeModal} id="remove-notification" className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
         <h3>お知らせ一覧</h3>
-        {information.map((item) =>
-          <React.Fragment>
-            {getNotification(item)}
+        {information.map((item, index) =>
+          <React.Fragment key={index}>
+            {getNotification(item, index)}
           </React.Fragment>)
         }
       </Modal>
@@ -117,12 +117,12 @@ function Notification(props) {
   );
 }
 
-Notification.proptypes = {
-  path: PropTypes.string,
-  token: PropTypes.string,
-  modalIsOpen: PropTypes.bool,
-  closeModal: PropTypes.func,
-  setCount: PropTypes.func
+Notification.propTypes = {
+  path: propTypes.string,
+  token: propTypes.string,
+  modalIsOpen: propTypes.bool,
+  closeModal: propTypes.func,
+  setCount: propTypes.func
 };
 
 export default Notification

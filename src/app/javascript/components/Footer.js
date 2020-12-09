@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import Contact from "./Contact"
 
 function Footer(props) {
@@ -35,8 +35,8 @@ function Footer(props) {
   );
 }
 
-Footer.PropTypes = {
-  token: PropTypes.string
+Footer.propTypes = {
+  token: propTypes.string
 };
 
 export default Footer

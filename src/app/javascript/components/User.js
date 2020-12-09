@@ -1,5 +1,5 @@
 import React from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import Follow from "./Follow"
 class User extends React.Component {
   constructor(props) {
@@ -46,15 +46,15 @@ class User extends React.Component {
   }
 }
 
-User.PropTypes = {
-  user_image: PropTypes.string,
-  user_path: PropTypes.string,
-  user_name: PropTypes.string,
-  user_introduction: PropTypes.string,
-  relationship_path: PropTypes.string,
-  follow: PropTypes.bool,
-  current_user: PropTypes.bool,
-  token: PropTypes.string
+User.propTypes = {
+  user_image: propTypes.string,
+  user_path: propTypes.string,
+  user_name: propTypes.string,
+  user_introduction: propTypes.string,
+  relationship_path: propTypes.string,
+  follow: propTypes.bool,
+  current_user: propTypes.bool,
+  token: propTypes.string
 };
 
 export default User

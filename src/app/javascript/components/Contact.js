@@ -1,5 +1,5 @@
 import React from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import Modal from 'react-modal'
 
 const customStyles = {
@@ -59,10 +59,10 @@ function Contact(props) {
   );
 }
 
-Contact.PropTypes = {
-  token: PropTypes.string,
-  modalIsOpen: PropTypes.bool,
-  closeModal: PropTypes.func
+Contact.propTypes = {
+  token: propTypes.string,
+  modalIsOpen: propTypes.bool,
+  closeModal: propTypes.func
 };
 
 export default Contact

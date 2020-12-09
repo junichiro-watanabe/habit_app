@@ -1,5 +1,5 @@
 import React from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 
 function Achievement(props) {
 
@@ -25,10 +25,10 @@ function Achievement(props) {
   );
 }
 
-Achievement.PropTypes = {
-  path: PropTypes.string,
-  token: PropTypes.string,
-  setAchieved: PropTypes.func
+Achievement.propTypes = {
+  path: propTypes.string,
+  token: propTypes.string,
+  setAchieved: propTypes.func
 };
 
 export default Achievement
