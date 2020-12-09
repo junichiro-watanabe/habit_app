@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import Modal from 'react-modal'
 import Micropost from './Micropost'
@@ -16,39 +16,25 @@ const customStyles = {
   }
 };
 
-class Notification extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      information: this.props.notification.information
-    }
-  }
+function Notification(props) {
+  const [information, setInformation] = useState(props.notification.information)
 
-  afterOpenModal = () => {
-    this.close.style.float = 'right';
-    this.close.style.fontSize = '30px';
-    this.close.style.cursor = 'pointer';
-  }
-
-  closeModal = () => {
-    fetch(this.props.path, {
+  function closeModal() {
+    fetch(props.path, {
       method: 'PATCH',
       headers: new Headers({ "Content-type": "application/json" }),
-      body: JSON.stringify({ "authenticity_token": this.props.token })
+      body: JSON.stringify({ "authenticity_token": props.token })
     }).then((response) => response.json()
     ).then(
       (json) => {
-        this.setState({
-          information: json.information,
-          count: json.count
-        })
-        this.props.setCount(json.count)
-        this.props.closeModal()
+        setInformation(json.information)
+        props.setCount(json.count)
+        props.closeModal()
       }
     )
   }
 
-  getNotification(item) {
+  function getNotification(item) {
     if (item.action === "follow") {
       return (
         <div className="notification">
@@ -94,7 +80,7 @@ class Notification extends React.Component {
             like_path={item.like_path}
             like={item.like}
             like_count={item.like_count}
-            token={this.props.token} />
+            token={props.token} />
         </div>
       )
     } else if (item.action === "message") {
@@ -112,26 +98,23 @@ class Notification extends React.Component {
     }
   }
 
-  render() {
-    return (
-      <React.Fragment>
-        <Modal
-          isOpen={this.props.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel="Notification Modal" >
-          <span ref={close => this.close = close} onClick={this.closeModal} id="remove-notification" className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
-          <h3>お知らせ一覧</h3>
-          {this.state.information.map((item) =>
-            <React.Fragment>
-              {this.getNotification(item)}
-            </React.Fragment>)
-          }
-        </Modal>
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <Modal
+        isOpen={props.modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Notification Modal" >
+        <span onClick={closeModal} id="remove-notification" className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+        <h3>お知らせ一覧</h3>
+        {information.map((item) =>
+          <React.Fragment>
+            {getNotification(item)}
+          </React.Fragment>)
+        }
+      </Modal>
+    </React.Fragment>
+  );
 }
 
 Notification.proptypes = {
