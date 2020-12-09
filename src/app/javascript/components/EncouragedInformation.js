@@ -65,8 +65,8 @@ function EncouragedInformation(props) {
           contentLabel="Encouraged Modal" >
           <span onClick={closeModal} className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
           <h3>仲間の投稿を見て頑張りましょう！</h3>
-          {encouraged.map((item) =>
-            <React.Fragment>
+          {encouraged.map((item, index) =>
+            <React.Fragment key={index}>
               <Micropost
                 user_image={item.user_image}
                 user_name={item.user_name}
