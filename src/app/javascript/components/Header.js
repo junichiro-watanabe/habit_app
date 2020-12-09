@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import Modal from 'react-modal'
 import Login from './Login'
 import Notification from './Notification'
@@ -88,20 +88,20 @@ function Header(props) {
   );
 }
 
-Header.PropTypes = {
-  logged_in: PropTypes.bool,
-  root_path: PropTypes.string,
-  user_name: PropTypes.string,
-  user_image: PropTypes.string,
-  user_path: PropTypes.string,
-  edit_user_path: PropTypes.string,
-  users_path: PropTypes.string,
-  groups_path: PropTypes.string,
-  owning_path: PropTypes.string,
-  belonging_path: PropTypes.string,
-  create_group_path: PropTypes.string,
-  notification_path: PropTypes.string,
-  token: PropTypes.string
+Header.propTypes = {
+  logged_in: propTypes.bool,
+  root_path: propTypes.string,
+  user_name: propTypes.string,
+  user_image: propTypes.string,
+  user_path: propTypes.string,
+  edit_user_path: propTypes.string,
+  users_path: propTypes.string,
+  groups_path: propTypes.string,
+  owning_path: propTypes.string,
+  belonging_path: propTypes.string,
+  create_group_path: propTypes.string,
+  notification_path: propTypes.string,
+  token: propTypes.string
 };
 
 export default Header

@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import Modal from 'react-modal'
 import Group from "./Group"
 
@@ -87,9 +87,9 @@ function AchievedInformation(props) {
   );
 }
 
-AchievedInformation.PropTypes = {
-  path: PropTypes.string,
-  token: PropTypes.string
+AchievedInformation.propTypes = {
+  path: propTypes.string,
+  token: propTypes.string
 };
 
 export default AchievedInformation

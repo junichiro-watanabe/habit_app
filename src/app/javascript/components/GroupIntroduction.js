@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import Belong from "./Belong"
 import Achievement from "./Achievement"
 import Encouragement from "./Encouragement"
@@ -90,26 +90,26 @@ function GroupIntroduction(props) {
   );
 }
 
-GroupIntroduction.PropTypes = {
-  group_image: PropTypes.string,
-  group_name: PropTypes.string,
-  group_path: PropTypes.string,
-  owner_name: PropTypes.string,
-  owner_path: PropTypes.string,
-  member_path: PropTypes.string,
-  member_count: PropTypes.number,
-  group_habit: PropTypes.string,
-  group_overview: PropTypes.string,
-  belong_path: PropTypes.string,
-  achievement_path: PropTypes.string,
-  edit_group_path: PropTypes.string,
-  edit_image_group_path: PropTypes.string,
-  delete_group_path: PropTypes.string,
-  belong: PropTypes.bool,
-  achieved: PropTypes.bool,
-  owner: PropTypes.bool,
-  encouragement_path: PropTypes.string,
-  token: PropTypes.string
+GroupIntroduction.propTypes = {
+  group_image: propTypes.string,
+  group_name: propTypes.string,
+  group_path: propTypes.string,
+  owner_name: propTypes.string,
+  owner_path: propTypes.string,
+  member_path: propTypes.string,
+  member_count: propTypes.number,
+  group_habit: propTypes.string,
+  group_overview: propTypes.string,
+  belong_path: propTypes.string,
+  achievement_path: propTypes.string,
+  edit_group_path: propTypes.string,
+  edit_image_group_path: propTypes.string,
+  delete_group_path: propTypes.string,
+  belong: propTypes.bool,
+  achieved: propTypes.bool,
+  owner: propTypes.bool,
+  encouragement_path: propTypes.string,
+  token: propTypes.string
 };
 
 export default GroupIntroduction

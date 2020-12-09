@@ -1,5 +1,5 @@
 import React from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import Follow from "./Follow"
 import AchieveCalendar from "./AchieveCalendar"
 class UserIntroduction extends React.Component {
@@ -82,27 +82,27 @@ class UserIntroduction extends React.Component {
   }
 }
 
-UserIntroduction.PropTypes = {
-  relationship_path: PropTypes.string,
-  follow: PropTypes.bool,
-  active_following_count: PropTypes.number,
-  active_followers_count: PropTypes.number,
-  passive_following_count: PropTypes.number,
-  passive_followers_count: PropTypes.number,
-  user_image: PropTypes.string,
-  user_name: PropTypes.string,
-  following_path: PropTypes.string,
-  followers_path: PropTypes.string,
-  owning_path: PropTypes.string,
-  belonging_path: PropTypes.string,
-  user_introduction: PropTypes.string,
-  token: PropTypes.string,
-  message_path: PropTypes.string,
-  admin: PropTypes.bool,
-  edit_image_user_path: PropTypes.string,
-  edit_user_path: PropTypes.string,
-  delete_user_path: PropTypes.string,
-  like_feeds_path: PropTypes.string
+UserIntroduction.propTypes = {
+  relationship_path: propTypes.string,
+  follow: propTypes.bool,
+  active_following_count: propTypes.number,
+  active_followers_count: propTypes.number,
+  passive_following_count: propTypes.number,
+  passive_followers_count: propTypes.number,
+  user_image: propTypes.string,
+  user_name: propTypes.string,
+  following_path: propTypes.string,
+  followers_path: propTypes.string,
+  owning_path: propTypes.string,
+  belonging_path: propTypes.string,
+  user_introduction: propTypes.string,
+  token: propTypes.string,
+  message_path: propTypes.string,
+  admin: propTypes.bool,
+  edit_image_user_path: propTypes.string,
+  edit_user_path: propTypes.string,
+  delete_user_path: propTypes.string,
+  like_feeds_path: propTypes.string
 };
 
 export default UserIntroduction

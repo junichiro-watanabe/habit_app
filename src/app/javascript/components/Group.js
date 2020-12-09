@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import Achievement from "./Achievement"
 
 function Group(props) {
@@ -46,19 +46,19 @@ function Group(props) {
   );
 }
 
-Group.PropTypes = {
-  group_image: PropTypes.string,
-  group_name: PropTypes.string,
-  group_path: PropTypes.string,
-  group_habit: PropTypes.string,
-  achievement_path: PropTypes.string,
-  owner_name: PropTypes.string,
-  owner_path: PropTypes.string,
-  member_path: PropTypes.string,
-  member_count: PropTypes.number,
-  belong: PropTypes.bool,
-  achieved: PropTypes.bool,
-  token: PropTypes.string
+Group.propTypes = {
+  group_image: propTypes.string,
+  group_name: propTypes.string,
+  group_path: propTypes.string,
+  group_habit: propTypes.string,
+  achievement_path: propTypes.string,
+  owner_name: propTypes.string,
+  owner_path: propTypes.string,
+  member_path: propTypes.string,
+  member_count: propTypes.number,
+  belong: propTypes.bool,
+  achieved: propTypes.bool,
+  token: propTypes.string
 };
 
 export default Group

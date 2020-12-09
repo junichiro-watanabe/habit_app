@@ -1,5 +1,5 @@
 import React from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 
 function Belong(props) {
 
@@ -50,13 +50,13 @@ function Belong(props) {
   );
 }
 
-Belong.PropTypes = {
-  path: PropTypes.string,
-  belong: PropTypes.bool,
-  token: PropTypes.string,
-  setBelong: PropTypes.func,
-  setMemberCount: PropTypes.func,
-  setAchieved: PropTypes.func
+Belong.propTypes = {
+  path: propTypes.string,
+  belong: propTypes.bool,
+  token: propTypes.string,
+  setBelong: propTypes.func,
+  setMemberCount: propTypes.func,
+  setAchieved: propTypes.func
 };
 
 export default Belong

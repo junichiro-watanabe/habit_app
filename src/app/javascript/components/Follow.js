@@ -1,5 +1,5 @@
 import React from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 
 function Follow(props) {
 
@@ -56,16 +56,16 @@ function Follow(props) {
   );
 }
 
-Follow.PropTypes = {
-  path: PropTypes.string,
-  follow: PropTypes.bool,
-  active_following_count: PropTypes.number,
-  active_followers_count: PropTypes.number,
-  passive_following_count: PropTypes.number,
-  passive_followers_count: PropTypes.number,
-  token: PropTypes.string,
-  setFollow: PropTypes.func,
-  setFollowCount: PropTypes.func
+Follow.propTypes = {
+  path: propTypes.string,
+  follow: propTypes.bool,
+  active_following_count: propTypes.number,
+  active_followers_count: propTypes.number,
+  passive_following_count: propTypes.number,
+  passive_followers_count: propTypes.number,
+  token: propTypes.string,
+  setFollow: propTypes.func,
+  setFollowCount: propTypes.func
 };
 
 export default Follow

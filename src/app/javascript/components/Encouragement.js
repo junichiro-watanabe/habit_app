@@ -1,5 +1,5 @@
 import React from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 
 function Encouragement(props) {
 
@@ -21,9 +21,9 @@ function Encouragement(props) {
   );
 }
 
-Encouragement.PropTypes = {
-  path: PropTypes.string,
-  token: PropTypes.string
+Encouragement.propTypes = {
+  path: propTypes.string,
+  token: propTypes.string
 }
 
 export default Encouragement

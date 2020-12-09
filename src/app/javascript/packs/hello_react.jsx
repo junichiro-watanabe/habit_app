@@ -4,7 +4,7 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
+import propTypes from 'prop-types'
 
 const Hello = props => (
   <div>Hello {props.name}!</div>
@@ -14,8 +14,8 @@ Hello.defaultProps = {
   name: 'David'
 }
 
-Hello.PropTypes = {
-  name: PropTypes.string
+Hello.propTypes = {
+  name: propTypes.string
 }
 
 document.addEventListener('DOMContentLoaded', () => {
