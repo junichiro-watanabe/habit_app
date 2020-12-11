@@ -207,6 +207,7 @@ input, textarea{
   }
   .submit{
     margin-top: 30px;
+    margin-bottom: 30px;
     text-align: center;
     text-align: center;
     button{
@@ -649,6 +650,10 @@ input, textarea{
   padding: 10px;
   border: 1px solid #bbb;
   border-radius: 10px;
+}
+
+.contact-submit{
+  margin-bottom: 30px;
 }
 
 /* お知らせ */

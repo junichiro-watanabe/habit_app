@@ -1,5 +1,5 @@
 import React from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import { useSpring, useTrail, animated, config } from 'react-spring'
 
 function FadeIn(props) {
@@ -30,11 +30,11 @@ function StrongEachWord(props) {
   )
 }
 
-FadeIn.PropTypes = {
-  word: PropTypes.string
+FadeIn.propTypes = {
+  word: propTypes.string
 };
-StrongEachWord.PropTypes = {
-  word: PropTypes.string
+StrongEachWord.propTypes = {
+  word: propTypes.string
 };
 
 export { FadeIn, StrongEachWord }

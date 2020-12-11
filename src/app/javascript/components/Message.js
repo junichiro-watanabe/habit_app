@@ -1,106 +1,94 @@
-import React from "react"
-import PropTypes from "prop-types"
-import * as Scroll from 'react-scroll';
+import React, { useState } from "react"
+import propTypes from "prop-types"
 import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-class Message extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      path: this.props.path,
-      value: "",
-      message: this.props.message
-    }
-  }
 
-  componentDidMount() {
+function Message(props) {
+  const [value, setValue] = useState("")
+  const [message, setMessage] = useState(props.message)
+
+  function componentDidMount() {
     this.scrollToBottom();
   }
 
-  handleChange = (event) => {
-    this.setState({ value: event.target.value });
+  function handleChange(event) {
+    setValue(event.target.value)
   }
 
-  handleSubmit = (event) => {
-    fetch(this.props.path, {
+  function handleSubmit(event) {
+    fetch(props.path, {
       method: 'PATCH',
       headers: new Headers({ "Content-type": "application/json" }),
-      body: JSON.stringify({ "content": this.state.value, "authenticity_token": this.props.token })
+      body: JSON.stringify({ "content": value, "authenticity_token": props.token })
     }).then((response) => response.json()
     ).then(
       (json) => {
-        this.setState({
-          message: json,
-          value: ""
-        })
-        this.scrollToBottom();
+        setMessage(json)
+        setValue("")
+        scrollToBottom();
       }
     )
     event.preventDefault();
   }
 
-  scrollToBottom = () => {
+  function scrollToBottom() {
     scroll.scrollToBottom({ containerId: "message-history", duration: 0 });
   }
 
-  render() {
-    return (
-      <React.Fragment>
-
-        <div className="message-history" id="message-history">
-          {this.state.message.map((item, index) =>
-            item.myself ?
-              <React.Fragment>
-                <div className="myself row" key={index}>
-                  <div className="myself-message col-md-offset-4 col-md-6 col-xs-offset-1 col-xs-8">
-                    <div className="user-info">
-                      <a href={this.props.my_path}><li><p>{this.props.my_name}</p></li></a>
-                      <p className="time">{item.time}</p>
-                    </div>
-                    <p>{item.content}</p>
+  return (
+    <React.Fragment>
+      <div className="message-history" id="message-history">
+        {message.map((item, index) =>
+          item.myself ?
+            <React.Fragment key={index}>
+              <div className="myself row">
+                <div className="myself-message col-md-offset-4 col-md-6 col-xs-offset-1 col-xs-8">
+                  <div className="user-info">
+                    <a href={props.my_path}><li><p>{props.my_name}</p></li></a>
+                    <p className="time">{item.time}</p>
                   </div>
-                  <div className="user-image col-md-2 col-xs-3">
-                    <a href={this.props.my_path}><img src={this.props.my_image} /></a>
-                  </div>
+                  <p>{item.content}</p>
                 </div>
-              </React.Fragment> :
-              <React.Fragment>
-                <div className="yourself row" key={index}>
-                  <div className="user-image col-md-2 col-xs-3">
-                    <a href={this.props.your_path}><img src={this.props.your_image} /></a>
-                  </div>
-                  <div className="yourself-message col-md-6 col-xs-8">
-                    <div className="user-info">
-                      <a href={this.props.your_path}><li><p>{this.props.your_name}</p></li></a>
-                      <p className="time">{item.time}</p>
-                    </div>
-                    <p>{item.content}</p>
-                  </div>
+                <div className="user-image col-md-2 col-xs-3">
+                  <a href={props.my_path}><img src={props.my_image} /></a>
                 </div>
-              </React.Fragment>
+              </div>
+            </React.Fragment> :
+            <React.Fragment>
+              <div className="yourself row" key={index}>
+                <div className="user-image col-md-2 col-xs-3">
+                  <a href={props.your_path}><img src={props.your_image} /></a>
+                </div>
+                <div className="yourself-message col-md-6 col-xs-8">
+                  <div className="user-info">
+                    <a href={props.your_path}><li><p>{props.your_name}</p></li></a>
+                    <p className="time">{item.time}</p>
+                  </div>
+                  <p>{item.content}</p>
+                </div>
+              </div>
+            </React.Fragment>
+        )}
+      </div>
 
-          )}
+      <form className="message-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <textarea className="form-control" value={value} id="message" onChange={handleChange}></textarea>
         </div>
-
-        <form className="message-form" onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <textarea className="form-control" value={this.state.value} id="message" onChange={this.handleChange}></textarea>
-          </div>
-          <button type="submit" className="btn btn-warning" onClick={this.scrollToBottom}>送信</button>
-        </form>
-      </React.Fragment >
-    );
-  }
+        <button type="submit" className="btn btn-warning" onClick={scrollToBottom}>送信</button>
+      </form>
+    </React.Fragment >
+  );
 }
 
-Message.PropTypes = {
-  path: PropTypes.string,
-  token: PropTypes.string,
-  my_name: PropTypes.string,
-  your_name: PropTypes.string,
-  my_path: PropTypes.string,
-  your_path: PropTypes.string,
-  my_image: PropTypes.string,
-  your_image: PropTypes.string
+Message.propTypes = {
+  path: propTypes.string,
+  token: propTypes.string,
+  my_name: propTypes.string,
+  your_name: propTypes.string,
+  my_path: propTypes.string,
+  your_path: propTypes.string,
+  my_image: propTypes.string,
+  your_image: propTypes.string
 }
 
 export default Message
