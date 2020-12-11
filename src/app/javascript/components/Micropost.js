@@ -1,5 +1,5 @@
 import React from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import Like from "./Like"
 
 function Micropost(props) {
@@ -54,19 +54,19 @@ function Micropost(props) {
 }
 
 Micropost.proptypes = {
-  user_image: PropTypes.string,
-  user_path: PropTypes.string,
-  user_name: PropTypes.string,
-  group_path: PropTypes.string,
-  group_name: PropTypes.string,
-  content: PropTypes.string,
-  time: PropTypes.string,
-  like_path: PropTypes.string,
-  like: PropTypes.bool,
-  like_count: PropTypes.number,
-  token: PropTypes.string,
-  poster: PropTypes.bool,
-  micropost_path: PropTypes.string
+  user_image: propTypes.string,
+  user_path: propTypes.string,
+  user_name: propTypes.string,
+  group_path: propTypes.string,
+  group_name: propTypes.string,
+  content: propTypes.string,
+  time: propTypes.string,
+  like_path: propTypes.string,
+  like: propTypes.bool,
+  like_count: propTypes.number,
+  token: propTypes.string,
+  poster: propTypes.bool,
+  micropost_path: propTypes.string
 };
 
 export default Micropost

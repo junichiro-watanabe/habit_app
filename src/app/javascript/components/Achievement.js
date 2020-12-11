@@ -1,38 +1,34 @@
 import React from "react"
-import PropTypes from "prop-types"
-class Achievement extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+import propTypes from "prop-types"
 
-  toggleAchieve = () => {
-    fetch(this.props.path, {
+function Achievement(props) {
+
+  function toggleAchieve() {
+    fetch(props.path, {
       method: 'PATCH',
       headers: new Headers({ "Content-type": "application/json" }),
-      body: JSON.stringify({ "authenticity_token": this.props.token })
+      body: JSON.stringify({ "authenticity_token": props.token })
     }).then((response) => response.json()
     ).then(
       (json) => {
-        this.props.setAchieved(json.achieved)
+        props.setAchieved(json.achieved)
       }
     )
   }
 
-  render() {
-    return (
-      <React.Fragment>
-        <button className="btn btn-primary" onClick={this.toggleAchieve}>
-          達成状況の変更
-        </button>
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <button className="btn btn-primary" onClick={toggleAchieve}>
+        達成状況の変更
+      </button>
+    </React.Fragment>
+  );
 }
 
-Achievement.PropTypes = {
-  path: PropTypes.string,
-  token: PropTypes.string,
-  setAchieved: PropTypes.func
+Achievement.propTypes = {
+  path: propTypes.string,
+  token: propTypes.string,
+  setAchieved: propTypes.func
 };
 
 export default Achievement

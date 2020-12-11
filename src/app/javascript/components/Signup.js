@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import PropTypes from "prop-types"
+import propTypes from "prop-types"
 import { useTransition, animated, config } from "react-spring"
 import { StrongEachWord } from "./Effects"
 import Card from "./Card"
@@ -26,17 +26,15 @@ function Slide(props) {
   ))
 }
 
-class Signup extends React.Component {
-  render() {
-    return (
-      <React.Fragment>
-        <div className="word">
-          <StrongEachWord word="新規登録して習慣付けを開始しよう！" />
-        </div>
-        <Slide />
-      </React.Fragment>
-    );
-  }
+function Signup() {
+  return (
+    <React.Fragment>
+      <div className="word">
+        <StrongEachWord word="新規登録して習慣付けを開始しよう！" />
+      </div>
+      <Slide />
+    </React.Fragment>
+  );
 }
 
 export default Signup
