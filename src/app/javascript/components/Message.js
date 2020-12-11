@@ -3,7 +3,6 @@ import propTypes from "prop-types"
 import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 function Message(props) {
-  const [path, setPath] = useState(props.path)
   const [value, setValue] = useState("")
   const [message, setMessage] = useState(props.message)
 
@@ -40,8 +39,8 @@ function Message(props) {
       <div className="message-history" id="message-history">
         {message.map((item, index) =>
           item.myself ?
-            <React.Fragment>
-              <div className="myself row" key={index}>
+            <React.Fragment key={index}>
+              <div className="myself row">
                 <div className="myself-message col-md-offset-4 col-md-6 col-xs-offset-1 col-xs-8">
                   <div className="user-info">
                     <a href={props.my_path}><li><p>{props.my_name}</p></li></a>
