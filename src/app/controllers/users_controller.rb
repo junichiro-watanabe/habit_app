@@ -86,8 +86,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "アカウントを閉鎖しました"
+    user = User.find(params[:id])
+    if user.name == "ゲストユーザ"
+      flash[:success] = "ゲストアカウントは閉鎖できません"
+    else
+      user.destroy
+      flash[:success] = "アカウントを閉鎖しました"
+    end
     log_out
     redirect_to root_path
   end
