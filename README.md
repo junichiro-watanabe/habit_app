@@ -7,7 +7,7 @@ Habit App はコミュニティを作成して、仲間と一緒に習慣づけ�
 渡邊 順一朗
 
 メールアドレス
-:e-mail:：junichiro_watanabe@watanavi.com
+:e-mail:：junichiro.watanabe.1113@gmail.com
 
 ## URL
 [https://habitapp.watanavi.work](https://habitapp.watanavi.work)
