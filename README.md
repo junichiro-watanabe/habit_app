@@ -9,12 +9,6 @@ Habit App はコミュニティを作成して、仲間と一緒に習慣づけ�
 メールアドレス
 :e-mail:：junichiro.watanabe.1113@gmail.com
 
-## URL
-[https://habitapp.watanavi.work](https://habitapp.watanavi.work)
-
-右上にある「ログイン」もしくは「新規登録」をクリックして画面遷移した後、
-「ゲストユーザでログイン」をクリックして頂くとログイン情報無しでログインできます。
-
 ## 制作背景
 私がこのアプリを作成しようとした理由は、**習慣づけの大変さを少しでも緩和しよう**と考えたからです。
 
